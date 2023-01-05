@@ -1,4 +1,7 @@
 package it.unipi.BGnet.repository;
 
-public class GameRepository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class GameRepository implements IGameRepository{
 }
