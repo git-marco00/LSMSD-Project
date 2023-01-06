@@ -1,7 +1,4 @@
 package it.unipi.BGnet.controller.api;
-
-import it.unipi.BGnet.repository.DAO.GameDAO;
-import it.unipi.BGnet.repository.DTO.GameDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
