@@ -36,9 +36,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Spring & Spring Data MongoDB -->
+
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>4.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-neo4j</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+
 	</dependencies>
 </project>
