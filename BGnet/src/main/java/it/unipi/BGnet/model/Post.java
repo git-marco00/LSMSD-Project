@@ -19,6 +19,7 @@ public class Post {
     private String author;
     private String game;
     private String text;
+    private List<String> likes;
     private OffsetDateTime dateTime;
     private List<Comment> commentList;
 
@@ -36,6 +37,30 @@ public class Post {
         this.text = text;
         this.dateTime = dateTime;
         this.commentList = commentList;
+    }
+
+    public void addLike(String name){
+        likes.add(name);
+    }
+
+    public void removeLike(String name){
+        likes.remove(name);
+    }
+
+    public void addComment(Comment comment){
+        commentList.add(0, comment);
+    }
+
+    public void removeComment(Comment comment){
+        commentList.remove(comment);
+    }
+
+    public List<String> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<String> likes) {
+        this.likes = likes;
     }
 
     public String getId() {
