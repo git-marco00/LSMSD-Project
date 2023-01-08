@@ -1,0 +1,20 @@
+All'interno di "MongoRepository <T, ID>" sono presenti alcuni metodi ben precisi che possono essere utili.
+
+Anzitutto:
+- T è il nome dell'entità storata all'interno di mongoDB
+- ID è il tipo di dato che forma l'ID dell'entità. Nel caso di mongo _id è una stringa, e quindi si possono fare
+    cose tipo MongoRepository<Post, String>
+
+<S extends T> S save(S entity) : Salva l'entità "entity" che deve essere una sottoclasse di T (o T stesso)
+
+Optional<T> findById(ID id) : Recupera l'oggetto T con l'id id (che deve essere di tipo ID)
+
+boolean existsById(ID id) : Dice soltanto se l'oggetto esiste
+
+long count() : restituisce il numero di entità di tipo T all'interno della repo
+
+void deleteById(ID id)
+
+Iterable<T> findAll()
+
+

@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.Gson;
+// import com.google.gson.Gson;
 
 @RestController
 public class GameController {
-
+/*
     @RequestMapping("/api/game")
     public String returnList(){
         GameDTO game = new GameDTO();
@@ -19,4 +19,6 @@ public class GameController {
         System.out.println(json);
         return json;
     }
+
+ */
 }
