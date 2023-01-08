@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class PostFunctionController {
 
@@ -21,5 +23,11 @@ public class PostFunctionController {
             return post;
         else
             return null;
+    }
+
+    @RequestMapping("/api/getPost")
+    public Iterable<Post> getPostList(){
+        List<Post> result = postRepo.findAllPosts();
+        return result;
     }
 }

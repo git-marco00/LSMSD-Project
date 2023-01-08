@@ -28,8 +28,8 @@ public class PostRepository {
     }
 
     public List<Post> findAllPosts(){
-        List<Post> result =  new ArrayList<>();
-        result = postMongo.findAll();
+        List<Post> result = new ArrayList<>();
+        result.addAll(postMongo.findAll());
         return result;
     }
 
