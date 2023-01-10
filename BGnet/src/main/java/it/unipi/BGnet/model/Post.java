@@ -21,7 +21,7 @@ public class Post {
     private String game;
     private String text;
     private List<String> likes;
-    private Date dateTime;
+    private String dateTime;
     private List<Comment> commentList;
 
     public Post(String id, String author, String game, String text) {
@@ -31,7 +31,7 @@ public class Post {
         this.text = text;
     }
 
-    public Post(String id, String author, String game, String text, Date dateTime, List<Comment> commentList) {
+    public Post(String id, String author, String game, String text, String dateTime, List<Comment> commentList) {
         this.id = id;
         this.author = author;
         this.game = game;
@@ -96,11 +96,11 @@ public class Post {
         this.text = text;
     }
 
-    public Date getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 

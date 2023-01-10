@@ -7,7 +7,7 @@ public class Comment {
     private String id;
     private String author;
     private String text;
-    private OffsetDateTime dateTime;
+    private String dateTime;
 
     public Comment(String id, String author, String text) {
         this.id = id;
@@ -15,7 +15,7 @@ public class Comment {
         this.text = text;
     }
 
-    public Comment(String id, String author, String text, OffsetDateTime dateTime) {
+    public Comment(String id, String author, String text, String dateTime) {
         this.id = id;
         this.author = author;
         this.text = text;
@@ -46,11 +46,11 @@ public class Comment {
         this.text = text;
     }
 
-    public OffsetDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(OffsetDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 }

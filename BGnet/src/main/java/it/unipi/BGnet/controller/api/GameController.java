@@ -1,6 +1,8 @@
 package it.unipi.BGnet.controller.api;
+import com.google.gson.GsonBuilder;
 import it.unipi.BGnet.DTO.GamePage;
 import it.unipi.BGnet.Utilities.Constants;
+import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.pages.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 
 @RestController
-@SessionAttributes({Constants.CURRENT_USER, Constants.CURRENT_GAME})
+@SessionAttributes("sessionVariables")
 public class GameController {
     @Autowired
     GameService gameService;
@@ -22,16 +24,20 @@ public class GameController {
     @ResponseBody
     public String loadGamePage(Model model){
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
-        model.addAttribute(Constants.CURRENT_USER, "marco");
-        /////////////////////////////////////////////////////////////////////////////
-        GamePage page = gameService.getGamePage((String) model.getAttribute(Constants.CURRENT_USER), (String) model.getAttribute(Constants.CURRENT_GAME));
-        return page.toString();
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        sv.myself = "marco";
+        GamePage page = gameService.getGamePage(sv.myself, sv.gameToDisplay);
+        page.setRatings(0);
+        Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
+        return gson.toJson(page);
     }
 
-    @RequestMapping("api/gamePageExists")
+    @RequestMapping("/api/gamePageExists")
     public boolean gamePageExists(Model model, @RequestParam("name") String name){
         if(gameService.getExistence(name)){
-            model.addAttribute(Constants.CURRENT_GAME, name);
+            SessionVariables sv = new SessionVariables();
+            sv.gameToDisplay = name;
+            model.addAttribute("sessionVariables", sv);
             return true;
         }
         return false;

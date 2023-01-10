@@ -9,7 +9,6 @@ function searchButton(){
             console.log(data)
             if(data){
                 window.location.href="http://localhost:8080/gamePage"
-
             }
             else{
                 console.log("Gioco non trovato");
