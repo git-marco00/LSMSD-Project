@@ -5,4 +5,6 @@ public class Constants {
     protected static String id;
     protected static String username;
     public static String label;
+    public static final String CURRENT_USER = "name";
+    public static final String CURRENT_POST = "post";
 }
