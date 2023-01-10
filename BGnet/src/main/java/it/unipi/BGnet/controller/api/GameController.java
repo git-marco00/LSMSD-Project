@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 
 @RestController
@@ -36,12 +38,14 @@ public class GameController {
         return new Gson().toJson(page);
     }
 
-    @RequestMapping("api/gamePageExists")
-    public boolean gamePageExists(Model model, @RequestParam("name") String name){
+    @RequestMapping("api/gamePageExists/")
+    @ResponseBody
+    public boolean gamePageExists(Model model, @RequestParam String name){
         if(gameService.getExistence(name)){
             model.addAttribute(Constants.CURRENT_GAME, name);
             return true;
         }
+
         return false;
     }
 }

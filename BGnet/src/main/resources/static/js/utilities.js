@@ -1,11 +1,13 @@
 function searchButton(){
     const searchEditText = document.getElementById("searchEditText");
-    let text = searchEditText.value;
+    let text = searchEditText.innerHTML;
+    console.log(text)
     $.ajax({
-        url : "/api/gamePageExists",
-        parameters: text,
+        url : "/api/gamePageExists/",
+        data : {name : text},
         method : "get",
         success: function(data){
+            console.log(data)
             if(data){
                 location.href = "localhost:8080/gamePage";
             }
