@@ -63,10 +63,11 @@
                     <h4 class="w3-center" id="gameName">Game</h4>
                     <p id="imgProf" class="w3-center"></p>
                     <hr>
-                    <button type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Follow</button>
-                    <p contenteditable="true" class="w3-border w3-padding w3-margin-left" style="display:inline-block; width:60px">7</p>
-                    <button type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Rate</button>
+                    <button id="followButton" type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Follow</button>
+                    <p id="ratingValue" contenteditable="true" class="w3-border w3-padding w3-margin-left" style="display:inline-block; width:60px">7</p>
+                    <button id="rateButton" type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Rate</button>
                     <p id="fol"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
+                    <p id="ypub"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
                     <p id="rat"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
                     <p id="des"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
                     <p id="cat"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
@@ -127,7 +128,7 @@
             <div class="w3-card w3-round w3-white w3-center">
                 <div class="w3-container">
                     <p>In common followers:</p>
-                    <p>user 1 user 2 user 3</p>
+                    <p id="inCommonFollowers">user 1 user 2 user 3</p>
                 </div>
             </div>
             <br>

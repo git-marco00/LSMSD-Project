@@ -27,12 +27,21 @@ public class GameController {
  */
     @Autowired
     GameService gameService;
-    @RequestMapping("/api/loadGamePage/{name}")
-    public String loadGamePage(Model model, @RequestParam("name") String name){
-        model.addAttribute(Constants.CURRENT_GAME, name);
-        // debug
+    @RequestMapping("/api/loadGamePage")
+    public String loadGamePage(Model model){
+        ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         model.addAttribute(Constants.CURRENT_USER, "marco");
+        /////////////////////////////////////////////////////////////////////////////
         GamePage page = gameService.getGamePage((String) model.getAttribute(Constants.CURRENT_USER), (String) model.getAttribute(Constants.CURRENT_GAME));
         return new Gson().toJson(page);
+    }
+
+    @RequestMapping("api/gamePageExists")
+    public boolean gamePageExists(Model model, @RequestParam("name") String name){
+        if(gameService.getExistence(name)){
+            model.addAttribute(Constants.CURRENT_GAME, name);
+            return true;
+        }
+        return false;
     }
 }
