@@ -2,6 +2,7 @@ package it.unipi.BGnet.repository;
 
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Game;
+import it.unipi.BGnet.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,7 +64,6 @@ public class GameRepository{
     }
 
     public Optional<Game> getGameByName(String name){
-        ///////////////    DA CONTROLLARE     ////////////////
         Optional<Game> game = Optional.empty();
         try {
             game = gameMongo.findByName(name);
@@ -81,5 +81,9 @@ public class GameRepository{
             e.printStackTrace();
         }
         return result;
+    }
+
+    public boolean addPost(Post post){
+        return false;
     }
 }

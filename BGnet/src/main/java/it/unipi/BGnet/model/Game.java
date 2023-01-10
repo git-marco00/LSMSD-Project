@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -141,8 +142,12 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
+    public float getRatings() {
+        int sum=0;
+        for (Rating rating : ratings) {
+            sum += rating.getRate();
+        }
+        return (float) sum/ratings.size();
     }
 
     public void setRatings(List<Rating> ratings) {
@@ -163,5 +168,14 @@ public class Game {
 
     public void setFollowers(List<String> followers) {
         this.followers = followers;
+    }
+
+    public int haveIVoted(String username){
+        for(Rating rating : ratings){
+            if (Objects.equals(rating.getUser(), username)){
+                return rating.getRate();
+            }
+        }
+        return -1;
     }
 }
