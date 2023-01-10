@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface IGameRepository extends MongoRepository<Game, String> {
     // TO DO: Add all functions signatures involving a DB operation regarding this entity
     Optional<Game> findByName(String name);
+    boolean existsByName(String name);
 }

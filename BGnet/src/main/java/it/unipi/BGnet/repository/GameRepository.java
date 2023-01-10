@@ -86,4 +86,8 @@ public class GameRepository{
     public boolean addPost(Post post){
         return false;
     }
+
+    public boolean existsById(String gameName) {
+        return gameMongo.existsByName(gameName);
+    }
 }
