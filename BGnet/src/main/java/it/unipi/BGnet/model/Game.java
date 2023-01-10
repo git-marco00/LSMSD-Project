@@ -1,10 +1,14 @@
 package it.unipi.BGnet.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document
+@Data
+@NoArgsConstructor
+@Document(collection = "game")
 public class Game {
     private String id;
     private String name;
