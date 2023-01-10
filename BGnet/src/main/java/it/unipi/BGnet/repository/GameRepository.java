@@ -62,11 +62,11 @@ public class GameRepository{
         return game;
     }
 
-    public Optional<Game> getGameByName(Game game){
+    public Optional<Game> getGameByName(String name){
         ///////////////    DA CONTROLLARE     ////////////////
         Optional<Game> game = Optional.empty();
         try {
-            game = gameMongo.findOne(game);
+            game = gameMongo.findByName(name);
         } catch (Exception e) {
             e.printStackTrace();
         }

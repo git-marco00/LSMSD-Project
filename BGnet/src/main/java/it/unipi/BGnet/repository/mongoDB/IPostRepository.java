@@ -11,5 +11,4 @@ import java.util.List;
 public interface IPostRepository extends MongoRepository<Post, String> {
     Page<Post> findByGameOrderByDateTimeDesc(String game, Pageable pageable);
     List<Post> findByGameOrderByDateTimeDesc(String game);
-    // TO DO: Add all functions signatures involving a DB operation regarding this entity
 }
