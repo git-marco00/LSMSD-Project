@@ -3,8 +3,9 @@ $(document).ready(function(){
         url : "/api/loadGamePage",
         method : "get",
         success : function(data){
-            data=JSON.parse(data)
             console.log(data)
+            data=JSON.parse(data)
+
             $('#imgProf').append('<img src='+data.imageUrl+' class="w3-circle" style="height:106px;width:106px" alt="Avatar"/>')
             $('#gameName').text(data.gameName)
             $('#ypub').text(data.yearPublished)

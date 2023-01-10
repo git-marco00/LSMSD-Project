@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class Post {
     private String game;
     private String text;
     private List<String> likes;
-    private OffsetDateTime dateTime;
+    private Date dateTime;
     private List<Comment> commentList;
 
     public Post(String id, String author, String game, String text) {
@@ -30,7 +31,7 @@ public class Post {
         this.text = text;
     }
 
-    public Post(String id, String author, String game, String text, OffsetDateTime dateTime, List<Comment> commentList) {
+    public Post(String id, String author, String game, String text, Date dateTime, List<Comment> commentList) {
         this.id = id;
         this.author = author;
         this.game = game;
@@ -95,11 +96,11 @@ public class Post {
         this.text = text;
     }
 
-    public OffsetDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(OffsetDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

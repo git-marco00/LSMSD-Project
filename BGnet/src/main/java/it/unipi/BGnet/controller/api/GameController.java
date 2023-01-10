@@ -16,36 +16,26 @@ import com.google.gson.Gson;
 @RestController
 @SessionAttributes({Constants.CURRENT_USER, Constants.CURRENT_GAME})
 public class GameController {
-/*
-    @RequestMapping("/api/game")
-    public String returnList(){
-        GameDTO game = new GameDTO();
-        Gson gson= new Gson();
-        String json = gson.toJson(game);
-        System.out.println(json);
-        return json;
-    }
-
- */
     @Autowired
     GameService gameService;
     @RequestMapping("/api/loadGamePage")
+    @ResponseBody
     public String loadGamePage(Model model){
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         model.addAttribute(Constants.CURRENT_USER, "marco");
         /////////////////////////////////////////////////////////////////////////////
         GamePage page = gameService.getGamePage((String) model.getAttribute(Constants.CURRENT_USER), (String) model.getAttribute(Constants.CURRENT_GAME));
-        return new Gson().toJson(page);
+        return page.toString();
     }
 
-    @RequestMapping("api/gamePageExists/")
-    @ResponseBody
-    public boolean gamePageExists(Model model, @RequestParam String name){
+    @RequestMapping("api/gamePageExists")
+    public boolean gamePageExists(Model model, @RequestParam("name") String name){
         if(gameService.getExistence(name)){
             model.addAttribute(Constants.CURRENT_GAME, name);
             return true;
         }
-
         return false;
     }
+
+
 }

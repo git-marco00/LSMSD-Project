@@ -132,4 +132,24 @@ public class GamePage {
     public void setInCommonFollowers(List<String> inCommonFollowers) {
         this.inCommonFollowers = inCommonFollowers;
     }
+
+    @Override
+    public String toString() {
+        return "GamePage{" +
+                "gameName='" + gameName + '\'' +
+                ", designer='" + designer + '\'' +
+                ", yearPublished=" + yearPublished +
+                ", minPlayers=" + minPlayers +
+                ", maxPlayers=" + maxPlayers +
+                ", categories=" + categories +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ratings=" + ratings +
+                ", mostRecentPosts=" + mostRecentPosts +
+                ", followers=" + followers +
+                ", followed=" + followed +
+                ", rated=" + rated +
+                ", inCommonFollowers=" + inCommonFollowers +
+                '}';
+    }
 }

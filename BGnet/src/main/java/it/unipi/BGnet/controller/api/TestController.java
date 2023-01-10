@@ -14,25 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@SessionAttributes({Constants.CURRENT_USER, "ciao"})
+@SessionAttributes({Constants.CURRENT_USER, Constants.CURRENT_GAME})
 public class TestController {
 
     @RequestMapping("/api/setButton1")
     public static void changeButton1(Model model){
-        model.addAttribute("name", "Cane");
-        model.addAttribute("ciao", "CIAOOOOOO");
+        model.addAttribute(Constants.CURRENT_USER, "Cane");
+        model.addAttribute(Constants.CURRENT_GAME, "CIAOOOOOO");
     }
 
     @RequestMapping("/api/setButton2")
     public static void changeButton2(Model model){
-        model.addAttribute("name", "Gatto");
+        model.addAttribute(Constants.CURRENT_GAME, "Gatto");
+
     }
 
     @RequestMapping("/api/getButton")
     public static Object returnLabel(Model model){
         List<String> result = new ArrayList<>();
         result.add((String)model.getAttribute(Constants.CURRENT_USER));
-        result.add((String)model.getAttribute("ciao"));
+        result.add((String)model.getAttribute(Constants.CURRENT_GAME));
         return result;
     }
 }
