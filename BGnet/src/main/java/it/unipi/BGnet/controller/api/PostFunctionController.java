@@ -1,21 +1,20 @@
 package it.unipi.BGnet.controller.api;
 
 import com.google.gson.Gson;
+import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.Constants;
+import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.repository.mongoDB.PostRepository;
 import it.unipi.BGnet.service.pages.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@SessionAttributes(Constants.CURRENT_PAGE_NUMBER)
+@SessionAttributes("sessionVariables")
 public class PostFunctionController {
 
     @Autowired
@@ -33,15 +32,18 @@ public class PostFunctionController {
 
  */
 
-    @RequestMapping("/api/getPost/{page}")
+    @RequestMapping("/api/getPost")
     public String getPostList(Model model, @RequestParam(value = "page") int pageNumber){
         if(model.getAttribute(Constants.CURRENT_GAME) == null){
             return null;
         }
-        List<Post> postList = postService.loadPostPage((String)model.getAttribute(Constants.CURRENT_GAME), pageNumber);
-        model.addAttribute(Constants.CURRENT_PAGE_NUMBER, pageNumber);
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        List<PostDTO> postList = postService.loadPostPage(sv.gameToDisplay, pageNumber);
+        sv.currentPage = pageNumber;
+        model.addAttribute("sessionVariables", sv);
         Gson gson = new Gson();
         String result = gson.toJson(postList);
+        System.out.println(result);
         return result;
     }
 }

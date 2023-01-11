@@ -24,10 +24,13 @@ $(document).ready(function(){
                 $('#ratingValue').text(data.rated)
                 $('#rateButton').prop('disabled', true)
             }
-            if(data.inCommonFollowers!=null){
+            if(data.inCommonFollowers!=null) {
                 $('#inCommonFollowers').text()
             }
-
         }
     })
 })
+
+function getAllPosts(){
+    window.location.href = "http://localhost:8080/postPage";
+}

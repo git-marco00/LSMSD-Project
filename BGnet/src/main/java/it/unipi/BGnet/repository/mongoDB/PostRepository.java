@@ -79,7 +79,7 @@ public class PostRepository {
     public List<Post> findByGame(String game){
         List<Post> result = new ArrayList<>();
         try{
-            result.addAll(postMongo.findByGameOrderByDateTimeDesc(game));
+            result.addAll(postMongo.findByGameOrderByTimestampDesc(game));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class PostRepository {
     public Page<Post> findByGame(String game, Pageable page){
         Page<Post> result = null;
         try {
-            result = postMongo.findByGameOrderByDateTimeDesc(game, page);
+            result = postMongo.findByGameOrderByTimestampDesc(game, page);
         } catch (Exception e){
             e.printStackTrace();
         }

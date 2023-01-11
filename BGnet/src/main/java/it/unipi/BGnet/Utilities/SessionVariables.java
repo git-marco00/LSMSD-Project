@@ -7,6 +7,8 @@ public class SessionVariables {
     public String gameToDisplay;
     public String userToDisplay;
 
+    public int currentPage;
+
     @Override
     public String toString() {
         return "SessionVariables{" +
