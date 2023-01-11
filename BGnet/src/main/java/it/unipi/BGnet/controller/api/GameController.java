@@ -36,7 +36,7 @@ public class GameController {
     @RequestMapping("/api/gamePageExists")
     public boolean gamePageExists(Model model, @RequestParam("name") String name){
         if(gameService.getExistence(name)){
-            SessionVariables sv = new SessionVariables();
+            SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
             sv.gameToDisplay = name;
             model.addAttribute("sessionVariables", sv);
             return true;

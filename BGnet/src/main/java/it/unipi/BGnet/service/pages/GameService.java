@@ -3,7 +3,6 @@ package it.unipi.BGnet.service.pages;
 import it.unipi.BGnet.DTO.GamePage;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.repository.GameRepository;
-import it.unipi.BGnet.repository.IGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class GameService {
             gamePage.setMaxPlayers(game.get().getMaxPlayers());
             gamePage.setCategories(game.get().getCategories());
             gamePage.setDescription(game.get().getDescription());
-            gamePage.setImageUrl(game.get().getImageUrl());
+            gamePage.setImageUrl(game.get().getImg());
             gamePage.setRatings(game.get().getRatings());
             gamePage.setRated(game.get().haveIVoted(myself));
             gamePage.setMostRecentPosts(game.get().getMostRecentPosts());

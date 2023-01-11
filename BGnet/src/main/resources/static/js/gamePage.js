@@ -16,7 +16,7 @@ $(document).ready(function(){
             $('#des').text('Designer: '+data.designer)
             $('#cat').text('Category: '+data.categories)
             $('#minpmaxp').text('Min players / Max players:'+data.minPlayers + '-' + data.maxPlayers)
-            $('#desc').text('Description: '+data.description)
+            $('#desc').append('<p> Description: ' +data.description + '</p>')
             if(data.followed=="true"){
                 $('#followButton').text("Unfollow")
             }

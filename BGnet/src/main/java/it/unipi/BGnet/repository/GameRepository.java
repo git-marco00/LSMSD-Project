@@ -1,11 +1,8 @@
 package it.unipi.BGnet.repository;
 
 import it.unipi.BGnet.model.Game;
-import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
