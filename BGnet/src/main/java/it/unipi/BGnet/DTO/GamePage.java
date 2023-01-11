@@ -3,6 +3,7 @@ package it.unipi.BGnet.DTO;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.Rating;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GamePage {
@@ -151,5 +152,24 @@ public class GamePage {
                 ", rated=" + rated +
                 ", inCommonFollowers=" + inCommonFollowers +
                 '}';
+    }
+
+    ///////////////////////// DEBUG ////////////////////////////
+    public void makeRandomPosts(){
+        List<Post> lp = new ArrayList<>();
+        for (int i=0; i<5; i++){
+            Post p = new Post ();
+            p.setGame("Libertalia");
+            p.setAuthor("boh");
+            p.setId(String.valueOf(i));
+            List<String> likes = new ArrayList<>();
+            likes.add("user1");
+            likes.add("user2");
+            likes.add("user3");
+            p.setLikes(likes);
+            p.setText("ciao ciao ciao");
+            lp.add(p);
+        }
+        setMostRecentPosts(lp);
     }
 }

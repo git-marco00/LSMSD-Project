@@ -28,6 +28,7 @@ public class GameController {
         sv.myself = "marco";
         GamePage page = gameService.getGamePage(sv.myself, sv.gameToDisplay);
         page.setRatings(0);
+        page.makeRandomPosts();
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         return gson.toJson(page);
     }
