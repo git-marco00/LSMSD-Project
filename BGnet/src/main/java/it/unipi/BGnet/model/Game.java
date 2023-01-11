@@ -28,7 +28,7 @@ public class Game {
     private List<String> followers;
 
 
-    public Game(String id, String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String img, List<Rating> ratings, List<Post> mostRecentPosts, List<String> followers) {
+    public Game(String id, String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String imageUrl, List<Rating> ratings, List<Post> mostRecentPosts, List<String> followers) {
         this.id = id;
         this.name = name;
         this.designer = designer;
@@ -40,7 +40,7 @@ public class Game {
         this.maxPlayTime = maxPlayTime;
         this.categories = categories;
         this.description = description;
-        this.img = img;
+        this.img = imageUrl;
         this.ratings = ratings;
         this.mostRecentPosts = mostRecentPosts;
         this.followers = followers;
@@ -134,12 +134,12 @@ public class Game {
         this.description = description;
     }
 
-    public String getImg() {
+    public String getImageUrl() {
         return img;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImageUrl(String imageUrl) {
+        this.img = imageUrl;
     }
 
     public float getRatings() {
