@@ -1,13 +1,10 @@
 package it.unipi.BGnet.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,8 +18,8 @@ public class Post {
     private String game;
     private String text;
     private List<String> likes;
-    private String dateTime;
-    private List<Comment> commentList;
+    private String timestamp;
+    private List<Comment> comments;
 
     public Post(String id, String author, String game, String text) {
         this.id = id;
@@ -36,8 +33,8 @@ public class Post {
         this.author = author;
         this.game = game;
         this.text = text;
-        this.dateTime = dateTime;
-        this.commentList = commentList;
+        this.timestamp = dateTime;
+        this.comments = commentList;
     }
 
     public void addLike(String name){
@@ -49,11 +46,11 @@ public class Post {
     }
 
     public void addComment(Comment comment){
-        commentList.add(0, comment);
+        comments.add(0, comment);
     }
 
     public void removeComment(Comment comment){
-        commentList.remove(comment);
+        comments.remove(comment);
     }
 
     public List<String> getLikes() {
@@ -96,19 +93,19 @@ public class Post {
         this.text = text;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
