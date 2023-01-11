@@ -1,8 +1,11 @@
 package it.unipi.BGnet.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.time.OffsetDateTime;
 
-
+@NoArgsConstructor
 public class Comment {
     private String id;
     private String author;
