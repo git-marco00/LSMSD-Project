@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Slide Navbar</title>
-	<link rel="stylesheet" type="text/css" href="css/login.css">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-</head>
-<body>
-	<div class="main">  	
-		<input type="checkbox" id="chk" aria-hidden="true">
-
-			<div class="signup">
-				<form>
-					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="txt" placeholder="User name" required="">
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Sign up</button>
-				</form>
-			</div>
-
-			<div class="login">
-				<form>
-					<label for="chk" aria-hidden="true">Login</label>
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Login</button>
-				</form>
-			</div>
-	</div>
-</body>
+<html lang="eng">
+    <head>
+        <title>BGNet</title>
+        <meta name="author" content="Federico Casu, Angelo De Marco, Marco Pardini">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/style.css}">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="js/login.js" type="text/javascript"></script>
+        <link rel="icon" th:href="@{./img/unipi.png}" sizes="32x32">
+    </head>
+    <body>
+        <header>
+            <div id="logo"></div>
+        </header>
+        <div>
+            <form method="post" name="login" action="api/login">
+                <h2>LOGIN</h2>
+                <input type="text" id="username" placeholder="Username" name="username" maxlength="50" required>
+                <br>
+                <input type="password" id="password" placeholder="Password" name="password" required>
+                <button type="submit" name="login" id="btn_login">Login</button>
+                <p><a th:href="@{/signup}">Signup</a></p>
+            </form>
+        </div>
+    </body>
 </html>

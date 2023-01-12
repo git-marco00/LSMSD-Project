@@ -1,7 +1,7 @@
 package it.unipi.BGnet.service.pages;
 
 import it.unipi.BGnet.DTO.GamePage;
-import it.unipi.BGnet.model.Game;
+import it.unipi.BGnet.models.Game;
 import it.unipi.BGnet.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

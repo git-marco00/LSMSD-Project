@@ -1,11 +1,9 @@
-package it.unipi.BGnet.controller.api;
+package it.unipi.BGnet.controllers.api;
 
 import com.google.gson.Gson;
 import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.Utilities.SessionVariables;
-import it.unipi.BGnet.model.Post;
-import it.unipi.BGnet.repository.mongoDB.PostRepository;
 import it.unipi.BGnet.service.pages.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;

@@ -1,7 +1,8 @@
 package it.unipi.BGnet.repository;
 
-import it.unipi.BGnet.model.Game;
-import it.unipi.BGnet.model.Post;
+import it.unipi.BGnet.models.Game;
+import it.unipi.BGnet.models.Post;
+import it.unipi.BGnet.repository.mongoDB.IGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class GameRepository{
+public class GameRepository {
     @Autowired
     private IGameRepository gameMongo;
 
@@ -70,7 +71,7 @@ public class GameRepository{
         return game;
     }
 
-    public List<Game> findAllGames(){
+    public List<Game> findAllGames() {
         List<Game> result = new ArrayList<>();
         try {
             result.addAll(gameMongo.findAll());

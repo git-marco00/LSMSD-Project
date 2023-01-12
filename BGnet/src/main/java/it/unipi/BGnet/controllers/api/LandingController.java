@@ -1,10 +1,8 @@
-package it.unipi.BGnet.controller.api;
+package it.unipi.BGnet.controllers.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 

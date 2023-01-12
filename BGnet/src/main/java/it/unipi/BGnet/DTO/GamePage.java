@@ -1,7 +1,6 @@
 package it.unipi.BGnet.DTO;
 
-import it.unipi.BGnet.model.Post;
-import it.unipi.BGnet.model.Rating;
+import it.unipi.BGnet.models.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +152,6 @@ public class GamePage {
                 ", inCommonFollowers=" + inCommonFollowers +
                 '}';
     }
-
     ///////////////////////// DEBUG ////////////////////////////
     public void makeRandomPosts(){
         List<Post> lp = new ArrayList<>();

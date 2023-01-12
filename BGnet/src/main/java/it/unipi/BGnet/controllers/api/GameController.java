@@ -1,17 +1,11 @@
-package it.unipi.BGnet.controller.api;
+package it.unipi.BGnet.controllers.api;
 import com.google.gson.GsonBuilder;
 import it.unipi.BGnet.DTO.GamePage;
-import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.pages.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 

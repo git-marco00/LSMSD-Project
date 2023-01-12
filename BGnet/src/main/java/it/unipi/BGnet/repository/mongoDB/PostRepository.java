@@ -1,8 +1,8 @@
 package it.unipi.BGnet.repository.mongoDB;
 
-import it.unipi.BGnet.model.Comment;
-import it.unipi.BGnet.model.Post;
-import it.unipi.BGnet.model.User;
+import it.unipi.BGnet.models.Comment;
+import it.unipi.BGnet.models.Post;
+import it.unipi.BGnet.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

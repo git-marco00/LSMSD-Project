@@ -1,14 +1,10 @@
-package it.unipi.BGnet.controller.api;
+package it.unipi.BGnet.controllers.api;
 
-import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @SessionAttributes("sessionAttributes")
