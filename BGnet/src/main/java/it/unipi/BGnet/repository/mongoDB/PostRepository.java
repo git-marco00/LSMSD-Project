@@ -1,8 +1,10 @@
 package it.unipi.BGnet.repository.mongoDB;
 
-import it.unipi.BGnet.models.Comment;
-import it.unipi.BGnet.models.Post;
-import it.unipi.BGnet.models.User;
+import it.unipi.BGnet.model.Comment;
+import it.unipi.BGnet.model.Post;
+import it.unipi.BGnet.model.User;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,8 @@ public class PostRepository {
     public IPostRepository getMongo(){
         return postMongo;
     }
+
+    Logger logger = LoggerFactory.getLogger(PostRepository.class);
 
     // CRUD Methods
     //  -------------------------------------------------------------------------------------------------

@@ -4,6 +4,8 @@ import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.models.Post;
 import it.unipi.BGnet.repository.mongoDB.PostRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,10 @@ public class PostService {
     @Autowired
     PostRepository postRepo;
 
+    Logger logger = LoggerFactory.getLogger(PostService.class);
     public List<PostDTO> loadPostPage(String gameName, int pageNumber){
         AbstractPageRequest pageRequest = PageRequest.of(pageNumber, Constants.PAGE_SIZE);
+        logger.warn("Sono qui in service!");
         List<Post> result = postRepo.findByGame(gameName, pageRequest).getContent();
         List<PostDTO> listView = new ArrayList<>();
         for (Post value : result) {

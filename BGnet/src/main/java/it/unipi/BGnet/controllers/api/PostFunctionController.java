@@ -5,6 +5,8 @@ import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.pages.PostService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ public class PostFunctionController {
 
     @Autowired
     PostService postService;
+
+    Logger logger = LoggerFactory.getLogger(PostFunctionController.class);
 /*
     @RequestMapping("/api/addPost")
     public Post savePost(){
@@ -32,7 +36,8 @@ public class PostFunctionController {
 
     @RequestMapping("/api/getPost")
     public String getPostList(Model model, @RequestParam(value = "page") int pageNumber){
-        if(model.getAttribute(Constants.CURRENT_GAME) == null){
+        logger.warn("Sono qui");
+        if(((SessionVariables) model.getAttribute("sessionVariables")).gameToDisplay == null){
             return null;
         }
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
