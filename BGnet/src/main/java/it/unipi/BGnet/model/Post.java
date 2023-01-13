@@ -1,4 +1,4 @@
-package it.unipi.BGnet.models;
+package it.unipi.BGnet.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

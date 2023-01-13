@@ -1,6 +1,6 @@
 package it.unipi.BGnet.repository;
 
-import it.unipi.BGnet.models.User;
+import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.repository.mongoDB.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,21 +36,22 @@ public class UserRepository {
         return result;
     }
 
-    public boolean existsUserByUsername(String username) {
-        boolean result = true;
+    public Optional<User> getUserByEmail(String email){
+        Optional<User> user = Optional.empty();
         try {
-            userMongo.existsByUsername(username);
+            user = userMongo.findByEmail(email);
+            System.out.println("\t\tUserRepository::getUserByEmail(String email) >> " + user);
         } catch (Exception e) {
             e.printStackTrace();
-            result = false;
         }
-        return result;
+        return user;
     }
 
-    public User getUserByUsername(String username){
-        User user = new User();
+    public Optional<User> getUserByUsername(String username){
+        Optional<User> user = Optional.empty();
         try {
             user = userMongo.findByUsername(username);
+            System.out.println("\t\tUserRepository::getUserByUsername(String username) >> " + user);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,7 +2,7 @@ package it.unipi.BGnet.service.pages;
 
 import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.Constants;
-import it.unipi.BGnet.models.Post;
+import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.repository.mongoDB.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

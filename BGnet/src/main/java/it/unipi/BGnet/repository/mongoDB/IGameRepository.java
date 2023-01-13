@@ -1,6 +1,6 @@
 package it.unipi.BGnet.repository.mongoDB;
 
-import it.unipi.BGnet.models.Game;
+import it.unipi.BGnet.model.Game;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

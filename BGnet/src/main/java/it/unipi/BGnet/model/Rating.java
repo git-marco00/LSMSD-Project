@@ -1,4 +1,4 @@
-package it.unipi.BGnet.models;
+package it.unipi.BGnet.model;
 
 public class Rating {
     private String user;

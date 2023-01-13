@@ -1,6 +1,6 @@
 package it.unipi.BGnet.DTO;
 
-import it.unipi.BGnet.models.Post;
+import it.unipi.BGnet.model.Post;
 
 import java.util.ArrayList;
 import java.util.List;

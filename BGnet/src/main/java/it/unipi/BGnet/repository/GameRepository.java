@@ -1,7 +1,7 @@
 package it.unipi.BGnet.repository;
 
-import it.unipi.BGnet.models.Game;
-import it.unipi.BGnet.models.Post;
+import it.unipi.BGnet.model.Game;
+import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.repository.mongoDB.IGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
