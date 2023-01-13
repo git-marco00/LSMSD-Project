@@ -22,24 +22,24 @@ public class SignupController {
         Gson gson = new Gson();
         if(!password.equals(password2))
         {
-            return gson.toJson("{type: 1, message : Passwords are different}");
+            return gson.toJson("{\"type\": 1, \"message\" : \"Passwords are different\"}");
         }
         User user = userService.getUser(username);
         if(user != null)
         {
-            return gson.toJson("{type: 2, message : Username already in use}");
+            return gson.toJson("{\"type\": 2, \"message\" : \"Username already in use\"}");
         }
         user = userService.getUserByEmail(email);
         if(user != null)
         {
-            return gson.toJson("{type: 3, message : E-mail already in use}");
+            return gson.toJson("{\"type\": 3, \"message\" : \"E-mail already in use\"}");
         }
         Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
         user = new User(username, pbkdf2PasswordEncoder.encode(password), firstname, lastname, Year.now().getValue(), email, state, country, continent);
         if(userService.addUser(user))
         {
-            return gson.toJson("{type: 0, message : OK}");
+            return gson.toJson("{\"type\": 0, \"message\" : \"OK\"}");
         }
-        else return gson.toJson("{type: 4, message : Something goes wrong}");
+        else return gson.toJson("{\"type\": 4, \"message\" : \"Something goes wrong\"}");
     }
 }

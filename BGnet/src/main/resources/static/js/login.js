@@ -1,20 +1,25 @@
 $(document).ready(function () {
     document.getElementById('btn_login').onclick = function (e) {
-        let uname = Document.forms.login.username
-        let pwd = Document.forms.login.password
+        let uname = document.getElementById('username').value
+        let pwd = document.getElementById('password').value
         $.ajax({
             url : "/api/login",
             data : {username : uname, password: pwd},
+            dataType : 'json',
             method : "post",
             success: function(data) {
-                result = JSON.parse(data)
-                console.log(data)
+                result = jQuery.parseJSON(data)
+                console.log(result)
                 if(result['type'] == 1) {
-                    $("#username").text("Username NOT VALID")
+                    alert("Username NOT VALID")
+                    $("#username").val("")
+                    $("#password").val("")
                 } else if(result['type'] == 2) {
-                    $("#password").text("Password NOT VALID")
+                    alert("Password NOT VALID")
+                    $("#username").val("")
+                    $("#password").val("")
                 } else
-                    window.location.href = "http://localhost:8080/home";
+                    alert("OK")
             }
         })
     }

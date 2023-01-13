@@ -14,14 +14,14 @@
             <div id="logo"></div>
         </header>
         <div>
-            <form method="post" name="login" action="api/login">
+            <div id="login">
                 <h2>LOGIN</h2>
                 <input type="text" id="username" placeholder="Username" name="username" maxlength="50" required>
                 <br>
                 <input type="password" id="password" placeholder="Password" name="password" required>
-                <button type="submit" name="login" id="btn_login">Login</button>
+                <button name="login" id="btn_login">Login</button>
                 <p><a th:href="@{/signup}">Signup</a></p>
-            </form>
+            </div>
         </div>
     </body>
 </html>

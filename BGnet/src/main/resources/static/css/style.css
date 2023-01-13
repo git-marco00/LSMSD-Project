@@ -21,20 +21,6 @@ h2 {
     margin-bottom: 20px;
     font-size: 24px;
 }
-form {
-    display: block;
-    position: absolute;
-    width: 400px;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -240px;
-    background: #DDD;
-    border: 4px solid grey;
-    border-radius: 10px;
-    padding: 40px;
-    padding-bottom: 30px;
-}
 input {
     font: 14px 'Open Sans', sans-serif;
     border: 2px solid gray;
@@ -68,6 +54,20 @@ button {
     margin-top: 10px;
     border-radius: 10px;
 }
+#login {
+    display: block;
+    position: absolute;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -240px;
+    background: #DDD;
+    border: 4px solid grey;
+    border-radius: 10px;
+    padding: 40px;
+    padding-bottom: 30px;
+}
 #container {
     background: #DDD;
     border: 4px solid grey;
@@ -87,8 +87,7 @@ button {
     width: 95%;
     margin-bottom: 10px;
 }
-
-#form_signup {
+#signup {
     display: block;
     position: absolute;
     width: 400px;
