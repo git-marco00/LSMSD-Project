@@ -82,6 +82,35 @@ public class GameRepository {
         return result;
     }
 
+    public boolean searchGame(String name) {
+        boolean result = false;
+        try {
+            result = gameMongo.existsByNameRegex(name);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int countGames(String name) {
+        int result = 0;
+        try {
+            result = gameMongo.countByNameRegex(name);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<Game> searchGames(String pattern){
+        List<Game> result = new ArrayList<>();
+        try {
+            result = gameMongo.findByNameRegex(pattern);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
     public boolean addPost(Post post){
         return false;
     }

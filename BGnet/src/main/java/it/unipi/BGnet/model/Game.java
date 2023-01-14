@@ -16,7 +16,9 @@ public class Game {
     private String name;
     private String designer;
     private int yearPublished;
+    @Field("minplayers")
     private int minPlayers;
+    @Field("maxplayers")
     private int maxPlayers;
     private String playingTime;
     private String minPlayTime;

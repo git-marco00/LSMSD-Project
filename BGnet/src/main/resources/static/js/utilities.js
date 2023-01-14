@@ -1,7 +1,3 @@
-$(document).ready(function(){
-    addListener()
-})
-
 function searchButton(){
     const searchEditText = document.getElementById("searchEditText");
     let text = searchEditText.value.trim();
@@ -11,26 +7,24 @@ function searchButton(){
         method : "get",
         success: function(data){
             console.log(data)
-            if(data){
+            if(data == 1){
                 window.location.href="http://localhost:8080/gamePage"
             }
+            else if(data >= 0){
+                $.ajax({
+                    url: "/api/loadResultsPage",
+                    success: function(data){
+                        console.log(data)
+                    }
+                })
+                // Qui dovrà andare alla pagina dei risultati
+                console.log(data)
+            }
             else{
-                console.log("Gioco non trovato");
+                alert("Nessun gioco corrispondente ai parametri di ricerca inseriti");
             }
         }
     })
 }
 
-function addListener(){
-    const searchEditText = document.getElementById("searchEditText");
-// Execute a function when the user presses a key on the keyboard
-    searchEditText.addEventListener("keypress", function(event) {
-        // If the user presses the "Enter" key on the keyboard
-        if (event.key === "Enter") {
-            // Cancel the default action, if needed
-            event.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("searchButton").click();
-        }
-    });
-}
+
