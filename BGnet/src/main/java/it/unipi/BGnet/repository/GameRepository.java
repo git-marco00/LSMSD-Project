@@ -65,6 +65,7 @@ public class GameRepository {
         Optional<Game> game = Optional.empty();
         try {
             game = gameMongo.findByName(name);
+            System.out.println(game);
         } catch (Exception e) {
             e.printStackTrace();
         }

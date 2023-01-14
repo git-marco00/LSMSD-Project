@@ -3,6 +3,7 @@ package it.unipi.BGnet.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public class Game {
     private String description;
     private String img;
     private List<Rating> ratings;
+    @Field("most_recent_post")
     private List<Post> mostRecentPosts;
     private List<String> followers;
 
