@@ -22,6 +22,7 @@ public class PostService {
     public List<PostDTO> loadPostPage(String gameName, int pageNumber){
         AbstractPageRequest pageRequest = PageRequest.of(pageNumber, Constants.PAGE_SIZE);
         List<Post> result = postRepo.findByGame(gameName, pageRequest).getContent();
+        logger.warn(Integer.toString(result.size()));
         List<PostDTO> listView = new ArrayList<>();
         for (Post value : result) {
             PostDTO post = new PostDTO();

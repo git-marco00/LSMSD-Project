@@ -3,6 +3,8 @@ import com.google.gson.GsonBuilder;
 import it.unipi.BGnet.DTO.GamePage;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.pages.GameService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import com.google.gson.Gson;
 public class GameController {
     @Autowired
     GameService gameService;
+    Logger logger = LoggerFactory.getLogger(GameController.class);
     @RequestMapping("/api/loadGamePage")
     @ResponseBody
     public String loadGamePage(Model model){
@@ -26,6 +29,7 @@ public class GameController {
     }
     @RequestMapping("/api/gamePageExists")
     public boolean gamePageExists(Model model, @RequestParam("name") String name){
+        logger.warn(name);
         if(gameService.getExistence(name)){
             SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
             sv.gameToDisplay = name;
