@@ -27,7 +27,20 @@ function requestPostPage(pageNumber){
         }
     })
 }
-
 $(document).ready(function (){
     requestPostPage(0);
 })
+function precPage() {
+    let page = parseInt($('#page').text()) - 1
+    if(page <= 0)
+        return
+    $('#containerPosts').empty()
+    requestPostPage(page);
+    $('#page').text(page)
+}
+function succPage() {
+    let page = parseInt($('#page').text()) + 1
+    $('#containerPosts').empty()
+    requestPostPage(page);
+    $('#page').text(page)
+}
