@@ -15,7 +15,7 @@ public class GamePage {
     private String description;
     private String imageUrl;
     private float ratings;
-    private List<Post> mostRecentPosts;
+    private List<PostDTO> mostRecentPosts;
     private int followers;
     private boolean followed;
     private int rated;  // -1 if not rated
@@ -74,10 +74,22 @@ public class GamePage {
     public void setRatings(float ratings) {
         this.ratings = ratings;
     }
-    public List<Post> getMostRecentPosts() {
+    public List<PostDTO> getMostRecentPosts() {
         return mostRecentPosts;
     }
-    public void setMostRecentPosts(List<Post> mostRecentPosts) { this.mostRecentPosts = mostRecentPosts; }
+    public void setMostRecentPosts(List<Post> mostRecentPosts) {
+        List<PostDTO> mostRecentPostsDTO = new ArrayList<>();
+        mostRecentPosts.forEach((post) -> {
+            PostDTO postDTO = new PostDTO();
+            postDTO.setAuthor(post.getAuthor());
+            postDTO.setDate(post.getTimestamp());
+            postDTO.setText(post.getText());
+            postDTO.setLikes(post.getLikes().size());
+            postDTO.setComments(post.getComments().size());
+            mostRecentPostsDTO.add(postDTO);
+        });
+        this.mostRecentPosts = mostRecentPostsDTO;
+    }
     public int getFollowers() {
         return followers;
     }

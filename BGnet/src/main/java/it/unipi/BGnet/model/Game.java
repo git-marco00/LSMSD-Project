@@ -128,9 +128,7 @@ public class Game {
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
-    public List<Post> getMostRecentPosts() {
-        return mostRecentPosts;
-    }
+    public List<Post> getMostRecentPosts() { return mostRecentPosts; }
     public void setMostRecentPosts(List<Post> mostRecentPosts) {
         this.mostRecentPosts = mostRecentPosts;
     }

@@ -30,9 +30,9 @@ $(document).ready(function(){
                     console.log(data.mostRecentPosts[post].author)
                     let html = '<div class="w3-col m7"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
                     html += '<img src="img/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'
-                    html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + data.mostRecentPosts[post].timestamp + '</span>'
-                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>12</span>'
-                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>24</span>'
+                    html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + data.mostRecentPosts[post].date.slice(0,10) + '</span>'
+                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + data.mostRecentPosts[post].likes + '</span>'
+                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + data.mostRecentPosts[post].comments + '</span>'
                     html += ('<h4>' + data.mostRecentPosts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + data.mostRecentPosts[post].text + '</p>')
                     html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>Like</button>'
