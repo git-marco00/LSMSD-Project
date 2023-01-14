@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $.ajax({
         url : "/api/loadGamePage",
         method : "get",
@@ -37,7 +37,7 @@ $(document).ready(function(){
                     html += ('<p>' + data.mostRecentPosts[post].text + '</p>')
                     html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>Like</button>'
                     html += '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> View comments </button>'
-                    html += '</div>'
+                    html += '</div><br>'
                     $('#containerPosts').append(html)
                 }
             }
@@ -46,7 +46,4 @@ $(document).ready(function(){
         }
     })
 })
-
-function getAllPosts(){
-    window.location.href = "http://localhost:8080/postPage";
-}
+function getAllPosts() { window.location.href = "http://localhost:8080/postPage"; }

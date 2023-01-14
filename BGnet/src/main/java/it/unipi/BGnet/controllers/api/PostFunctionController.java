@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @SessionAttributes("sessionVariables")
 public class PostFunctionController {
-
     @Autowired
     PostService postService;
     Logger logger = LoggerFactory.getLogger(PostFunctionController.class);
@@ -32,10 +31,8 @@ public class PostFunctionController {
     }
 
  */
-
     @RequestMapping("/api/getPost")
     public String getPostList(Model model, @RequestParam(value = "page") int pageNumber){
-        logger.warn("Sono qui");
         if(((SessionVariables) model.getAttribute("sessionVariables")).gameToDisplay == null){
             return null;
         }
@@ -45,7 +42,6 @@ public class PostFunctionController {
         model.addAttribute("sessionVariables", sv);
         Gson gson = new Gson();
         String result = gson.toJson(postList);
-        System.out.println(result);
         return result;
     }
 }

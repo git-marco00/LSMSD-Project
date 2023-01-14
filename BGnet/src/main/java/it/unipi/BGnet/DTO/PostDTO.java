@@ -4,12 +4,14 @@ import java.sql.Date;
 
 public class PostDTO {
     private String author;
+    private String game;
     private String authorImgUrl;
     private String text;
     private int likes;
     private int comments;
     private String date;
-
+    public String getGame() { return game; }
+    public void setGame(String game) { this.game = game; }
     public String getAuthor() {
         return author;
     }

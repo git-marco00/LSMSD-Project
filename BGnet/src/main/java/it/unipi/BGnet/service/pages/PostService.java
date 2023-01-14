@@ -21,13 +21,12 @@ public class PostService {
     Logger logger = LoggerFactory.getLogger(PostService.class);
     public List<PostDTO> loadPostPage(String gameName, int pageNumber){
         AbstractPageRequest pageRequest = PageRequest.of(pageNumber, Constants.PAGE_SIZE);
-        logger.warn("Sono qui in service!");
         List<Post> result = postRepo.findByGame(gameName, pageRequest).getContent();
         List<PostDTO> listView = new ArrayList<>();
         for (Post value : result) {
             PostDTO post = new PostDTO();
+            post.setGame(value.getGame());
             post.setAuthor(value.getAuthor());
-            //post.setAuthorImgUrl();
             post.setLikes(value.getLikes().size());
             post.setComments(value.getComments().size());
             post.setDate(value.getTimestamp());
