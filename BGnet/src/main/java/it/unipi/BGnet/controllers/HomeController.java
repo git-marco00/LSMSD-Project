@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes("sessionVariables")
-public class HomeController
-{
-
+public class HomeController {
     @GetMapping("/")
     public String home(Model model)
     {

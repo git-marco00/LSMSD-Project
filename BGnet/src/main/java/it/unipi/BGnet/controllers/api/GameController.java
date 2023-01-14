@@ -19,14 +19,11 @@ public class GameController {
     public String loadGamePage(Model model){
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        sv.myself = "marco";
         GamePage page = gameService.getGamePage(sv.myself, sv.gameToDisplay);
         page.setRatings(0);
-        page.makeRandomPosts();
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         return gson.toJson(page);
     }
-
     @RequestMapping("/api/gamePageExists")
     public boolean gamePageExists(Model model, @RequestParam("name") String name){
         if(gameService.getExistence(name)){
@@ -37,6 +34,4 @@ public class GameController {
         }
         return false;
     }
-
-
 }

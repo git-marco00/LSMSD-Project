@@ -19,7 +19,6 @@ public class PostFunctionController {
 
     @Autowired
     PostService postService;
-
     Logger logger = LoggerFactory.getLogger(PostFunctionController.class);
 /*
     @RequestMapping("/api/addPost")

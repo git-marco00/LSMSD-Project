@@ -9,12 +9,11 @@ $(document).ready(function () {
             method : "post",
             success: function(data) {
                 result = jQuery.parseJSON(data)
-                console.log(result)
-                if(result['type'] == 1) {
+                if(result["type"] == 1) {
                     alert("Username NOT VALID")
                     $("#username").val("")
                     $("#password").val("")
-                } else if(result['type'] == 2) {
+                } else if(result["type"] == 2) {
                     alert("Password NOT VALID")
                     $("#username").val("")
                     $("#password").val("")

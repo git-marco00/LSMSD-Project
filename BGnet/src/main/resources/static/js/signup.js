@@ -12,28 +12,29 @@ $(document).ready(function () {
         $.ajax({
             url : "/api/signup",
             data : {firstname: firstname_, lastname: lastname_, username : username_, email: mail, password: pwd, password2: pwd2, state: state_, country: country_, continent: continent_},
+            dataType : 'json',
             method : "post",
             success: function(data) {
                 result = JSON.parse(data)
-                if(result['type'] == 0) {
+                if(result["type"] == 0) {
                     alert("OK")
                 }
-                else if(result['type'] == 1) {
+                else if(result["type"] == 1) {
                     alert("Passwords ARE DIFFERENT")
                     $("#password").val("")
                     $("#password2").val("")
-                } else if(result['type'] == 2) {
+                } else if(result["type"] == 2) {
                     alert("Username NOT VALID")
                     $("#username").val("")
                     $("#password").val("")
                     $("#password2").val("")
-                } else if(result['type'] == 3){
+                } else if(result["type"] == 3){
                     alert("E-mail ALREADY IN USE")
                     $("#email").val("")
                     $("#password").val("")
                     $("#password2").val("")
                 } else
-                    window.location.href = "http://localhost:8080/signupFailed";
+                    alert("Something goes wrong");
             }
         })
     }

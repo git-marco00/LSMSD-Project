@@ -1,6 +1,7 @@
 package it.unipi.BGnet.controllers.api;
 
-import it.unipi.BGnet.model.User;
+import it.unipi.BGnet.DTO.UserDTO;
+import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.user.UserService;
 
 import com.google.gson.Gson;
@@ -21,7 +22,7 @@ public class AuthController {
     @PostMapping("/api/login")
     public @ResponseBody String login(Model model, @RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
         Gson gson = new Gson();
-        User user = userService.getUser(username);
+        UserDTO user = userService.getUser(username);
         if(user == null)
         {
             return gson.toJson("{\"type\": 1, \"message\" : \"Incorrect username\"}");
@@ -31,6 +32,10 @@ public class AuthController {
         {
             return gson.toJson("{\"type\": 2, \"message\" : \"Incorrect password\"}");
         }
+        ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        sv.myself = user.getUsername();
+        /////////////////////////////////////////////////////////////////////////////
         return gson.toJson("{\"type\": 0, \"message\" : \"OK\"}");
     }
 }

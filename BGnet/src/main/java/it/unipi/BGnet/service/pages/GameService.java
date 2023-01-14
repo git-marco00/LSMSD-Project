@@ -35,7 +35,6 @@ public class GameService {
             return gamePage;
         }
     }
-
     public boolean getExistence(String gameName){
         return gameRep.existsById(gameName);
     }
