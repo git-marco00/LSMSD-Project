@@ -12,9 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @Repository
 public class PostRepository {
@@ -61,7 +61,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public Optional<Post> getPostById(String id){
         Optional<Post> post = Optional.empty();
         try {
@@ -71,7 +70,6 @@ public class PostRepository {
         }
         return post;
     }
-
     public List<Post> findAllPosts(){
         List<Post> result = new ArrayList<>();
         try {
@@ -81,7 +79,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public List<Post> findByGame(String game){
         List<Post> result = new ArrayList<>();
         try{
@@ -91,7 +88,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public Page<Post> findByGame(String game, Pageable page){
         Page<Post> result = null;
         try {
@@ -101,7 +97,6 @@ public class PostRepository {
         }
         return result;
     }
-
     // ---------------------------------------------------------------------------------------------------
 
 
@@ -118,7 +113,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public boolean unlikePost(Post post, User user){
         boolean result = true;
         try{
@@ -130,7 +124,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public boolean addComment(Post post, Comment comment){
         boolean result = true;
         try{
@@ -142,7 +135,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public boolean deleteComment(Post post, Comment comment){
         boolean result = true;
         try{
@@ -155,6 +147,4 @@ public class PostRepository {
         return result;
     }
     // ---------------------------------------------------------------------------------------------------
-
-
 }

@@ -81,6 +81,7 @@ public class GamePage {
         List<PostDTO> mostRecentPostsDTO = new ArrayList<>();
         mostRecentPosts.forEach((post) -> {
             PostDTO postDTO = new PostDTO();
+            postDTO.setId(post.getId());
             postDTO.setAuthor(post.getAuthor());
             postDTO.setDate(post.getTimestamp());
             postDTO.setText(post.getText());
