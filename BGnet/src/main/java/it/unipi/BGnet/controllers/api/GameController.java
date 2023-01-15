@@ -35,7 +35,6 @@ public class GameController {
     public String gamePageExists(Model model, @RequestParam("name") String name){
         logger.warn(name);
         List<Game> list = gameService.checkExistence(name);
-        logger.warn(list.get(0).toString());
         int counts = list.size();
         if(counts > 0){
             if(counts > 1){
