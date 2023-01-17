@@ -12,6 +12,7 @@ public class SessionVariables {
 
     public List<Game> current_results;
     public int currentPage;
+    public boolean lastPage;
 
     @Override
     public String toString() {

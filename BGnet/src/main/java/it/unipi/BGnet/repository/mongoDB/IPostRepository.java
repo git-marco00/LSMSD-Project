@@ -10,4 +10,6 @@ import java.util.List;
 public interface IPostRepository extends MongoRepository<Post, String> {
     Page<Post> findByGameOrderByTimestampDesc(String game, Pageable pageable);
     List<Post> findByGameOrderByTimestampDesc(String game);
+
+    int countByGame(String game);
 }

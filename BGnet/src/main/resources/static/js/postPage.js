@@ -5,15 +5,16 @@ function requestPostPage(pageNumber){
         method : "get",
         parameters : 0,
         success : function(data){
+            // $("#succPage").prop("disabled", false)
             let posts = $.parseJSON(data);
-            if(posts != null) {
+            if (posts != null) {
                 let post = 0
                 $('#game').text(posts[post].game)
-                for(post in posts) {
+                for (post in posts) {
                     console.log(posts[post])
                     let html = '<div id="post-' + posts[post].id + '" class="w3-col m7"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
                     html += '<img src="img/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'
-                    html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + posts[post].date.slice(0,10) + '</span>'
+                    html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + posts[post].date.slice(0, 10) + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + posts[post].likes + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + posts[post].comments + '</span>'
                     html += ('<h4>' + posts[post].author + '</h4><br><hr class="w3-clear">')
@@ -29,6 +30,7 @@ function requestPostPage(pageNumber){
     })
 }
 $(document).ready(function (){
+    loadNumberOfPages();
     requestPostPage(0);
 })
 function precPage() {
@@ -36,12 +38,25 @@ function precPage() {
     if(page <= 0)
         return
     $('#containerPosts').empty()
-    requestPostPage(page);
+    requestPostPage(page - 1);
     $('#page').text(page)
+    $('#succPage').prop("disabled", false)
 }
 function succPage() {
     let page = parseInt($('#page').text()) + 1
     $('#containerPosts').empty()
-    requestPostPage(page);
+    requestPostPage(page - 1)
     $('#page').text(page)
+    if($('#page').text() == $("#howManyPages").attr("class")){
+        $("#succPage").prop("disabled", true)
+    }
+}
+
+function loadNumberOfPages(){
+    $.ajax({
+        url: "/api/getPages",
+        success: function(data){
+            $("#howManyPages").attr("class", data)
+        }
+    })
 }

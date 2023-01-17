@@ -4,8 +4,14 @@ $(document).ready(function(){
 })
 
 function loadSearchBar(){
-    $("#searchBar").append("<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:1000px\">")
-    $("#searchBar").append("<button onclick=\"searchButton()\" type=\"button\" class=\"w3-button w3-theme\" id=\"searchButton\"><i class=\"fa fa-pencil\"></i> Search</button>")
+    $("#navbar").append("            <div class=\"w3-bar w3-theme-d2 w3-left-align w3-large\" id=\"searchBar\">\n" +
+        "                <a href=\"#\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
+        "                    <i class=\"fa fa-home w3-margin-right\"></i>\n" +
+        "                    Logo\n" +
+        "                </a>\n" +
+        "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:1000px\">" +
+        "<button onclick=\"searchButton()\" type=\"button\" class=\"w3-button w3-theme\" id=\"searchButton\"><i class=\"fa fa-pencil\"></i> Search</button>" +
+        "            </div>")
 }
 
 function addListener(){

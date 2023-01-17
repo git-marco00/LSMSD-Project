@@ -44,4 +44,17 @@ public class PostFunctionController {
         String result = gson.toJson(postList);
         return result;
     }
+
+    @RequestMapping("/api/getPages")
+    public String getHowManyPages(Model model){
+        if(((SessionVariables) model.getAttribute("sessionVariables")).gameToDisplay == null){
+            return null;
+        }
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        int pages = postService.loadNumberOfPages(sv.gameToDisplay);
+        logger.warn("PAGES: " + Integer.toString(pages));
+        Gson gson = new Gson();
+        String result = gson.toJson(pages);
+        return result;
+    }
 }

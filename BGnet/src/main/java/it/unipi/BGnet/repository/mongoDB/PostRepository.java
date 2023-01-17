@@ -1,5 +1,6 @@
 package it.unipi.BGnet.repository.mongoDB;
 
+import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.model.Comment;
@@ -12,9 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ArrayList;
 
 @Repository
 public class PostRepository {
@@ -29,15 +30,15 @@ public class PostRepository {
 
     // CRUD Methods
     //  -------------------------------------------------------------------------------------------------
-    public boolean addPost(Post post){
-        boolean result = true;
+    public Post addPost(Post post){
+        Post saved;
         try {
-            postMongo.save(post);
+            saved = postMongo.save(post);
         } catch (Exception e) {
             e.printStackTrace();
-            result = false;
+            return null;
         }
-        return result;
+        return saved;
     }
 
     public boolean deletePostById(String id) {
@@ -61,6 +62,7 @@ public class PostRepository {
         }
         return result;
     }
+
     public Optional<Post> getPostById(String id){
         Optional<Post> post = Optional.empty();
         try {
@@ -70,6 +72,7 @@ public class PostRepository {
         }
         return post;
     }
+
     public List<Post> findAllPosts(){
         List<Post> result = new ArrayList<>();
         try {
@@ -79,6 +82,7 @@ public class PostRepository {
         }
         return result;
     }
+
     public List<Post> findByGame(String game){
         List<Post> result = new ArrayList<>();
         try{
@@ -88,6 +92,7 @@ public class PostRepository {
         }
         return result;
     }
+
     public Page<Post> findByGame(String game, Pageable page){
         Page<Post> result = null;
         try {
@@ -97,22 +102,23 @@ public class PostRepository {
         }
         return result;
     }
+
     // ---------------------------------------------------------------------------------------------------
 
 
     // Application-Domain Methods
     // ---------------------------------------------------------------------------------------------------
-    public boolean likePost(Post post, User user){
-        boolean result = true;
+    public Post likePost(Post post, String username){
         try{
-            post.addLike(user.getUsername());
+            post.addLike(username);
             postMongo.save(post);
         } catch(Exception e){
             e.printStackTrace();
-            result = false;
+            return null;
         }
-        return result;
+        return post;
     }
+
     public boolean unlikePost(Post post, User user){
         boolean result = true;
         try{
@@ -124,17 +130,18 @@ public class PostRepository {
         }
         return result;
     }
-    public boolean addComment(Post post, Comment comment){
-        boolean result = true;
+
+    public Post addComment(Post post, Comment comment){
         try{
             post.addComment(comment);
             postMongo.save(post);
         } catch(Exception e) {
             e.printStackTrace();
-            result = false;
+            return null;
         }
-        return result;
+        return post;
     }
+
     public boolean deleteComment(Post post, Comment comment){
         boolean result = true;
         try{
@@ -146,5 +153,11 @@ public class PostRepository {
         }
         return result;
     }
+
+    public int countPages(String game) {
+       return (int) Math.ceil((double)postMongo.countByGame(game)/ Constants.PAGE_SIZE);
+    }
     // ---------------------------------------------------------------------------------------------------
+
+
 }
