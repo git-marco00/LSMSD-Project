@@ -1,6 +1,8 @@
 package it.unipi.BGnet.service.user;
 
+import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
+import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.repository.UserRepository;
 
@@ -27,5 +29,13 @@ public class UserService {
         if(result.isEmpty())
             return null;
         return new UserDTO(result.get().getUsername(), result.get().getPassword());
+    }
+    public UserDTO loadProfile(String username) {
+        Optional<User> result = userRepo.getUserByUsername(username);
+        if(result.isEmpty())
+            return null;
+        UserDTO profile = new UserDTO(result.get().getUsername(), result.get().getFirstName(), result.get().getLastName(), result.get().getImg());
+        profile.setMostRecentPosts(result.get().getMostRecentPosts());
+        return profile;
     }
 }

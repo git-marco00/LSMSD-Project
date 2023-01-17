@@ -31,14 +31,17 @@ $(document).ready(function() {
                     html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + data.mostRecentPosts[post].date.slice(0,10) + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + data.mostRecentPosts[post].likes + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + data.mostRecentPosts[post].comments + '</span>'
-                    html += ('<h4>' + data.mostRecentPosts[post].author + '</h4><br><hr class="w3-clear">')
+                    html += ('<h4 id="' + data.mostRecentPosts[post].author + '" class="author">' + data.mostRecentPosts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + data.mostRecentPosts[post].text + '</p>')
                     html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>Like</button>'
                     html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i>View comments</button>'
                     html += '</div><br>'
-                    $('#containerPosts').append(html)
+                    $('#post-container').append(html)
                 }
-                $('.view-comments').bind('click', function(event) {
+                $('h4.author').bind('click', function(event) {
+                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
+                })
+                $('button.view-comments').bind('click', function(event) {
                     $.ajax({
                         url: "/api/loadPostComments",
                         data: {id: event.target.id},
@@ -54,7 +57,6 @@ $(document).ready(function() {
                                 }
                             }
                             let comments = $.parseJSON(data);
-                            console.log(comments)
                             if(comments != null) {
                                 let comment = 0
                                 for (comment in comments) {
@@ -70,7 +72,7 @@ $(document).ready(function() {
                 })
             }
             let viewAllPosts = '<div class="w3-margin w3"><button type="button" class="w3-button w3-theme-d2 w3-margin-bottom" onClick="getAllPosts()"><class="fa fa-comment"></i> View all posts </button></div>'
-            $('#containerPosts').append(viewAllPosts)
+            $('#right-column').append(viewAllPosts)
         }
     })
 })

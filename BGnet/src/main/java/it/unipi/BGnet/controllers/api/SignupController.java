@@ -21,25 +21,17 @@ public class SignupController {
     public String signup(Model model, @RequestParam(value = "firstname") String firstname, @RequestParam(value = "lastname") String lastname, @RequestParam(value = "username") String username, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam(value = "password2") String password2, @RequestParam(value = "state") String state, @RequestParam(value = "country") String country, @RequestParam(value = "continent") String continent) {
         Gson gson = new Gson();
         if(!password.equals(password2))
-        {
             return gson.toJson("{\"type\": 1, \"message\" : \"Passwords are different\"}");
-        }
         UserDTO result = userService.getUser(username);
         if(result != null)
-        {
             return gson.toJson("{\"type\": 2, \"message\" : \"Username already in use\"}");
-        }
         result = userService.getUserByEmail(email);
         if(result != null)
-        {
             return gson.toJson("{\"type\": 3, \"message\" : \"E-mail already in use\"}");
-        }
         Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
         User user = new User(username, pbkdf2PasswordEncoder.encode(password), firstname, lastname, Year.now().getValue(), email, state, country, continent);
         if(userService.addUser(user))
-        {
             return gson.toJson("{\"type\": 0, \"message\" : \"OK\"}");
-        }
         else return gson.toJson("{\"type\": 4, \"message\" : \"Something goes wrong\"}");
     }
 }

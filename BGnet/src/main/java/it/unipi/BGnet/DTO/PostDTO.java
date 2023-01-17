@@ -9,6 +9,16 @@ public class PostDTO {
     private int likes;
     private int comments;
     private String date;
+    public PostDTO() {}
+    public PostDTO(String id, String game, String author, int likes, int comments, String date, String text) {
+        this.id = id;
+        this.game = game;
+        this.author = author;
+        this.likes = likes;
+        this.comments = comments;
+        this.date = date;
+        this.text = text;
+    }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getGame() { return game; }

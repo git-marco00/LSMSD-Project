@@ -21,7 +21,7 @@ public class GameController {
     @Autowired
     GameService gameService;
     Logger logger = LoggerFactory.getLogger(GameController.class);
-    @RequestMapping("/api/loadGamePage")
+    @GetMapping("/api/loadGamePage")
     public @ResponseBody String loadGamePage(Model model){
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
@@ -30,7 +30,7 @@ public class GameController {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         return gson.toJson(page);
     }
-    @RequestMapping("/api/gamePageExists")
+    @GetMapping("/api/gamePageExists")
     public @ResponseBody String gamePageExists(Model model, @RequestParam("name") String name){
         List<Game> list = gameService.checkExistence(name);
         int counts = list.size();
@@ -56,9 +56,8 @@ public class GameController {
         }
         return new Gson().toJson(-1);
     }
-    @RequestMapping("/api/loadResultsPage")
-    @ResponseBody
-    public String loadResultsPage(Model model){
+    @GetMapping("/api/loadResultsPage")
+    public @ResponseBody String loadResultsPage(Model model){
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         logger.warn(sv.current_results.get(0).toString());
