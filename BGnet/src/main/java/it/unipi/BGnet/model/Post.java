@@ -5,6 +5,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Data
@@ -20,11 +24,14 @@ public class Post {
     private String timestamp;
     private List<Comment> comments;
 
-    public Post(String id, String author, String game, String text) {
-        this.id = id;
+    public Post(String author, String game, String text) {
         this.author = author;
         this.game = game;
         this.text = text;
+        this.timestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX")
+                .format(Calendar.getInstance().getTime());
+        this.likes = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
     public Post(String id, String author, String game, String text, String dateTime, List<Comment> commentList) {
         this.id = id;

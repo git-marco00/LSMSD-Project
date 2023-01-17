@@ -29,6 +29,7 @@ public class GameRepository {
         }
         return result;
     }
+
     public boolean deleteGameById(String id) {
         boolean result = true;
         try {
@@ -111,8 +112,60 @@ public class GameRepository {
         }
         return result;
     }
-    public boolean addPost(Post post){
-        return false;
+    public boolean addPost(String name, Post post){
+        Optional<Game> game = getGameByName(name);
+        if(game.isEmpty())
+            return false;
+
+        List<Post> list = game.get().getMostRecentPosts();
+        list.add(0, post);
+        list.remove(list.size() - 1);
+        game.get().setMostRecentPosts(list);
+        try{
+            gameMongo.save(game.get());
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean removePost(String name, Post post){
+        Optional<Game> game = getGameByName(name);
+        if(game.isEmpty())
+            return false;
+
+        List<Post> list = game.get().getMostRecentPosts();
+        list.add(0, post);
+        list.remove(post);
+        game.get().setMostRecentPosts(list);
+        try{
+            gameMongo.save(game.get());
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updatePost(String name, Post olderPost, Post newPost){
+        Optional<Game> game = getGameByName(name);
+        if(game.isEmpty())
+            return false;
+
+        List<Post> list = game.get().getMostRecentPosts();
+        if(!list.contains(olderPost))
+            return true;
+
+        list.set(list.indexOf(olderPost), newPost);
+        game.get().setMostRecentPosts(list);
+        try{
+            gameMongo.save(game.get());
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public boolean existsById(String gameName) {

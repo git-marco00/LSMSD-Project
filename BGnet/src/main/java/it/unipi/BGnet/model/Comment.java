@@ -2,6 +2,9 @@ package it.unipi.BGnet.model;
 
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 @NoArgsConstructor
 public class Comment {
     private String author;
@@ -10,6 +13,8 @@ public class Comment {
     public Comment(String author, String text) {
         this.author = author;
         this.text = text;
+        this.dateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX")
+                .format(Calendar.getInstance().getTime());
     }
     public Comment(String author, String text, String dateTime) {
         this.author = author;
