@@ -16,4 +16,5 @@ $(document).ready(function(data){
 
 function getGame(text){
     searchForAGame(text)
+    console.log("Supero federico in commit")
 }
