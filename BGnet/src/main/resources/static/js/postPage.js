@@ -15,7 +15,7 @@ function requestPostPage(pageNumber){
                     html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + posts[post].date.slice(0, 10) + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + posts[post].likes + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + posts[post].comments + '</span>'
-                    html += ('<h4>' + posts[post].author + '</h4><br><hr class="w3-clear">')
+                    html += ('<h4 id="' + posts[post].author + '" class="author">' + posts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + posts[post].text + '</p>')
                     html += '<p id="_id" style="display: none;">' + posts[post].id + '</p>'
                     html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>Like</button>'
@@ -23,8 +23,14 @@ function requestPostPage(pageNumber){
                     html += '</div><br>'
                     $('#containerPosts').append(html)
                 }
+                $('h4.author').bind('click', function(event) {
+                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
+                })
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
+                })
+                $("#game").bind('click', function(event){
+                    window.location.href = "http://localhost:8080/gamePage"
                 })
             }
         }
@@ -64,11 +70,7 @@ function loadNumberOfPages(){
 
 function likePost(){;}
 
-function viewComments(){;}
-
 function addPost(){;}
-
-function goToTheUser(){;}
 
 function backToThePage(){;
 }

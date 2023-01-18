@@ -54,10 +54,7 @@ function getAllPosts() { window.location.href = "http://localhost:8080/postPage"
 
 function likePost(){;}
 
-function viewComments(){;}
-
 function addPost(){;}
 
 function getCommonFollowers(){;}
 
-function goToTheUser(){;}
