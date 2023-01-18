@@ -5,7 +5,6 @@ function requestPostPage(pageNumber){
         method : "get",
         parameters : 0,
         success : function(data){
-            // $("#succPage").prop("disabled", false)
             let posts = $.parseJSON(data);
             if (posts != null) {
                 let post = 0
@@ -88,3 +87,15 @@ function loadNumberOfPages(){
         }
     })
 }
+
+function likePost(){;}
+
+function viewComments(){;}
+
+function addPost(){;}
+
+function goToTheUser(){;}
+
+function backToThePage(){;
+}
+
