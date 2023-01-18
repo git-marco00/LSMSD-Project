@@ -60,8 +60,15 @@ function searchButton(){
 }
 
 function searchForAGame(){
-    const searchEditText = document.getElementById("searchEditText");
-    let text = searchEditText.value.trim();
+    let searchEditText;
+    let text;
+    if(arguments[0])
+        text = arguments[0];
+    else {
+        searchEditText = document.getElementById("searchEditText");
+        text = searchEditText.value.trim();
+    }
+
     $.ajax({
         url : "/api/gamePageExists",
         data : {name : text},
@@ -72,12 +79,7 @@ function searchForAGame(){
                 window.location.href="http://localhost:8080/gamePage"
             }
             else if(data >= 0){
-                $.ajax({
-                    url: "/api/loadResultsPage",
-                    success: function(data){
-                        console.log(data)
-                    }
-                })
+                window.location.href= "http://localhost:8080/searchPage"
             }
             else{
                 alert("Nessun gioco corrispondente ai parametri di ricerca inseriti");
@@ -99,7 +101,8 @@ function searchForAGameFiltered(){
                 $.ajax({
                     url: "/api/loadResultsPage",
                     success: function(data){
-                        console.log(data)
+                        window.location.href= "http://localhost:8080/searchPage"
+                        document.getElementById("idStupido").innerHTML = "CIao"
                     }
                 })
             }

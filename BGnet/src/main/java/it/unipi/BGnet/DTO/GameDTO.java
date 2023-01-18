@@ -3,11 +3,20 @@ package it.unipi.BGnet.DTO;
 import java.util.List;
 
 public class GameDTO {
+    private String image;
     private String name;
     private String designer;
     private List<String> categories;
     private int minPlayers;
     private int maxPlayers;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String imageUrl) {
+        this.image = imageUrl;
+    }
 
     public String getName() {
         return name;

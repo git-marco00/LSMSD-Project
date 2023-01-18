@@ -47,7 +47,6 @@ public class GameService {
     }
 
     public List<Game> checkExistence(String pattern){
-        List<String> gamesTitles = new ArrayList<>();
         List<Game> games = gameRep.searchGames(pattern);
         return games;
     }
@@ -61,6 +60,7 @@ public class GameService {
             target.setMinPlayers(g.getMinPlayers());
             target.setMaxPlayers(g.getMaxPlayers());
             target.setCategories(g.getCategories());
+            target.setImage(g.getImageUrl());
             result.add(target);
         }
         return result;
