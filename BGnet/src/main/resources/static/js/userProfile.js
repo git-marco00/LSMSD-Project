@@ -18,7 +18,7 @@ $(document).ready(function() {
                 html += "<h4 id=\"" + data.mostRecentPosts[post].game + "\" class=\"game\">" + data.mostRecentPosts[post].game + "</h4><br><hr class=\"w3-clear\">"
                 html += "<p>" + data.mostRecentPosts[post].text + "</p>"
                 html += "<button type=\"button\" class=\"w3-button w3-theme-d1 w3-margin-bottom\"><i class=\"fa fa-thumbs-up\"></i>Like</button>"
-                html += "<button type=\"button\" class=\"view-comments w3-button w3-theme-d2 w3-margin-bottom\"><i class=\"fa fa-comment\"></i>View comments</button></div><br>"
+                html += "<button type=\"button\" class=\"view-comments w3-button w3-theme-d2 w3-margin-bottom\" id=\"" + data.mostRecentPosts[post].id + "\"><i class=\"fa fa-comment\"></i>View comments</button></div><br>"
                 $('#post-container').append(html)
             }
             $('button.view-comments').bind('click', function(event) {
