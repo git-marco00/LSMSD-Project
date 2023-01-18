@@ -6,6 +6,8 @@ import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.pages.PostService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,7 @@ import java.util.List;
 public class LoadPostController {
     @Autowired
     PostService postService;
-
+    Logger logger = LoggerFactory.getLogger(LoadPostController.class);
     /*
     @RequestMapping("/api/addPost")
     public Post savePost(){
