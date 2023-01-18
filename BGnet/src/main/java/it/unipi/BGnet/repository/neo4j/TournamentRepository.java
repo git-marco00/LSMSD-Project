@@ -84,7 +84,7 @@ public class TournamentRepository {
     public List<Record> getPartecipantsByTournamentId(int tournamentId){
         try{
             return graphNeo4j.read("MATCH (u:User)-[:PARTICIPATE]->(t:Tournament)" +
-                            " WHERE t.id=tournamentId" +
+                            " WHERE t.id=$tournamentId" +
                             " RETURN u.name as username",
                     parameters("tournamentId", tournamentId));
 
@@ -109,15 +109,12 @@ public class TournamentRepository {
         return null;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-
     public List<Record> getGameByTournamentId(int tournamentId){
         try{
-            return graphNeo4j.read("MATCH (u:User)-[:PARTICIPATE]->(t:Tournament)" +
-                            " WHERE t.id=tournamentId" +
-                            " RETURN u.name as username",
+            return graphNeo4j.read("MATCH (t:Tournament)-[:TOURNAMENT_GAME]->(g:Game)" +
+                            " WHERE t.id=$tournamentId" +
+                            " RETURN g.name as gamename",
                     parameters("tournamentId", tournamentId));
-
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -126,8 +123,8 @@ public class TournamentRepository {
 
     public List<Record> getCreatorByTournamentId(int tournamentId){
         try{
-            return graphNeo4j.read("MATCH (u:User)-[:PARTICIPATE]->(t:Tournament)" +
-                            " WHERE t.id=tournamentId" +
+            return graphNeo4j.read("MATCH (u:User)-[:CREATED]->(t:Tournament)" +
+                            " WHERE t.id=$tournamentId" +
                             " RETURN u.name as username",
                     parameters("tournamentId", tournamentId));
 
@@ -138,11 +135,31 @@ public class TournamentRepository {
     }
 
     public List<Record> getTournamentsByUser(String username){
+        try{
+            return graphNeo4j.read("MATCH (u:User)-[:PARTICIPATE]->(t:Tournament)" +
+                            " WHERE u.name=$username" +
+                            " RETURN t.id as id, t.date as date, t.duration as duration," +
+                            " t.maxPlayers as maxPlayers, t.modalities as modalities, t.playersPerMatch as playersPerMatch",
+                    parameters("username", username));
 
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean closeTournament(Tournament t){
-
+        boolean result = true;
+        boolean isClosed=true;
+        try {
+            graphNeo4j.write("MATCH (t:Tournament {id: $id}) " +
+                            "SET t.isClosed = $isClosed",
+                    parameters("id", t.getId(), "isClosed", isClosed));
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
     }
 
 }
