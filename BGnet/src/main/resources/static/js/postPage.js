@@ -10,7 +10,7 @@ function requestPostPage(pageNumber){
                 let post = 0
                 $('#game').text(posts[post].game)
                 for (post in posts) {
-                    let html = '<div id="post-' + posts[post].id + '" class="w3-col m7 post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
+                    let html = '<div id="post-' + posts[post].id + '" class="post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
                     html += '<img src="img/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'
                     html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + posts[post].date.slice(0, 10) + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + posts[post].likes + '</span>'

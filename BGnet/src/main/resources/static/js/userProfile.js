@@ -5,6 +5,7 @@ $(document).ready(function() {
         data : {username: user},
         method: "get",
         success: function (data) {
+            console.log(data)
             data = JSON.parse(data)
             $('#username').text(data.username)
             $('#img').append('<img src="' + data.img + '" class="w3-circle" style="height:106px;width:106px" alt="Profile picture"/>')
