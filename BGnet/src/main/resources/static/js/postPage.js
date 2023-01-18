@@ -4,13 +4,13 @@ function requestPostPage(pageNumber){
         data : {page : pageNumber},
         method : "get",
         parameters : 0,
-        success : function(data){
+        success : function(data) {
             let posts = $.parseJSON(data);
             if (posts != null) {
                 let post = 0
                 $('#game').text(posts[post].game)
                 for (post in posts) {
-                    let html = '<div id="post-' + posts[post].id + '" class="w3-col m7 post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
+                    let html = '<div id="post-' + posts[post].id + '" class="post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
                     html += '<img src="img/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'
                     html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + posts[post].date.slice(0, 10) + '</span>'
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + posts[post].likes + '</span>'
@@ -23,34 +23,8 @@ function requestPostPage(pageNumber){
                     html += '</div><br>'
                     $('#containerPosts').append(html)
                 }
-                $('.view-comments').bind('click', function(event) {
-                    $.ajax({
-                        url: "/api/loadPostComments",
-                        data: {id: event.target.id},
-                        method : "get",
-                        success: function (data) {
-                            for (j in $('.post')) {
-                                if ($('button.view-comments-' + j).attr('id') != undefined) {
-                                    if ($('button.view-comments-' + j).attr('id') != event.target.id) {
-                                        $('#post-' + $('button.view-comments-' + j).attr('id')).remove()
-                                    } else {
-                                        $('#' + event.target.id).remove()
-                                    }
-                                }
-                            }
-                            let comments = $.parseJSON(data);
-                            if(comments != null) {
-                                let comment = 0
-                                for (comment in comments) {
-                                    let html = '<div id="comment-' + comment + '" class="w3-col m7 comment"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
-                                    html += ('<h4>' + comments[comment].author + '</h4><br><hr class="w3-clear">')
-                                    html += ('<p>' + comments[comment].text + '</p>')
-                                    html += '</div><br>'
-                                    $('#containerPosts').append(html)
-                                }
-                            }
-                        }
-                    })
+                $('button.view-comments').bind('click', function(event) {
+                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
             }
         }

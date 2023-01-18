@@ -54,7 +54,7 @@ public class UserRepository {
         Optional<User> user = Optional.empty();
         try {
             user = userMongo.findByUsername(username);
-            System.out.println("\t\tUserRepository::getUserByUsername(String username) >> " + user);
+            System.out.println("\t\tUserRepository::getUserByUsername(String username) >> " + username);
         } catch (Exception e) {
             e.printStackTrace();
         }

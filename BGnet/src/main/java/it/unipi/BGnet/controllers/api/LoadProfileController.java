@@ -2,6 +2,7 @@ package it.unipi.BGnet.controllers.api;
 
 import com.google.gson.Gson;
 
+import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.service.user.UserService;
 import it.unipi.BGnet.Utilities.SessionVariables;
 
@@ -22,6 +23,9 @@ public class LoadProfileController {
     }
     @GetMapping("api/loadProfile")
     public @ResponseBody String profile(@RequestParam(value = "username") String username) {
+        UserDTO answer = userService.loadProfile(username);
+        if(answer == null)
+            return "no";
         return new Gson().toJson(userService.loadProfile(username));
     }
 }

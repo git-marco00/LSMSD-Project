@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigInteger;
 import java.util.List;
 
-@Document(collection = "users")
+@Document(collection = "user")
 public class User {
     @Id
     private BigInteger id;

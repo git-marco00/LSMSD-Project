@@ -1,5 +1,7 @@
 package it.unipi.BGnet.DTO;
 
+import java.util.List;
+
 public class PostDTO {
     private String id;
     private String author;
@@ -8,6 +10,7 @@ public class PostDTO {
     private String text;
     private int likes;
     private int comments;
+    private List<CommentDTO> listOfComments;
     private String date;
     public PostDTO() {}
     public PostDTO(String id, String game, String author, int likes, int comments, String date, String text) {
@@ -16,6 +19,15 @@ public class PostDTO {
         this.author = author;
         this.likes = likes;
         this.comments = comments;
+        this.date = date;
+        this.text = text;
+    }
+    public PostDTO(String id, String game, String author, int likes, List<CommentDTO> listOfComments, String date, String text) {
+        this.id = id;
+        this.game = game;
+        this.author = author;
+        this.likes = likes;
+        this.listOfComments = listOfComments;
         this.date = date;
         this.text = text;
     }
