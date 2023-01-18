@@ -22,15 +22,11 @@ import java.util.Optional;
 public class PostService {
     @Autowired
     PostRepository postRepo;
-
     @Autowired
     GameRepository gameRepo;
-
     @Autowired
     UserRepository userRepo;
-
     Logger logger = LoggerFactory.getLogger(PostService.class);
-
     public boolean addPost(String game, String author, String text){
         Post toAdd = new Post(author, game, text);
         Post saved;
@@ -100,7 +96,7 @@ public class PostService {
     public int loadNumberOfPages(String game){
         return postRepo.countPages(game);
     }
-    public List<CommentDTO> loadComments(String _id) {
+    public PostDTO loadComments(String _id) {
         Optional<Post> result = postRepo.getPostById(_id);
         if(result.isEmpty())
             return null;
@@ -109,7 +105,7 @@ public class PostService {
             CommentDTO tmp = new CommentDTO(comment.getAuthor(), comment.getText(), comment.getDateTime());
             comments.add(tmp);
         }
-        return comments;
+        return new PostDTO(result.get().getId(), result.get().getGame(), result.get().getAuthor(), result.get().getLikes().size(), comments, result.get().getTimestamp(), result.get().getText());
     }
 }
 
