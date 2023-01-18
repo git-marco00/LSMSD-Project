@@ -2,20 +2,15 @@ package it.unipi.BGnet.repository.neo4j;
 
 import it.unipi.BGnet.model.Tournament;
 import org.neo4j.driver.Record;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.neo4j.driver.Values.parameters;
 
-public class TournamentRepository {
-    private final static Logger logger = LoggerFactory.getLogger(TournamentRepository.class);
-
+public class TournamentNeo4j {
     private final GraphNeo4j graphNeo4j;
 
-    public TournamentRepository(GraphNeo4j graphNeo4j) {
+    public TournamentNeo4j(GraphNeo4j graphNeo4j) {
         this.graphNeo4j = graphNeo4j;
     }
 
