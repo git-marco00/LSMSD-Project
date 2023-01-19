@@ -43,6 +43,8 @@ public class GraphNeo4j implements AutoCloseable{
         }
     }
 
+
+
     public void write(String query) {
         write(query, parameters());
     }

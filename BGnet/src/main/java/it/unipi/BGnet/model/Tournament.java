@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tournament {
-    private int id;
+    private String id;
     private String date;
     private String duration;
-    private String maxPlayers;
+    private int maxPlayers;
     private String modalities;
     private String playersPerMatch;
     private List<String> partecipants;
@@ -16,7 +16,7 @@ public class Tournament {
 
     private boolean isClosed;
 
-    public Tournament(int id, String date, String duration, String maxPlayers, String modalities, String playersPerMatch, List<String> partecipants, String tournamentGame, String creator, boolean isClosed) {
+    public Tournament(String id, String date, String duration, int maxPlayers, String modalities, String playersPerMatch, List<String> partecipants, String tournamentGame, String creator, boolean isClosed) {
         this.id = id;
         this.date = date;
         this.duration = duration;
@@ -37,11 +37,11 @@ public class Tournament {
         isClosed = closed;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,11 +61,11 @@ public class Tournament {
         this.duration = duration;
     }
 
-    public String getMaxPlayers() {
+    public int getMaxPlayers() {
         return maxPlayers;
     }
 
-    public void setMaxPlayers(String maxPlayers) {
+    public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
 
