@@ -13,7 +13,8 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model)
     {
-        model.addAttribute("sessionVariables", new SessionVariables());
+        if((SessionVariables) model.getAttribute("sessionVariables") == null)
+            model.addAttribute("sessionVariables", new SessionVariables());
         return "home";
     }
 }

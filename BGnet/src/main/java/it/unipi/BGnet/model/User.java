@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "users")
@@ -40,7 +41,7 @@ public class User {
     private String continent;
     private String img;
     @Field("most_recent_post")
-    private List<Post> mostRecentPosts;
+    private List<Post> mostRecentPosts = new ArrayList<>();
 
     public User(String username, String password, String firstName, String lastName, int yearRegistered, String email, String stateOrProvince, String country, String continent, String img, List<Post> mostRecentPosts) {
         this.username = username;

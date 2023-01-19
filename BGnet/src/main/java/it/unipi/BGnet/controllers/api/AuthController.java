@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 
 @RestController
+@SessionAttributes("sessionVariables")
 public class AuthController {
     @Autowired
     UserService userService;
@@ -29,8 +30,12 @@ public class AuthController {
             return gson.toJson("{\"type\": 2, \"message\" : \"Incorrect password\"}");
 
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
+        if((SessionVariables) model.getAttribute("sessionVariables") == null)
+            model.addAttribute("sessionVariables", new SessionVariables());
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         sv.myself = user.getUsername();
+        System.out.println(sv.myself);
+        model.addAttribute("sessionVariables",  sv);
         /////////////////////////////////////////////////////////////////////////////
 
         return gson.toJson("{\"type\": 0, \"message\" : \"OK\"}");
