@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
+@SessionAttributes("sessionVariables")
 public class LoadCommentController {
     @Autowired
     PostService postService;
@@ -19,13 +20,19 @@ public class LoadCommentController {
         PostDTO post = postService.loadComments(_id);
         return new Gson().toJson(post);
     }
-    @GetMapping("api/addComment")
-    public @ResponseBody boolean addComment(Model model, @RequestParam("post") String post, @RequestParam("game") String game, @RequestParam("comment") String comment) {
+    @PostMapping("api/addComment")
+    public @ResponseBody boolean addComment(Model model, @RequestParam("post_id") String post, @RequestParam("game_name") String game, @RequestParam("text") String comment) {
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        if(sv.myself == null)
+        if(sv == null || sv.myself == null) {
+            System.out.println("USER NOT LOGGED");
             return false;
-        if(postService.addComment(post, sv.myself, game, comment))
+        }
+        if(postService.addComment(post, sv.myself, game, comment)) {
             return true;
-        else return false;
+        }
+        else {
+            System.out.println("WRITING HAS FAILED");
+            return false;
+        }
     }
 }

@@ -45,15 +45,16 @@ $(document).ready(function() {
                     html += "</div><br>"
                     $('div.new-comment').append(html)
                     $('button#submit-' + post.id).bind('click', function(event) {
-                        let post_id = event.target.id.slice(7, event.target.id.size)
-                        let comment = $('textarea#comment-text').value
                         $.ajax({
-                            url: "/api/addComment",
-                            data: {post: post_id, game: post.game, comment: comment},
-                            method : "get",
+                            url: "api/addComment",
+                            data: {post_id: event.target.id.slice(7, event.target.id.size), game_name: post.game, text: $('textarea#comment-text').val()},
+                            method : "post",
                             success: function (data) {
-                                console.log(data)
-                                $('button.make-comment').prop("disabled", false)
+                                if(data == false)
+                                    alert("Please sign-in before add a comment")
+                                else {
+                                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id.slice(7, event.target.id.size)
+                                }
                             }
                         })
                     })

@@ -24,10 +24,10 @@ function requestPostPage(pageNumber){
                     $('#containerPosts').append(html)
                 }
                 $('h4.author').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
+                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
                 })
                 $('button.view-comments').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
+                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id
                 })
                 $("#game").bind('click', function(event){
                     window.location.href = "http://localhost:8080/gamePage"

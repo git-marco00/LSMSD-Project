@@ -18,7 +18,7 @@ $(document).ready(function () {
                     $("#username").val("")
                     $("#password").val("")
                 } else
-                    alert("OK")
+                    window.location.href= "http://localhost:8080/"
             }
         })
     }
