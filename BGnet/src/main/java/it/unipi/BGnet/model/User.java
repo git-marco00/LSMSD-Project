@@ -11,7 +11,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "users")
+@Document(collection = "user")
 public class User {
     @Id
     private BigInteger id;

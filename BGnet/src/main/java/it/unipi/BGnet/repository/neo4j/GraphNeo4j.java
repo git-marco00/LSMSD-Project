@@ -14,9 +14,18 @@ public class GraphNeo4j implements AutoCloseable{
     private final String user = "neo4j";
     private final String pass = "123";
 
+    private static GraphNeo4j graphNeo4j;
 
-    public GraphNeo4j() {
+
+    private GraphNeo4j() {
         driver = GraphDatabase.driver(uri, AuthTokens.basic(user, pass));
+    }
+
+    public static GraphNeo4j getIstance(){
+        if(graphNeo4j == null){
+            graphNeo4j = new GraphNeo4j();
+        }
+        return graphNeo4j;
     }
 
     @Override

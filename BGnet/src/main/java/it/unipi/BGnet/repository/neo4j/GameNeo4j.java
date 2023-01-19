@@ -9,7 +9,7 @@ import org.neo4j.driver.Record;
 public class GameNeo4j {
     private final GraphNeo4j graphNeo4j;
 
-    public GameNeo4j(GraphNeo4j graphNeo4j){ this.graphNeo4j = graphNeo4j;}
+    public GameNeo4j(){ this.graphNeo4j = GraphNeo4j.getIstance();}
 
     public GraphNeo4j getGraphNeo4j() {
         return graphNeo4j;
@@ -18,7 +18,7 @@ public class GameNeo4j {
     public boolean followGameByGamename(String username, String gamename){
         boolean result = true;
         try{
-            graphNeo4j.read("MATCH (u:User) WHERE u.name=$username" +
+            graphNeo4j.write("MATCH (u:User) WHERE u.name=$username" +
                             " MATCH (g:Game) WHERE g.name=$gamename" +
                             " MERGE (u)-[:FOLLOWS]->(g)",
                     parameters("username", username, "gamename", gamename));
@@ -32,7 +32,7 @@ public class GameNeo4j {
     public boolean unfollowGameByGamename(String username, String gamename){
         boolean result = true;
         try{
-            graphNeo4j.read("MATCH (u:User) WHERE u.name=$username" +
+            graphNeo4j.write("MATCH (u:User) WHERE u.name=$username" +
                             " MATCH (g:Game) WHERE g.name=$gamename" +
                             " DELETE (u)-[:FOLLOWS]->(g)",
                     parameters("username", username, "gamename", gamename));
