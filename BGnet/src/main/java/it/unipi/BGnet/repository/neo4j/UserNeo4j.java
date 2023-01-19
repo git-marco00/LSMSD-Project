@@ -9,8 +9,8 @@ import static org.neo4j.driver.Values.parameters;
 public class UserNeo4j {
     private final GraphNeo4j graphNeo4j;
 
-    public UserNeo4j(GraphNeo4j graphNeo4j){
-        this.graphNeo4j = graphNeo4j;
+    public UserNeo4j(){
+        this.graphNeo4j = GraphNeo4j.getIstance();
     }
 
     public GraphNeo4j getGraphNeo4j() {
@@ -20,7 +20,7 @@ public class UserNeo4j {
     public boolean followUserByUsername(String usernameA, String usernameB){
         boolean result = true;
         try{
-            graphNeo4j.read("MATCH (uA:User) WHERE uA.name=$usernameA" +
+            graphNeo4j.write("MATCH (uA:User) WHERE uA.name=$usernameA" +
                             " MATCH (uB:User) WHERE uB.name=$usernameB" +
                             " MERGE (uA)-[:FOLLOWS]->(uB)",
                     parameters("usernameA", usernameA, "usernameB", usernameB));

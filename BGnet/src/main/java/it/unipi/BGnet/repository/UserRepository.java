@@ -4,16 +4,21 @@ import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.repository.mongoDB.IUserRepository;
+import it.unipi.BGnet.repository.neo4j.UserNeo4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.neo4j.driver.Record;
 
 @Repository
 public class UserRepository {
     @Autowired
     private IUserRepository userMongo;
+
+    UserNeo4j userNeo4j = new UserNeo4j();
 
     // CRUD Methods
     // ----------------------------------------------------------------------------------------
@@ -98,5 +103,26 @@ public class UserRepository {
             return false;
         }
         return true;
+    }
+
+    ////////// NEO4J PART ///////////////
+    public boolean followUserByUsername(String usernameA, String usernameB){
+        return userNeo4j.followUserByUsername(usernameA, usernameB);
+    }
+    public boolean unfollowUserByUsername(String usernameA, String usernameB){
+        return userNeo4j.unfollowUserByUsername(usernameA, usernameB);
+    }
+    public int findFollowerNumberByUsername(String username){
+        return userNeo4j.findFollowerNumberByUsername(username).get(0).get("numFollowers").asInt();
+    }
+    public List<String> findInCommonFollowers(String usernameA, String usernameB){
+        List<String> inCommonFollowers = new ArrayList<>();
+        for(Record r: userNeo4j.findInCommonFollowers(usernameA, usernameB)){
+            inCommonFollowers.add(r.get("name").asString());
+        }
+        return inCommonFollowers;
+    }
+    public boolean createNewUserNeo4j(String username){
+        return userNeo4j.createNewUser(username);
     }
 }
