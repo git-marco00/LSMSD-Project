@@ -80,4 +80,17 @@ public class GameNeo4j {
         }
         return result;
     }
+
+    public List<Record> isFollowing(String username, String gamename){
+        try{
+            return graphNeo4j.read("MATCH (u:user {name: $username})," +
+                            " (g:game{name:$gamename})" +
+                            " RETURN EXISTS((u)-[:FOLLOWS]-(g)) AS isFollowing",
+                    parameters("username", username, "gamename", gamename));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -19,10 +19,22 @@ public class GameService {
     public GamePage getGamePage(String myself, String gameName){
         GamePage gamePage = new GamePage();
         Optional<Game> game = gameRep.getGameByName(gameName);
+
+        /////// NEO4J ///////
+        List<String> inCommonFollowers=null;
+        boolean isFollowing = false;
+
+        if(myself!=null) {
+            inCommonFollowers = gameRep.findInCommonFollowers(myself, gameName);
+            isFollowing = gameRep.isFollowing(myself, gameName);
+        }
+        int followers = gameRep.getFollowersNumberByGamename(gameName);
+
         if(game.isEmpty()){
             return null;
         }
         else {
+            ///////// MONGODB ////////
             gamePage.setGameName(game.get().getName());
             gamePage.setDesigner(game.get().getDesigner());
             gamePage.setYearPublished(game.get().getYearPublished());
@@ -34,7 +46,11 @@ public class GameService {
             gamePage.setRatings(game.get().getRatings());
             gamePage.setRated(game.get().haveIVoted(myself));
             gamePage.setMostRecentPosts(game.get().getMostRecentPosts());
-            //followers, se io lo seguo, in common followers
+
+            ///////// NEO4J //////////
+            gamePage.setFollowed(isFollowing);
+            gamePage.setInCommonFollowers(inCommonFollowers);
+            gamePage.setFollowers(followers);
             return gamePage;
         }
     }

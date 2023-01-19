@@ -200,9 +200,14 @@ public class GameRepository {
         return inCommonFollowers;
     }
 
+
+
     public boolean createNewGameNeo4j(String gamename){
         return gameNeo4j.createNewGame(gamename);
     }
 
+    public boolean isFollowing(String username, String gamename){
+        return gameNeo4j.isFollowing(username, gamename).get(0).get("isFollowing").asBoolean();
+    }
 
 }

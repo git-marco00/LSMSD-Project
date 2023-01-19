@@ -21,7 +21,10 @@ $(document).ready(function() {
                 $('#rateButton').prop('disabled', true)
             }
             if(data.inCommonFollowers != null) {
-                $('#inCommonFollowers').text()
+                let follower = 0
+                for(follower in data.inCommonFollowers){
+                    $('#inCommonFollowers').append(follower)
+                }
             }
             if(data.mostRecentPosts != null) {
                 let post = 0
