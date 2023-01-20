@@ -5,11 +5,12 @@ import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
