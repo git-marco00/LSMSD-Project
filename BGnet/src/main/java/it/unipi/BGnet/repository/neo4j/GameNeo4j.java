@@ -34,9 +34,7 @@ public class GameNeo4j {
     public boolean unfollowGameByGamename(String username, String gamename){
         boolean result = true;
         try{
-            graphNeo4j.write("MATCH (u:User) WHERE u.name=$username" +
-                            " MATCH (g:Game) WHERE g.name=$gamename" +
-                            " DELETE (u)-[:FOLLOWS]->(g)",
+            graphNeo4j.write("MATCH (u:User {name: '$username'})-[r:FOLLOWS]->(g:Game {name: '$gamename'}) DELETE r",
                     parameters("username", username, "gamename", gamename));
         } catch (Exception e){
             e.printStackTrace();
@@ -81,9 +79,7 @@ public class GameNeo4j {
     }
     public List<Record> isFollowing(String username, String gamename){
         try{
-            return graphNeo4j.read("MATCH (u:user {name: $username})," +
-                            " (g:game{name:$gamename})" +
-                            " RETURN EXISTS((u)-[:FOLLOWS]-(g)) AS isFollowing",
+            return graphNeo4j.read("MATCH (u:User {name: $username}), (g:Game{name:$gamename}) RETURN EXISTS((u)-[:FOLLOWS]->(g)) AS isFollowing",
                     parameters("username", username, "gamename", gamename));
 
         } catch (Exception e){
