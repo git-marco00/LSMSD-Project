@@ -72,6 +72,23 @@ public class User {
     }
 
     public User() {}
+
+    public String getStateOrProvince() {
+        return stateOrProvince;
+    }
+
+    public void setStateOrProvince(String stateOrProvince) {
+        this.stateOrProvince = stateOrProvince;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public BigInteger getId() { return id; }
     public void setId(BigInteger id) {
         this.id = id;
