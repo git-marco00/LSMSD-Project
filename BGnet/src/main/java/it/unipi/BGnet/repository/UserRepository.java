@@ -176,4 +176,8 @@ public class UserRepository {
         }
         return famousUser;
     }
+
+    public boolean deleteUserNeo4j(String name){
+        return userNeo4j.deleteUser(name);
+    }
 }

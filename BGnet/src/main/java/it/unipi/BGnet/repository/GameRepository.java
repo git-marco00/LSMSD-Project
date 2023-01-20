@@ -207,6 +207,10 @@ public class GameRepository {
         return gameNeo4j.createNewGame(gamename);
     }
 
+    public boolean deleteGameNeo4j(String gamename){
+        return gameNeo4j.deleteGame(gamename);
+    }
+
     public boolean isFollowing(String username, String gamename){
         return gameNeo4j.isFollowing(username, gamename).get(0).get("isFollowing").asBoolean();
     }

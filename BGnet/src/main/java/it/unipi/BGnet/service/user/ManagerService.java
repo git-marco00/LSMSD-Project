@@ -46,6 +46,7 @@ public class ManagerService {
         if(toDelete.isEmpty())
             return false;
 
+        userRepo.deleteUserNeo4j(name);
         if(!userRepo.deleteUser(toDelete.get()))
             return false;
 
@@ -57,6 +58,7 @@ public class ManagerService {
         if(toDelete.isEmpty())
             return false;
 
+        gameRepo.deleteGameNeo4j(name);
         if(!gameRepo.deleteGameMongo(toDelete.get()))
             return false;
 

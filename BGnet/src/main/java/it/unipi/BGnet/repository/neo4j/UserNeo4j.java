@@ -133,5 +133,17 @@ public class UserNeo4j {
         return null;
     }
 
+    public boolean deleteUser(String username){
+        try{
+            graphNeo4j.write("MATCH (u:User{name:$username})" +
+                            "DETACH DELETE u",
+                    parameters("username", username));
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 
 }
