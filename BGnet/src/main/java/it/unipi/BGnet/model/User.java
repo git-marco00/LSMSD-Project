@@ -43,6 +43,9 @@ public class User {
     @Field("most_recent_post")
     private List<Post> mostRecentPosts = new ArrayList<>();
 
+    @Field("admin")
+    private boolean admin;
+
     public User(String username, String password, String firstName, String lastName, int yearRegistered, String email, String stateOrProvince, String country, String continent, String img, List<Post> mostRecentPosts) {
         this.username = username;
         this.password = password;

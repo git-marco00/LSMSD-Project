@@ -74,6 +74,19 @@ $(document).ready(function() {
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
+                $("#deleteButton").bind('click', function(event){
+                    if(confirm("Do you really want to delete this game?")) {
+                        $.ajax({
+                            url: "/api/deleteGame",
+                            method: "put",
+                            data: {name: data.gameName},
+                            success: function (data) {
+                                alert("Game deleted!")
+                                window.location.href = "http://localhost:8080/adminPage"
+                            }
+                        })
+                    }
+                })
             }
         }
     })

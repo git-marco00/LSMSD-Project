@@ -19,6 +19,7 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     UserRepository userRepo;
+
     @Autowired
     GameRepository gameRepo;
     public boolean addUser(User user) {
@@ -94,5 +95,8 @@ public class UserService {
     }
     public List<UserDTO> getMostFamousUsers() {
         return userRepo.getFamousUsers();
+    }
+    public boolean isAdmin(String username){
+        return userRepo.checkAdmin(username);
     }
 }
