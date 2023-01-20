@@ -63,4 +63,10 @@ public class GameController {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         return gson.toJson(page);
     }
+
+    @GetMapping("/api/follow")
+        public boolean followGame(Model model){
+            SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+            return gameService.follow(sv.gameToDisplay, sv.myself);
+        }
 }

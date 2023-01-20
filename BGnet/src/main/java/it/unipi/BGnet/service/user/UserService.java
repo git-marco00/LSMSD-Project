@@ -16,7 +16,10 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
     public boolean addUser(User user) {
-        return userRepo.addUser(user);
+        if(!userRepo.addUser(user))
+            return false;
+
+        return userRepo.createNewUserNeo4j(user.getUsername());
     }
     public UserDTO getUserByEmail(String email) {
         Optional<User> result = userRepo.getUserByEmail(email);

@@ -48,6 +48,18 @@ $(document).ready(function() {
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
+                $("#followButton").bind('click', function(event){
+                    $.ajax({
+                        url: "/api/follow",
+                        success : function(data){
+                            if(data)
+                                $("#fol").text(parseInt($("#fol").text()) + 1)
+                        }
+                    })
+                    $("#fol")
+                })
+
+
             }
         }
     })

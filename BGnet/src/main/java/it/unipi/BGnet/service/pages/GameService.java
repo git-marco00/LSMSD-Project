@@ -2,8 +2,11 @@ package it.unipi.BGnet.service.pages;
 
 import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.GamePage;
+import it.unipi.BGnet.controllers.api.GameController;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.repository.GameRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,7 @@ public class GameService {
     public GamePage getGamePage(String myself, String gameName){
         GamePage gamePage = new GamePage();
         Optional<Game> game = gameRep.getGameByName(gameName);
-
+        Logger logger = LoggerFactory.getLogger(GameService.class);
         /////// NEO4J ///////
         List<String> inCommonFollowers = null;
         boolean isFollowing = false;
@@ -37,6 +40,7 @@ public class GameService {
             ///////// MONGODB ////////
             gamePage.setGameName(game.get().getName());
             gamePage.setDesigner(game.get().getDesigner());
+            logger.warn(String.valueOf(game.get().getYearPublished()));
             gamePage.setYearPublished(game.get().getYearPublished());
             gamePage.setMinPlayers(game.get().getMinPlayers());
             gamePage.setMaxPlayers(game.get().getMaxPlayers());
@@ -77,5 +81,9 @@ public class GameService {
             result.add(target);
         }
         return result;
+    }
+
+    public boolean follow(String gameName, String username){
+        return gameRep.followGameByGamename(username, gameName);
     }
 }

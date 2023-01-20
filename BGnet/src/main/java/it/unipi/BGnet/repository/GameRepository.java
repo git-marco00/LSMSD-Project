@@ -127,7 +127,6 @@ public class GameRepository {
         if(game.isEmpty())
             return false;
         List<Post> list = game.get().getMostRecentPosts();
-        list.add(0, post);
         list.remove(post);
         game.get().setMostRecentPosts(list);
         try{

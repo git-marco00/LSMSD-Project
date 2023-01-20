@@ -82,7 +82,23 @@ public class UserRepository {
             return false;
         }
         return true;
+    }
 
+    public boolean removePost(String username, Post post){
+        Optional<User> user = getUserByUsername(username);
+        if(user.isEmpty())
+            return false;
+
+        List<Post> list = user.get().getMostRecentPosts();
+        list.remove(post);
+        user.get().setMostRecentPosts(list);
+        try{
+            userMongo.save(user.get());
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public boolean updatePost(String name, Post olderPost, Post newPost){

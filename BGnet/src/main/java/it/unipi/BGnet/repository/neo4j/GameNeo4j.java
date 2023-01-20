@@ -4,15 +4,21 @@ import java.util.List;
 
 import static org.neo4j.driver.Values.parameters;
 
+import it.unipi.BGnet.service.pages.GameService;
 import org.neo4j.driver.Record;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GameNeo4j {
+    Logger logger = LoggerFactory.getLogger(GameService.class);
     private final GraphNeo4j graphNeo4j;
     public GameNeo4j(){ this.graphNeo4j = GraphNeo4j.getIstance();}
     public GraphNeo4j getGraphNeo4j() {
         return graphNeo4j;
     }
     public boolean followGameByGamename(String username, String gamename){
+        logger.warn(username);
+        logger.warn(gamename);
         boolean result = true;
         try{
             graphNeo4j.write("MATCH (u:User) WHERE u.name=$username" +

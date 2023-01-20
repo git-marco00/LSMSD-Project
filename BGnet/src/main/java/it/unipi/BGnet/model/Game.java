@@ -15,6 +15,8 @@ public class Game {
     private String id;
     private String name;
     private String designer;
+
+    @Field("yearpublished")
     private int yearPublished;
     @Field("minplayers")
     private int minPlayers;
