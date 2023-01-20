@@ -91,4 +91,29 @@ public class GameNeo4j {
         }
         return null;
     }
+
+    public List<Record> getFamousGames(){
+        try{
+            return graphNeo4j.read("MATCH ()-[r:FOLLOWS]->(g:Game) " +
+                            "RETURN DISTINCT(g.name) AS game, g.imgUrl AS imgUrl COUNT(DISTINCT((r))) AS cardinality  " +
+                            "ORDER BY cardinality DESC " +
+                            "LIMIT 4");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean deleteGame(String gamename){
+        try{
+            graphNeo4j.write("MATCH (g:Game{name:$gamename})" +
+                    "DETACH DELETE g",
+            parameters("gamename", gamename));
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 }

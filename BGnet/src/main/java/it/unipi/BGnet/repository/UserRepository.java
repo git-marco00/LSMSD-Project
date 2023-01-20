@@ -1,5 +1,7 @@
 package it.unipi.BGnet.repository;
 
+import it.unipi.BGnet.DTO.GameDTO;
+import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
@@ -140,5 +142,38 @@ public class UserRepository {
     }
     public boolean createNewUserNeo4j(String username){
         return userNeo4j.createNewUser(username);
+    }
+
+    public List<GameDTO> getSuggestedGames(String username){
+        List<GameDTO> suggestedGames = new ArrayList<>();
+        for(Record r: userNeo4j.getSuggestedGames(username)){
+            GameDTO game = new GameDTO();
+            game.setName(r.get("gameName").asString());
+            game.setImage(r.get("imgUrl").asString());
+            suggestedGames.add(game);
+        }
+        return suggestedGames;
+    }
+
+    public List<UserDTO> getSuggestedUser(String username){
+        List<UserDTO> suggestedUser = new ArrayList<>();
+        for(Record r: userNeo4j.getSuggestedUsers(username)){
+            UserDTO user = new UserDTO();
+            user.setUsername(r.get("gameName").asString());
+            user.setImg(r.get("imgUrl").asString());
+            suggestedUser.add(user);
+        }
+        return suggestedUser;
+    }
+
+    public List<UserDTO> getFamousUsers(){
+        List<UserDTO> famousUser = new ArrayList<>();
+        for(Record r: userNeo4j.getFamousUsers()){
+            UserDTO user = new UserDTO();
+            user.setUsername(r.get("user").asString());
+            user.setImg(r.get("imgUrl").asString());
+            famousUser.add(user);
+        }
+        return famousUser;
     }
 }

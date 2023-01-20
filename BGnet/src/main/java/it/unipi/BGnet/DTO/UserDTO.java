@@ -1,10 +1,11 @@
 package it.unipi.BGnet.DTO;
 
 import it.unipi.BGnet.model.Post;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@NoArgsConstructor
 public class UserDTO {
     private String username;
     private String password;
@@ -23,6 +24,39 @@ public class UserDTO {
         this.lastName = lastName;
         this.img = img;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public List<PostDTO> getMostRecentPosts() {
+        return mostRecentPosts;
+    }
+
     public UserDTO(String username, String password) {
         this.username = username;
         this.password = password;

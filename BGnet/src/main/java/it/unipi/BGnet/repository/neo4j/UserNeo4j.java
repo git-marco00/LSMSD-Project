@@ -84,4 +84,54 @@ public class UserNeo4j {
         return result;
     }
 
+    public List<Record> getSuggestedUsers(String username){
+        try{
+            return graphNeo4j.read("MATCH(u:User{name:$username})-[:PARTICIPATE]->(t:Tournament)<-[:PARTICIPATE]-(inCommonPartecipants:User) " +
+                            "WHERE NOT (inCommonPartecipants)<-[:FOLLOWS]-(u) " +
+                            "MATCH (inCommonGamers)-[:FOLLOWS]->(g:Game)<-[:FOLLOWS]-(u) " +
+                            "WHERE inCommonGamers.name IN inCommonPartecipants.name " +
+                            "RETURN DISTINCT(inCommonGamers) AS suggestedUser, COUNT(*) AS numGames " +
+                            "ORDER BY numGames DESC " +
+                            "LIMIT 4",
+                    parameters("username", username));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Record> getFamousUsers(){
+        try{
+            return graphNeo4j.read("MATCH ()-[r:FOLLOWS]->(u:User) " +
+                            "RETURN DISTINCT(u.name) AS user, u.imgUrl AS imgUrl, COUNT(DISTINCT((r))) AS cardinality  " +
+                            "ORDER BY cardinality DESC " +
+                            "LIMIT 4");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public List<Record> getSuggestedGames(String username){
+        try{
+            return graphNeo4j.read("MATCH (u:User{name:$username})-[:FOLLOWS]->(g:Game) " +
+                            "UNWIND g.category AS categories " +
+                            "WITH collect(categories) AS bestCategoriesList, COUNT(*) AS numGames " +
+                            "ORDER BY numGames DESC " +
+                            "LIMIT 4 " +
+                            "MATCH (u:User{name:$username})-[:FOLLOWS]->(following:User) " +
+                            "MATCH (following)-[:FOLLOWS]->(g:Game) " +
+                            "WHERE NOT (u)-[:FOLLOWS]->(g) AND g.category[0] IN bestCategoriesList " +
+                            "RETURN g.name AS gameName, g.imgUrl AS imgUrl, COUNT(g) AS numFollowers " +
+                            "ORDER BY numFollowers DESC " +
+                            "LIMIT 4 ",
+                    parameters("username", username));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
