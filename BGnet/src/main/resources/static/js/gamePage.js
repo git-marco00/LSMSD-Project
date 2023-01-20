@@ -4,6 +4,7 @@ $(document).ready(function() {
         method : "get",
         success : function(data) {
             data = JSON.parse(data)
+            console.log(data)
             $('#imgProf').append('<img src=' + data.imageUrl + ' class="w3-circle" style="height:106px;width:106px" alt="Avatar"/>')
             $('#gameName').empty().append('<b>' + data.gameName + '</b>')
             $('#ypub').text('Year: ' + data.yearPublished)
@@ -13,9 +14,35 @@ $(document).ready(function() {
             $('#cat').text('Category: ' + data.categories)
             $('#minpmaxp').text('Min players / Max players: ' + data.minPlayers + ' / ' + data.maxPlayers)
             $('#desc').append('<p> Description: ' + data.description + '</p>')
-            if(data.followed == "true") {
+            if(data.followed == true) {
                 $('#followButton').text("Unfollow")
+                $('#followButton').bind('click', function(event) {
+                    $.ajax({
+                        url: "/api/unfollowGame",
+                        data : {game: data.gameName},
+                        method: "get",
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(data)
+                                window.location.href = "http://localhost:8080/gamePage"
+                        }
+                    })
+                })
             }
+            else
+                $('#followButton').bind('click', function(event) {
+                    $.ajax({
+                        url: "/api/followGame",
+                        data : {game: data.gameName},
+                        method: "get",
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(data)
+                                window.location.href = "http://localhost:8080/gamePage"
+                            else alert("You must be logged to follow a game!")
+                        }
+                    })
+                })
             if(data.rated != false)
                 $('#rateButton').prop('disabled', true)
             if(data.inCommonFollowers != null) {
@@ -47,22 +74,11 @@ $(document).ready(function() {
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
-                $("#followButton").bind('click', function(event){
-                    $.ajax({
-                        url: "/api/follow",
-                        success : function(data){
-                            if(data)
-                                $("#fol").text(parseInt($("#fol").text()) + 1)
-                        }
-                    })
-                    $("#fol")
-                })
-
-
             }
         }
     })
 })
+
 function getAllPosts() { window.location.href = "http://localhost:8080/postPage"; }
 
 function likePost(){;}

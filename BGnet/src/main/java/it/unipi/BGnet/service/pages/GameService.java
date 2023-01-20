@@ -82,8 +82,10 @@ public class GameService {
         }
         return result;
     }
-
-    public boolean follow(String gameName, String username){
-        return gameRep.followGameByGamename(username, gameName);
+    public boolean followGame(String username, String game) {
+        return gameRep.followGameByGamename(username, game);
+    }
+    public boolean unfollowGame(String username, String game) {
+        return gameRep.unfollowGameByGamename(username, game);
     }
 }
