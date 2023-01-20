@@ -62,12 +62,34 @@ public class UserService {
                             break;
                         }
                     }
-                    if(!false){
+                    if(!found){
                         suggestedGames.add(fam);
                     }
                 }
             }
         }
         return suggestedGames;
+    }
+
+    public List<UserDTO> getSuggestedUsers(String username){
+        List<UserDTO> suggestedUsers = userRepo.getSuggestedUser(username);
+        if(suggestedUsers.size()<4){
+            List<UserDTO> famousUsers = userRepo.getFamousUsers();
+            while(suggestedUsers.size()<4){
+                for(UserDTO fam: famousUsers){
+                    boolean found=false;
+                    for(UserDTO sugg: suggestedUsers){
+                        if(sugg.getUsername().equals(fam.getUsername())){
+                            found=true;
+                            break;
+                        }
+                    }
+                    if(!found){
+                        suggestedUsers.add(fam);
+                    }
+                }
+            }
+        }
+        return suggestedUsers;
     }
 }
