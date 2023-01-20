@@ -27,6 +27,8 @@ $(document).ready(function() {
                 }
             }
             if(data.mostRecentPosts != null) {
+                let viewAllPosts = '<div class="w3-margin w3"><button type="button" class="w3-button w3-theme-d2 w3-margin-bottom" onClick="getAllPosts()"><class="fa fa-comment"></i> View all posts </button></div>'
+                $('#right-column').append(viewAllPosts)
                 let post = 0
                 for(post in data.mostRecentPosts) {
                     let html = '<div id="post-' + data.mostRecentPosts[post].id + '" class="post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
@@ -48,8 +50,6 @@ $(document).ready(function() {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
             }
-            let viewAllPosts = '<div class="w3-margin w3"><button type="button" class="w3-button w3-theme-d2 w3-margin-bottom" onClick="getAllPosts()"><class="fa fa-comment"></i> View all posts </button></div>'
-            $('#right-column').append(viewAllPosts)
         }
     })
 })
