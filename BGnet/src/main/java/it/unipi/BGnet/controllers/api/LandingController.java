@@ -12,12 +12,8 @@ public class LandingController {
 
     @RequestMapping("/api/landing")
     public Iterable<String> returnList(){
-        list = new ArrayList<String>();
-        list.add("./img/image0.jpg");
-        list.add("./img/image0.jpg");
-        list.add("./img/image0.jpg");
-        list.add("./img/image0.jpg");
-        System.out.println("HO ESEGUITO");
-        return list;
+        // CHIAMO service
+        // restituisco json {games: [{gamename: , gameurl}], users: [{username: , userurl}]}
+        return null;
     }
 }
