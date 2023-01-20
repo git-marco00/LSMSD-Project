@@ -182,13 +182,17 @@ public class UserRepository {
     }
 
     public boolean checkAdmin(String name){
-        boolean result = false;
+        Optional<User> result;
         try{
-            result = userMongo.findByUsernameAndAdminExists(name);
+            result = getUserByUsername(name);
+            if(result.isEmpty())
+                return false;
+            if(!result.get().isAdmin())
+                return false;
         } catch (Exception e){
             e.printStackTrace();
-            result = false;
+            return false;
         }
-        return result;
+        return true;
     }
 }

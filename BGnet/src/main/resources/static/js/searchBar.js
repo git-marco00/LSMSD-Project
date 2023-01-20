@@ -114,7 +114,14 @@ function searchForAGameFiltered(){
 }
 
 function searchForAPerson(){
-    let user = document.getElementById("searchEditText").value.trim();
+    let searchEditText;
+    let user;
+    if(arguments[0])
+        user = arguments[0];
+    else {
+        searchEditText = document.getElementById("searchEditText");
+        user = searchEditText.value.trim();
+    }
     $.ajax({
         url: "/api/loadProfile",
         data: {username: user},
@@ -122,11 +129,22 @@ function searchForAPerson(){
         success: function(data) {
             console.log(data)
             if(data == "no"){
-                alert("Nessun user trovato");
+                alert("No user found");
             }
             else{
                window.location.href =  "http://localhost:8080/userProfile?user=" + user;
             }
+        }
+    })
+}
+
+function checkAdmin(){
+    $.ajax({
+        url: "/api/isAdmin",
+        method: "get",
+        success: function(data){
+            if(data == "ok")
+                $(".admin").show()
         }
     })
 }

@@ -20,11 +20,13 @@ function requestPostPage(pageNumber){
                     html += '<p id="_id" style="display: none;">' + posts[post].id + '</p>'
                     html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button>'
                     html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="' + posts[post].id + '"><i id="' + posts[post].id + '" class="fa fa-comment"></i> View comments</button>'
+                    html += '<button type="button" class="admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + posts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
                     html += '</div><br>'
                     $('#containerPosts').append(html)
                 }
                 $('h4.author').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
+                    searchForAPerson(event.target.id)
+                    // window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
                 })
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id
@@ -32,6 +34,21 @@ function requestPostPage(pageNumber){
                 $("#game").bind('click', function(event){
                     window.location.href = "http://localhost:8080/gamePage"
                 })
+                $(".delete").bind('click', function(event){
+                    if(confirm("Do you really want to delete this post?")){
+                        $.ajax({
+                            url: "/api/deletePost",
+                            method: "get",
+                            data: {id: event.target.id.slice(11)},
+                            success: function(data){
+                                alert("Post deleted!")
+                                window.location.href = "http://localhost:8080/postPage"
+                            }
+                        })
+                    }
+                })
+                $(".admin").hide()
+                checkAdmin()
             }
         }
     })
