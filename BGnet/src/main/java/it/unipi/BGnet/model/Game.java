@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +34,24 @@ public class Game {
     private List<String> followers;
     @Field("avg_rate")
     private float avgRate;
+
+    public Game(String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String img) {
+        this.name = name;
+        this.designer = designer;
+        this.yearPublished = yearPublished;
+        this.minPlayers = minPlayers;
+        this.maxPlayers = maxPlayers;
+        this.playingTime = playingTime;
+        this.minPlayTime = minPlayTime;
+        this.maxPlayTime = maxPlayTime;
+        this.categories = categories;
+        this.description = description;
+        this.img = img;
+        this.ratings = new ArrayList<>();
+        this.mostRecentPosts = new ArrayList<>();
+        this.followers = new ArrayList<>();
+        this.avgRate = 0;
+    }
 
     public Game(String id, String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String imageUrl, List<String> ratings, List<Post> mostRecentPosts, List<String> followers) {
         this.id = id;
