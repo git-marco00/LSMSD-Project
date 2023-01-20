@@ -14,6 +14,8 @@ public class SessionVariables {
     public int currentPage;
     public boolean lastPage;
 
+    public boolean admin;
+
     @Override
     public String toString() {
         return "SessionVariables{" +

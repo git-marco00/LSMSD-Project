@@ -92,4 +92,8 @@ public class UserService {
         }
         return suggestedUsers;
     }
+
+    public boolean isAdmin(String username){
+        return userRepo.checkAdmin(username);
+    }
 }

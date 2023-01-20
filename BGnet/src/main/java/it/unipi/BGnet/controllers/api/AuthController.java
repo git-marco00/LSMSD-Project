@@ -35,6 +35,7 @@ public class AuthController {
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         sv.myself = user.getUsername();
         System.out.println(sv.myself);
+        sv.admin = userService.isAdmin(sv.myself);
         model.addAttribute("sessionVariables",  sv);
         /////////////////////////////////////////////////////////////////////////////
 

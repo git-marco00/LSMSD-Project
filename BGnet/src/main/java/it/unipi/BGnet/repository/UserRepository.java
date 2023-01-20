@@ -180,4 +180,15 @@ public class UserRepository {
     public boolean deleteUserNeo4j(String name){
         return userNeo4j.deleteUser(name);
     }
+
+    public boolean checkAdmin(String name){
+        boolean result = false;
+        try{
+            result = userMongo.findByUsernameAndAdminExists(name);
+        } catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
+    }
 }
