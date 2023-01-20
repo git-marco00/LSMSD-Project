@@ -14,11 +14,11 @@ public class GamePage {
     private List<String> categories;
     private String description;
     private String imageUrl;
-    private float ratings;
+    private float avgRate;
     private List<PostDTO> mostRecentPosts;
     private int followers;
     private boolean followed;
-    private int rated;  // -1 if not rated
+    private boolean rated;  // -1 if not rated
     private List<String> inCommonFollowers;
     public String getGameName() {
         return gameName;
@@ -68,11 +68,11 @@ public class GamePage {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    public float getRatings() {
-        return ratings;
+    public float getAvgRate() {
+        return avgRate;
     }
-    public void setRatings(float ratings) {
-        this.ratings = ratings;
+    public void setAvgRate(float avgRate) {
+        this.avgRate = avgRate;
     }
     public List<PostDTO> getMostRecentPosts() {
         return mostRecentPosts;
@@ -103,10 +103,10 @@ public class GamePage {
     public void setFollowed(boolean followed) {
         this.followed = followed;
     }
-    public int getRated() {
+    public boolean getRated() {
         return rated;
     }
-    public void setRated(int rated) {
+    public void setRated(boolean rated) {
         this.rated = rated;
     }
     public List<String> getInCommonFollowers() {
@@ -126,7 +126,7 @@ public class GamePage {
                 ", categories=" + categories +
                 ", description='" + description + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", ratings=" + ratings +
+                ", avgRate=" + avgRate +
                 ", mostRecentPosts=" + mostRecentPosts +
                 ", followers=" + followers +
                 ", followed=" + followed +

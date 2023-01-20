@@ -26,12 +26,14 @@ public class Game {
     private List<String> categories;
     private String description;
     private String img;
-    private List<Rating> ratings;
+    private List<String> ratings;
     @Field("most_recent_post")
     private List<Post> mostRecentPosts;
     private List<String> followers;
+    @Field("avg_rate")
+    private float avgRate;
 
-    public Game(String id, String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String imageUrl, List<Rating> ratings, List<Post> mostRecentPosts, List<String> followers) {
+    public Game(String id, String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String imageUrl, List<String> ratings, List<Post> mostRecentPosts, List<String> followers) {
         this.id = id;
         this.name = name;
         this.designer = designer;
@@ -47,6 +49,10 @@ public class Game {
         this.ratings = ratings;
         this.mostRecentPosts = mostRecentPosts;
         this.followers = followers;
+    }
+    public Game(String id, String name, String designer, int yearPublished, int minPlayers, int maxPlayers, String playingTime, String minPlayTime, String maxPlayTime, List<String> categories, String description, String imageUrl, List<String> ratings, List<Post> mostRecentPosts, List<String> followers, float avgRate) {
+        this(id, name, designer, yearPublished, minPlayers, maxPlayers, playingTime, minPlayTime, maxPlayTime, categories, description, imageUrl,ratings, mostRecentPosts, followers);
+        this.avgRate = avgRate;
     }
     public String getId() {
         return id;
@@ -120,14 +126,7 @@ public class Game {
     public void setImageUrl(String imageUrl) {
         this.img = imageUrl;
     }
-    public float getRatings() {
-        int sum=0;
-        for (Rating rating : ratings) {
-            sum += rating.getRate();
-        }
-        return (float) sum/ratings.size();
-    }
-    public void setRatings(List<Rating> ratings) {
+    public void setRatings(List<String> ratings) {
         this.ratings = ratings;
     }
     public List<Post> getMostRecentPosts() { return mostRecentPosts; }
@@ -140,12 +139,13 @@ public class Game {
     public void setFollowers(List<String> followers) {
         this.followers = followers;
     }
-    public int haveIVoted(String username){
-        for(Rating rating : ratings){
-            if (Objects.equals(rating.getUser(), username)){
-                return rating.getRate();
+    public boolean haveIVoted(String username){
+        for(String user : ratings){
+            if (user.equals(username)){
+                return true;
             }
         }
-        return -1;
+        return false;
     }
+    public float getAvgRate() { return avgRate; }
 }

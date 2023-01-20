@@ -43,7 +43,7 @@ public class GameService {
             gamePage.setCategories(game.get().getCategories());
             gamePage.setDescription(game.get().getDescription());
             gamePage.setImageUrl(game.get().getImg());
-            gamePage.setRatings(game.get().getRatings());
+            gamePage.setAvgRate(game.get().getAvgRate());
             gamePage.setRated(game.get().haveIVoted(myself));
             gamePage.setMostRecentPosts(game.get().getMostRecentPosts());
 
