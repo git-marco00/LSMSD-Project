@@ -74,6 +74,12 @@ $(document).ready(function() {
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
+                $("#deleteButton").bind('click', function(event){
+                    $.ajax({
+                        url: "/api/deleteGame",
+                        method: "put"
+                    })
+                })
             }
         }
     })
