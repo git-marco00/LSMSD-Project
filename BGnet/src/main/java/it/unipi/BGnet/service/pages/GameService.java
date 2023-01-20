@@ -18,7 +18,6 @@ import java.util.Optional;
 public class GameService {
     @Autowired
     private GameRepository gameRep;
-
     public GamePage getGamePage(String myself, String gameName){
         GamePage gamePage = new GamePage();
         Optional<Game> game = gameRep.getGameByName(gameName);

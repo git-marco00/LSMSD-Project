@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("sessionVariables")
 public class HomeController {
     @RequestMapping("/")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         if((SessionVariables) model.getAttribute("sessionVariables") == null)
             model.addAttribute("sessionVariables", new SessionVariables());
         return "home";

@@ -19,7 +19,6 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     UserRepository userRepo;
-
     @Autowired
     GameRepository gameRepo;
     public boolean addUser(User user) {
@@ -48,14 +47,13 @@ public class UserService {
         profile.setMostRecentPosts(result.get().getMostRecentPosts());
         return profile;
     }
-
     public List<GameDTO> getSuggestedGames(String username){
         List<GameDTO> suggestedGames = userRepo.getSuggestedGames(username);
-        if(suggestedGames.size()<4){
+        if(suggestedGames.size() < 4){
             List<GameDTO> famousGames = gameRepo.getFamousGames();
-            while(suggestedGames.size()<4){
+            while(suggestedGames.size() < 4){
                 for(GameDTO fam: famousGames){
-                    boolean found=false;
+                    boolean found = false;
                     for(GameDTO sugg: suggestedGames){
                         if(sugg.getName().equals(fam.getName())){
                             found=true;
@@ -70,7 +68,9 @@ public class UserService {
         }
         return suggestedGames;
     }
-
+    public List<GameDTO> getMostFamousGames() {
+        return gameRepo.getFamousGames();
+    }
     public List<UserDTO> getSuggestedUsers(String username){
         List<UserDTO> suggestedUsers = userRepo.getSuggestedUser(username);
         if(suggestedUsers.size()<4){
@@ -91,5 +91,8 @@ public class UserService {
             }
         }
         return suggestedUsers;
+    }
+    public List<UserDTO> getMostFamousUsers() {
+        return userRepo.getFamousUsers();
     }
 }

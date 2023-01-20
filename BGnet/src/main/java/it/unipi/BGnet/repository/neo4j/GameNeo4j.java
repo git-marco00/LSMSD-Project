@@ -4,21 +4,15 @@ import java.util.List;
 
 import static org.neo4j.driver.Values.parameters;
 
-import it.unipi.BGnet.service.pages.GameService;
 import org.neo4j.driver.Record;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class GameNeo4j {
-    Logger logger = LoggerFactory.getLogger(GameService.class);
     private final GraphNeo4j graphNeo4j;
     public GameNeo4j(){ this.graphNeo4j = GraphNeo4j.getIstance();}
     public GraphNeo4j getGraphNeo4j() {
         return graphNeo4j;
     }
     public boolean followGameByGamename(String username, String gamename){
-        logger.warn(username);
-        logger.warn(gamename);
         boolean result = true;
         try{
             graphNeo4j.write("MATCH (u:User) WHERE u.name=$username" +
@@ -79,7 +73,8 @@ public class GameNeo4j {
     }
     public List<Record> isFollowing(String username, String gamename){
         try{
-            return graphNeo4j.read("MATCH (u:User {name: $username}), (g:Game{name:$gamename}) RETURN EXISTS((u)-[:FOLLOWS]->(g)) AS isFollowing",
+            return graphNeo4j.read("MATCH (u:User {name: $username}), (g:Game{name:$gamename}) " +
+                    "RETURN EXISTS((u)-[:FOLLOWS]->(g)) AS isFollowing",
                     parameters("username", username, "gamename", gamename));
 
         } catch (Exception e){
@@ -87,11 +82,11 @@ public class GameNeo4j {
         }
         return null;
     }
-
     public List<Record> getFamousGames(){
         try{
             return graphNeo4j.read("MATCH ()-[r:FOLLOWS]->(g:Game) " +
-                            "RETURN DISTINCT(g.name) AS game, g.imgUrl AS imgUrl COUNT(DISTINCT((r))) AS cardinality  " +
+                            "RETURN DISTINCT(g.name) AS game, g.imgUrl AS imgUrl, " +
+                            "COUNT(DISTINCT((r))) AS cardinality " +
                             "ORDER BY cardinality DESC " +
                             "LIMIT 4");
         } catch (Exception e){
@@ -99,11 +94,9 @@ public class GameNeo4j {
         }
         return null;
     }
-
     public boolean deleteGame(String gamename){
         try{
-            graphNeo4j.write("MATCH (g:Game{name:$gamename})" +
-                    "DETACH DELETE g",
+            graphNeo4j.write("MATCH (g:Game{name:$gamename}) DETACH DELETE g",
             parameters("gamename", gamename));
         } catch (Exception e){
             e.printStackTrace();

@@ -5,7 +5,7 @@ $(document).ready(function() {
         success : function(data) {
             data = JSON.parse(data)
             console.log(data)
-            $('#imgProf').append('<img src=' + data.imageUrl + ' class="w3-circle" style="height:106px;width:106px" alt="Avatar"/>')
+            $('#imgProf').append('<img src=' + data.imageUrl + ' class="w3-circle" style="height:106px;width:106px" alt="Game image"/>')
             $('#gameName').empty().append('<b>' + data.gameName + '</b>')
             $('#ypub').text('Year: ' + data.yearPublished)
             $('#fol').text('Followers: ' + data.followers)
