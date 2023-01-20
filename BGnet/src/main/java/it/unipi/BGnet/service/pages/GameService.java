@@ -21,10 +21,10 @@ public class GameService {
         Optional<Game> game = gameRep.getGameByName(gameName);
 
         /////// NEO4J ///////
-        List<String> inCommonFollowers=null;
+        List<String> inCommonFollowers = null;
         boolean isFollowing = false;
 
-        if(myself!=null) {
+        if(myself != null) {
             inCommonFollowers = gameRep.findInCommonFollowers(myself, gameName);
             isFollowing = gameRep.isFollowing(myself, gameName);
         }
@@ -57,16 +57,13 @@ public class GameService {
     public boolean getExistence(String gameName){
         return gameRep.searchGame(gameName);
     }
-
     public int countExistence(String gameName){
         return gameRep.countGames(gameName);
     }
-
     public List<Game> checkExistence(String pattern){
         List<Game> games = gameRep.searchGames(pattern);
         return games;
     }
-
     public List<GameDTO> getResultPage(List<Game> toShow){
         List<GameDTO> result = new ArrayList<>();
         for(Game g: toShow){
@@ -81,5 +78,4 @@ public class GameService {
         }
         return result;
     }
-
 }

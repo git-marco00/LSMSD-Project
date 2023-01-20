@@ -1,5 +1,6 @@
 $(document).ready(function() {
     let user = window.location.href.slice(39,window.location.href.length)
+    console.log(user)
     $.ajax({
         url: "/api/loadProfile",
         data : {username: user},

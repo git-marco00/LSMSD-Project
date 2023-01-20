@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PostController {
     @GetMapping("/postPage")
-    public String home()
+    public String postPage()
     {
         return "postPage";
     }
