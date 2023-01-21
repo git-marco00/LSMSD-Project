@@ -43,7 +43,7 @@ public class GameService {
             gamePage.setImageUrl(game.get().getImg());
             gamePage.setAvgRate(game.get().getAvgRate());
             gamePage.setRated(game.get().haveIVoted(myself));
-            gamePage.setMostRecentPosts(game.get().getMostRecentPosts());
+            gamePage.setMostRecentPosts(game.get().getMostRecentPosts(), myself);
 
             ///////// NEO4J //////////
             gamePage.setFollowed(isFollowing);

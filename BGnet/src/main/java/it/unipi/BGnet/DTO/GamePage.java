@@ -77,7 +77,7 @@ public class GamePage {
     public List<PostDTO> getMostRecentPosts() {
         return mostRecentPosts;
     }
-    public void setMostRecentPosts(List<Post> mostRecentPosts) {
+    public void setMostRecentPosts(List<Post> mostRecentPosts, String username) {
         List<PostDTO> mostRecentPostsDTO = new ArrayList<>();
         mostRecentPosts.forEach((post) -> {
             PostDTO postDTO = new PostDTO();
@@ -87,6 +87,7 @@ public class GamePage {
             postDTO.setText(post.getText());
             postDTO.setLikes(post.getLikes().size());
             postDTO.setComments(post.getComments().size());
+            postDTO.setHasLiked(post.getLikes().contains(username));
             mostRecentPostsDTO.add(postDTO);
         });
         this.mostRecentPosts = mostRecentPostsDTO;

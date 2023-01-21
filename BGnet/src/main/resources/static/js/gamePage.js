@@ -15,7 +15,7 @@ $(document).ready(function() {
             $('#desc').append('<p> Description: ' + data.description + '</p>')
             if (!data.followed) {
                 $('#unfollowButton').hide()
-                $('#followButton').show().bind('click', function (event) {
+                $('#followButton').show().bind('click', function () {
                     $.ajax({
                         url: "/api/followGame",
                         data: {game: data.gameName},
@@ -33,7 +33,7 @@ $(document).ready(function() {
                 })
             } else {
                 $('#followButton').hide()
-                $('#unfollowButton').show().bind('click', function (event) {
+                $('#unfollowButton').show().bind('click', function () {
                     $.ajax({
                         url: "/api/unfollowGame",
                         data: {game: data.gameName},
@@ -62,21 +62,21 @@ $(document).ready(function() {
                     let html = '<div id="post-' + data.mostRecentPosts[post].id + '" class="post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
                     html += '<img src="img/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'
                     html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + data.mostRecentPosts[post].date.slice(0,10) + '</span>'
-                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + data.mostRecentPosts[post].likes + '</span>'
-                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + data.mostRecentPosts[post].comments + '</span>'
+                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + data.mostRecentPosts[post].comments + '</span>'
+                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + data.mostRecentPosts[post].likes + '</span>'
                     html += ('<h4 id="' + data.mostRecentPosts[post].author + '" class="author">' + data.mostRecentPosts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + data.mostRecentPosts[post].text + '</p>')
-                    html += '<button type="button" class="logged like w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + data.mostRecentPosts[post].id + '"><i class="fa fa-thumbs-up"></i> Like</button>'
+                    html += '<button type="button" class="logged like w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + data.mostRecentPosts[post].id + '"><i id="like-post-' + data.mostRecentPosts[post].id + '" class="fa fa-thumbs-' + ((data.mostRecentPosts[post].hasLiked) ? 'down' : 'up') + '"></i>' + ((data.mostRecentPosts[post].hasLiked) ? ' Unlike' : ' Like') + '</button>'
                     html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="view-comments-' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> View comments</button>'
                     html += '<button type="button" class="admin delete w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
                     html += '</div><br>'
                     $('#post-container').append(html)
                 }
                 $('h4.author').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
+                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
                 })
                 $('button.view-comments').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id.slice(14);
+                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id.slice(14)
                 })
                 $('button.like').bind('click', function(event) {
                     $.ajax({
@@ -85,9 +85,12 @@ $(document).ready(function() {
                         data: {post: event.target.id.slice(10), game: data.gameName},
                         success: function (data) {
                             data = JSON.parse(data)
-                            if(!data) {
+                            if(data == 0) {
                                 alert("You must be logged to like a post!")
-                                // window.location.href = "http://localhost:8080/login"
+                                window.location.href = "http://localhost:8080/login"
+                            }
+                            else if(data == -1) {
+                                alert("Something goes wrong!")
                             }
                             else
                                 window.location.href = "http://localhost:8080/gamePage"
@@ -95,7 +98,7 @@ $(document).ready(function() {
                     })
                 })
             }
-            $("#deleteButton").bind('click', function(event){
+            $("#deleteButton").bind('click', function(){
                 if(confirm("Do you really want to delete this game?")) {
                     $.ajax({
                         url: "/api/deleteGame",
@@ -114,17 +117,17 @@ $(document).ready(function() {
                         url: "/api/deletePost",
                         method: "get",
                         data: {id: event.target.id.slice(11)},
-                        success: function(data){
+                        success: function(){
                             alert("Post deleted!")
                             window.location.href = "http://localhost:8080/gamePage"
                         }
                     })
                 }
             })
-            $('#tournamentButton').bind('click', function(event) {
+            $('#tournamentButton').bind('click', function() {
                 window.location.href = "http://localhost:8080/tournamentPage";
             })
-            $('#postButton').bind('click', function (event) {
+            $('#postButton').bind('click', function () {
                 $('#postButton').prop("disabled", true)
                 html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\">"
                 html += "<br>"
@@ -136,16 +139,13 @@ $(document).ready(function() {
             })
             $(".admin").hide()
             checkAdmin()
-            checkRate()
-            if(!logged)
-                $(".logged").hide()
         }
     })
 })
 
 function getAllPosts() { window.location.href = "http://localhost:8080/postPage"; }
 
-function likePost(){;}
+function likePost(){}
 
 function addPost(){
     $.ajax({
@@ -162,6 +162,7 @@ function addPost(){
     })
 }
 
+function getCommonFollowers(){}
 function rate(){
     let number = $("#ratingValue").val()
     $.ajax({

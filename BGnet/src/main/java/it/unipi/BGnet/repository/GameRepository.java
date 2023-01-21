@@ -147,8 +147,9 @@ public class GameRepository {
             return false;
         List<Post> list = game.get().getMostRecentPosts();
         for(Post post: list)
-            if(post.getId() == olderPost.getId()) {
-                list.set(list.indexOf(olderPost), newPost);
+            if(post.getId().equals(olderPost.getId())) {
+                System.out.println("ADDED LIKE");
+                list.set(list.indexOf(post), newPost);
                 break;
             }
         game.get().setMostRecentPosts(list);

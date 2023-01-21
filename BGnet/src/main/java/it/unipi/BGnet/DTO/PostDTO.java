@@ -12,8 +12,9 @@ public class PostDTO {
     private int comments;
     private List<CommentDTO> listOfComments;
     private String date;
+    private boolean hasLiked;
     public PostDTO() {}
-    public PostDTO(String id, String game, String author, int likes, int comments, String date, String text) {
+    public PostDTO(String id, String game, String author, int likes, int comments, String date, String text, boolean hasLiked) {
         this.id = id;
         this.game = game;
         this.author = author;
@@ -21,6 +22,7 @@ public class PostDTO {
         this.comments = comments;
         this.date = date;
         this.text = text;
+        this.hasLiked = hasLiked;
     }
     public PostDTO(String id, String game, String author, int likes, List<CommentDTO> listOfComments, String date, String text) {
         this.id = id;
@@ -82,4 +84,6 @@ public class PostDTO {
     public void setDate(String date) {
         this.date = date;
     }
+    public boolean getHasLiked() { return hasLiked; }
+    public void setHasLiked(boolean hasLiked) { this.hasLiked = hasLiked; }
 }

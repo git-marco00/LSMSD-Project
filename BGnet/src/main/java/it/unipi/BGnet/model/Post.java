@@ -23,7 +23,6 @@ public class Post {
     private List<String> likes;
     private String timestamp;
     private List<Comment> comments;
-
     public Post(String author, String game, String text) {
         this.author = author;
         this.game = game;
@@ -41,27 +40,19 @@ public class Post {
         this.timestamp = dateTime;
         this.comments = commentList;
     }
-    public void addLike(String name){
-        likes.add(name);
-    }
-    public void removeLike(String name){
-        likes.remove(name);
-    }
+    public void addLike(String name) { likes.add(name); }
+    public void removeLike(String name) { likes.remove(name); }
     public void addComment(Comment comment){
         comments.add(0, comment);
     }
     public void removeComment(Comment comment){
         comments.remove(comment);
     }
-    public List<String> getLikes() {
-        return likes;
-    }
+    public List<String> getLikes() { return likes; }
     public void setLikes(List<String> likes) {
         this.likes = likes;
     }
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
     public void setId(String id) {
         this.id = id;
     }
