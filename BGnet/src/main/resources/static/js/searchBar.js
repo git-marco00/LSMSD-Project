@@ -59,7 +59,7 @@ function searchButton(){
         searchForAPerson()
 }
 
-function searchForAGame(){
+function searchForAGame() {
     let searchEditText;
     let text;
     if(arguments[0])
