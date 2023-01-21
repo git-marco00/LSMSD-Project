@@ -212,4 +212,49 @@ public class GameRepository {
         }
         return result;
     }
+
+    public boolean addRate(String username, String gamename, int rate) {
+        Optional<Game> game = getGameByName(gamename);
+        if(game.isEmpty())
+            return false;
+
+        if(game.get().haveIVoted(username))
+            return false;
+
+        game.get().addRate(username, rate);
+        try{
+            gameMongo.save(game.get());
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean removeRate(String username, String gamename) {
+        Optional<Game> game = getGameByName(gamename);
+        if(game.isEmpty())
+            return false;
+
+        if(!game.get().haveIVoted(username))
+            return false;
+
+        game.get().removeRate(username);
+
+        try{
+            gameMongo.save(game.get());
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkRate(String username, String gamename) {
+        Optional<Game> game = getGameByName(gamename);
+        if(game.isEmpty())
+            return false;
+
+        return game.get().haveIVoted(username);
+    }
 }

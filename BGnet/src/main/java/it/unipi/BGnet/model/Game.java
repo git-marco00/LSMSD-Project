@@ -169,5 +169,18 @@ public class Game {
         }
         return false;
     }
+
+    public void addRate(String username, int rate){
+        // Avg = SommaVoti / NumeroVoti
+        // Somma = Avg * numeroVoti
+        // NuovaAvg = (SommaVoti + rate) / (NumeroVoti + 1)
+        float somma = avgRate* ratings.size();
+        avgRate = (somma + rate) / (ratings.size() + 1);
+        ratings.add(username);
+    }
     public float getAvgRate() { return avgRate; }
+
+    public void removeRate(String username) {
+        ratings.remove(username);
+    }
 }

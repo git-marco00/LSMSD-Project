@@ -136,6 +136,7 @@ $(document).ready(function() {
             })
             $(".admin").hide()
             checkAdmin()
+            checkRate()
         }
     })
 })
@@ -159,5 +160,49 @@ function addPost(){
     })
 }
 
+function rate(){
+    let number = $("#ratingValue").val()
+    $.ajax({
+        url: "/api/rateGame",
+        method: "get",
+        data: {rate: number},
+        success: function(data){
+            if(data) {
+                $("#ratingValue").hide()
+                $("#rateButton").hide()
+            }
+        }
+    })
+
+}
+/*
+function unrate(){
+    $.ajax({
+        url: "/api/unrateGame",
+        method: "get",
+        success: function(data){
+            if(data) {
+                $("#ratingValue").show()
+                $("#unrateButton").hide()
+                $("#rateButton").show()
+            }
+        }
+    })
+}
+*/
+function checkRate(){
+    // Se ho votato, non mostrare il bottone rate
+    $.ajax({
+        url: "/api/haveIVoted",
+        method: "get",
+        success: function (data){
+            if(data){
+                $("#ratingValue").hide()
+                $("#rateButton").hide()
+            }
+
+        }
+    })
+}
 function getCommonFollowers(){;}
 

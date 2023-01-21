@@ -86,4 +86,16 @@ public class GameService {
     public List<Game> checkExistenceFiltered(String name, String category) {
         return gameRep.searchGamesFiltered(name, category);
     }
+
+    public boolean rateGame(String username, String game, int rate) {
+        return gameRep.addRate(username, game, rate);
+    }
+
+    public boolean unrateGame(String user, String game) {
+        return gameRep.removeRate(user, game);
+    }
+
+    public boolean haveIRated(String user, String game) {
+        return gameRep.checkRate(user, game);
+    }
 }

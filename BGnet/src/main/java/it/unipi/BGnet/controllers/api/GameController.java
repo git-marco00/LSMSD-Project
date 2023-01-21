@@ -108,4 +108,22 @@ public class GameController {
         }
         return gson.toJson(gameService.unfollowGame(sv.myself, game));
     }
+
+    @GetMapping("api/rateGame")
+    public @ResponseBody boolean rateGame(Model model, @RequestParam("rate") int rate) {
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        return gameService.rateGame(sv.myself, sv.gameToDisplay, rate);
+    }
+
+    @GetMapping("api/unrateGame")
+    public @ResponseBody boolean unrateGame(Model model) {
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        return gameService.unrateGame(sv.myself, sv.gameToDisplay);
+    }
+
+    @GetMapping("api/haveIVoted")
+    public boolean haveIVoted(Model model){
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        return gameService.haveIRated(sv.myself, sv.gameToDisplay);
+    }
 }
