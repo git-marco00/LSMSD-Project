@@ -64,17 +64,21 @@ public class GameController {
         return gson.toJson(page);
     }
     @GetMapping("api/followGame")
-    public @ResponseBody boolean followGame(Model model,@RequestParam("game") String game) {
+    public @ResponseBody String followGame(Model model, @RequestParam("game") String game) {
+        Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        if(sv == null || sv.myself == null)
-            return false;
-        return gameService.followGame(sv.myself, game);
+        if(sv == null || sv.myself == null) {
+            return gson.toJson(false);
+        }
+        return gson.toJson(gameService.followGame(sv.myself, game));
     }
     @GetMapping("api/unfollowGame")
-    public @ResponseBody boolean unfollowGame(Model model,@RequestParam("game") String game) {
+    public @ResponseBody String unfollowGame(Model model, @RequestParam("game") String game) {
+        Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        if(sv == null || sv.myself == null)
-            return false;
-        return gameService.unfollowGame(sv.myself, game);
+        if(sv == null || sv.myself == null) {
+            return gson.toJson(false);
+        }
+        return gson.toJson(gameService.unfollowGame(sv.myself, game));
     }
 }

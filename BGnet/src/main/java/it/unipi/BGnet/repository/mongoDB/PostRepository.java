@@ -5,9 +5,6 @@ import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.model.Comment;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -21,13 +18,9 @@ import java.util.Optional;
 public class PostRepository {
     @Autowired
     private IPostRepository postMongo;
-
     public IPostRepository getMongo(){
         return postMongo;
     }
-
-    Logger logger = LoggerFactory.getLogger(PostRepository.class);
-
     // CRUD Methods
     //  -------------------------------------------------------------------------------------------------
     public Post addPost(Post post){
@@ -102,9 +95,7 @@ public class PostRepository {
         }
         return result;
     }
-
     // ---------------------------------------------------------------------------------------------------
-
 
     // Application-Domain Methods
     // ---------------------------------------------------------------------------------------------------
@@ -118,7 +109,6 @@ public class PostRepository {
         }
         return post;
     }
-
     public boolean unlikePost(Post post, User user){
         boolean result = true;
         try{
@@ -130,7 +120,6 @@ public class PostRepository {
         }
         return result;
     }
-
     public Post addComment(Post post, Comment comment){
         try{
             post.addComment(comment);
@@ -141,7 +130,6 @@ public class PostRepository {
         }
         return post;
     }
-
     public boolean deleteComment(Post post, Comment comment){
         boolean result = true;
         try{
@@ -153,11 +141,8 @@ public class PostRepository {
         }
         return result;
     }
-
     public int countPages(String game) {
        return (int) Math.ceil((double)postMongo.countByGame(game)/ Constants.PAGE_SIZE);
     }
     // ---------------------------------------------------------------------------------------------------
-
-
 }

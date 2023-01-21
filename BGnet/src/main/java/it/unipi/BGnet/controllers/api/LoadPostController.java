@@ -19,17 +19,13 @@ import java.util.List;
 public class LoadPostController {
     @Autowired
     PostService postService;
-    Logger logger = LoggerFactory.getLogger(LoadPostController.class);
-
     @RequestMapping("/api/addPost")
     public boolean savePost(Model model, @RequestParam("game") String game, @RequestParam("text")String text){
         String author = ((SessionVariables) model.getAttribute("sessionVariables")).myself;
         return postService.addPost(game, author, text);
     }
-
-
     @GetMapping("/api/getPost")
-    public String getPostList(Model model, @RequestParam(value = "page") int pageNumber){
+    public @ResponseBody String getPostList(Model model, @RequestParam(value = "page") int pageNumber){
         if(((SessionVariables) model.getAttribute("sessionVariables")).gameToDisplay == null)
             return null;
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
@@ -40,15 +36,22 @@ public class LoadPostController {
         String result = gson.toJson(postList);
         return result;
     }
-
-    @RequestMapping("/api/getPages")
-    public String getHowManyPages(Model model){
+    @GetMapping("api/likePost")
+    public @ResponseBody String likePost(Model model, @RequestParam(value = "post") String post, @RequestParam(value = "game") String game) {
+        Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        if(sv == null || sv.myself == null) {
+            return gson.toJson(false);
+        }
+        return gson.toJson(postService.likePost(post, sv.myself, game));
+    }
+    @GetMapping("/api/getPages")
+    public @ResponseBody String getHowManyPages(Model model){
         if(((SessionVariables) model.getAttribute("sessionVariables")).gameToDisplay == null){
             return null;
         }
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         int pages = postService.loadNumberOfPages(sv.gameToDisplay);
-        logger.warn("PAGES: " + Integer.toString(pages));
         Gson gson = new Gson();
         String result = gson.toJson(pages);
         return result;

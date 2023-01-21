@@ -27,32 +27,24 @@ public class GraphNeo4j implements AutoCloseable{
         }
         return graphNeo4j;
     }
-
     @Override
     public void close() {
         driver.close();
     }
-
     public void write(final String query, final Value parameters) {
         try (Session session = driver.session()) {
-            session.writeTransaction(tx ->
+            session.executeWrite(tx ->
             {
                 tx.run(query, parameters).consume();
                 return null;
             });
         }
     }
-
-
-
-    public void write(String query) {
-        write(query, parameters());
-    }
-
+    public void write(String query) { write(query, parameters()); }
     public List<Record> read(final String query, final Value parameters) {
         List<Record> recordsList;
         try (Session session = driver.session()) {
-            recordsList = session.readTransaction(tx -> {
+            recordsList = session.executeRead(tx -> {
                 Result result = tx.run( query, parameters );
                 List<Record> records = new ArrayList<>();
                 while (result.hasNext()) {
@@ -64,7 +56,6 @@ public class GraphNeo4j implements AutoCloseable{
         }
         return recordsList;
     }
-
     public List<Record> read(String query) {
         return read(query, parameters());
     }

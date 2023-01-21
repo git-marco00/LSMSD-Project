@@ -14,36 +14,40 @@ $(document).ready(function() {
             $('#cat').text('Category: ' + data.categories)
             $('#minpmaxp').text('Min players / Max players: ' + data.minPlayers + ' / ' + data.maxPlayers)
             $('#desc').append('<p> Description: ' + data.description + '</p>')
-            if(data.followed == true) {
-                $('#followButton').text("Unfollow")
-                $('#followButton').bind('click', function(event) {
+            if (!data.followed) {
+                $('#unfollowButton').hide()
+                $('#followButton').show().bind('click', function (event) {
                     $.ajax({
-                        url: "/api/unfollowGame",
-                        data : {game: data.gameName},
+                        url: "/api/followGame",
+                        data: {game: data.gameName},
                         method: "get",
                         success: function (data) {
                             data = JSON.parse(data)
-                            if(data)
+                            if (data)
+                                window.location.href = "http://localhost:8080/gamePage"
+                            else {
+                                alert("You must be logged to follow a game!")
+                                window.location.href = "http://localhost:8080/login"
+                            }
+                        }
+                    })
+                })
+            } else {
+                $('#followButton').hide()
+                $('#unfollowButton').show().bind('click', function (event) {
+                    $.ajax({
+                        url: "/api/unfollowGame",
+                        data: {game: data.gameName},
+                        method: "get",
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if (data)
                                 window.location.href = "http://localhost:8080/gamePage"
                         }
                     })
                 })
             }
-            else
-                $('#followButton').bind('click', function(event) {
-                    $.ajax({
-                        url: "/api/followGame",
-                        data : {game: data.gameName},
-                        method: "get",
-                        success: function (data) {
-                            data = JSON.parse(data)
-                            if(data)
-                                window.location.href = "http://localhost:8080/gamePage"
-                            else alert("You must be logged to follow a game!")
-                        }
-                    })
-                })
-            if(data.rated != false)
+            if(data.rated !== false)
                 $('#rateButton').prop('disabled', true)
             if(data.inCommonFollowers != null) {
                 let follower = 0
@@ -63,8 +67,8 @@ $(document).ready(function() {
                     html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + data.mostRecentPosts[post].comments + '</span>'
                     html += ('<h4 id="' + data.mostRecentPosts[post].author + '" class="author">' + data.mostRecentPosts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + data.mostRecentPosts[post].text + '</p>')
-                    html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button>'
-                    html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> View comments</button>'
+                    html += '<button type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + data.mostRecentPosts[post].id + '"><i class="fa fa-thumbs-up"></i> Like</button>'
+                    html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id=view-comments-"' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> View comments</button>'
                     html += '<button type="button" class="admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
                     html += '</div><br>'
                     $('#post-container').append(html)
@@ -73,7 +77,7 @@ $(document).ready(function() {
                     window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
                 })
                 $('button.view-comments').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
+                    window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id.slice(14);
                 })
             }
             $("#deleteButton").bind('click', function(event){
