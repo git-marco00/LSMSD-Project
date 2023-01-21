@@ -3,6 +3,7 @@ package it.unipi.BGnet.controllers.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.google.gson.GsonBuilder;
 import it.unipi.BGnet.DTO.PostDTO;
 import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.pages.PostService;

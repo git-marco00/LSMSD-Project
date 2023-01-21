@@ -82,4 +82,8 @@ public class GameService {
     public boolean unfollowGame(String username, String game) {
         return gameRep.unfollowGameByGamename(username, game);
     }
+
+    public List<Game> checkExistenceFiltered(String name, String category) {
+        return gameRep.searchGamesFiltered(name, category);
+    }
 }

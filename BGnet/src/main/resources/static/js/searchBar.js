@@ -1,5 +1,24 @@
 $(document).ready(function(){
+    categories = ['Card Game', 'Economic', 'Fighting', 'Fantasy', 'City Building',
+        'Science Fiction', 'Abstract Strategy', 'Territory Building',
+        'Adventure', 'Deduction', 'Miniatures', 'Humor', 'Animals', 'Puzzle',
+        'Horror', 'Party Game', 'Bluffing', 'Movies / TV / Radio theme',
+        'Medieval', 'Expansion for Base-game', 'Exploration', 'Environmental',
+        'Renaissance', 'Ancient', 'Pirates', 'Industry / Manufacturing',
+        'Farming', 'Novel-based', 'Nautical', 'Trains', 'Mythology', 'Dice',
+        'Murder/Mystery', 'Wargame', 'Action / Dexterity', 'Video Game Theme',
+        'Comic Book / Strip', 'Educational', 'Post-Napoleonic', 'Number',
+        'Negotiation', 'Civilization', 'Spies/Secret Agents', 'Medical',
+        'Space Exploration', 'Game System', 'Real-time', 'Mafia',
+        'Children\'s Game', 'American West', 'Pike and Shot', 'Political',
+        'Transportation', 'Arabian', 'Word Game']
     loadSearchBar()
+    for(a in categories){
+        console.log(categories[a])
+        $("#category").append(
+            new Option(categories[a], categories[a])
+        )
+    }
 })
 
 function loadSearchBar(){
@@ -11,10 +30,6 @@ function loadSearchBar(){
         "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:1000px\">" +
         "<select name=\"category\" id=\"category\">\n" +
         "    <option value=\"All\">All Categories</option>\n" +
-        "    <option value=\"Party\">Party Game</option>\n" +
-        "    <option value=\"Classic\">Classic</option>\n" +
-        "    <option value=\"Cooperative\">Cooperative</option>\n" +
-        "    <option value=\"Competitive\">Competitive</option>\n" +
         "  </select>" +
         "<select name=\"type\" id=\"typeOf\">\n" +
         "    <option value=\"Game\">Game</option>\n" +
@@ -54,7 +69,7 @@ function searchButton(){
         if(concept2 == "All Categories")
             searchForAGame()
         else
-            searchForAGameFiltered()
+            searchForAGameFiltered(concept2)
     else
         searchForAPerson()
 }
@@ -87,10 +102,13 @@ function searchForAGame() {
     })
 }
 
-function searchForAGameFiltered(){
+function searchForAGameFiltered(cat){
+    let searchEditText = document.getElementById("searchEditText");
+    let text = searchEditText.value.trim();
+
     $.ajax({
         url: "/api/searchGameFiltered",
-        data: {name: 1, category: 2},
+        data: {name: text, category: cat},
         method : "get",
         success: function (data) {
             if(data == 1){
@@ -101,7 +119,6 @@ function searchForAGameFiltered(){
                     url: "/api/loadResultsPage",
                     success: function(data){
                         window.location.href= "http://localhost:8080/searchPage"
-                        document.getElementById("idStupido").innerHTML = "CIao"
                     }
                 })
             }

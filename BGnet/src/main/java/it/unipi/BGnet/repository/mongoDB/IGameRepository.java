@@ -16,4 +16,5 @@ public interface IGameRepository extends MongoRepository<Game, String> {
     int countByNameRegex(String name);
 
     List<Game> findByNameRegex(String pattern);
+    List<Game> findByNameRegexAndCategoriesContaining(String pattern, String category);
 }

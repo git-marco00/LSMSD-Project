@@ -55,6 +55,33 @@ public class GameController {
         }
         return new Gson().toJson(-1);
     }
+
+    @GetMapping("/api/searchGameFiltered")
+    public @ResponseBody String gamePageExistsFiltered(Model model, @RequestParam("name") String name, @RequestParam("category") String category){
+        List<Game> list = gameService.checkExistenceFiltered(name, category);
+        int counts = list.size();
+        if(counts > 0) {
+            if(counts > 1) {
+                SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+                sv.current_results = list;
+                return new Gson().toJson(counts);
+            }
+            else {
+                if(list.get(0).getName().equals(name)) {
+                    SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+                    sv.gameToDisplay = name;
+                    model.addAttribute("sessionVariables", sv);
+                    return new Gson().toJson(1);
+                }
+                else {
+                    SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+                    sv.current_results = list;
+                    return new Gson().toJson(0);
+                }
+            }
+        }
+        return new Gson().toJson(-1);
+    }
     @GetMapping("/api/loadResultsPage")
     public @ResponseBody String loadResultsPage(Model model) {
         ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////

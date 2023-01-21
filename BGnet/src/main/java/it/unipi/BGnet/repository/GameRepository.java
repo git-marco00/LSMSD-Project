@@ -202,4 +202,14 @@ public class GameRepository {
         }
         return famousGames;
     }
+
+    public List<Game> searchGamesFiltered(String pattern, String category) {
+        List<Game> result = new ArrayList<>();
+        try {
+            result = gameMongo.findByNameRegexAndCategoriesContaining(pattern, category);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
