@@ -48,19 +48,18 @@ public class TournamentNeo4j {
     }
 
     public Boolean createTournament(int maxPlayers, String date, String modalities, String playersPerMatch, String duration, String gamename, String creator){
-        Boolean result = null;
         try{
             graphNeo4j.write("MATCH (g:Game) WHERE g.name=$gamename" +
                             " MATCH (u:User) WHERE u.name=$username" +
-                            " CREATE (t: Tournament {maxPlayers: $maxPlayers, date: $date, modalities: $modalities, playersPerMatch: $playersPerMatch, duration: $duration})" +
+                            " CREATE (t: Tournament {maxPlayers: $maxPlayers, date: $date, modalities: $modalities, playersPerMatch: $playersPerMatch, duration: $duration, isClosed:false})" +
                             " CREATE (t)-[:TOURNAMENT_GAME]->(g)" +
                             " CREATE (u)-[:CREATED]->(t)",
                     parameters("maxPlayers", maxPlayers, "date", date, "modalities", modalities, "playersPerMatch", playersPerMatch, "duration", duration, "gamename", gamename, "username", creator));
         } catch (Exception e){
             e.printStackTrace();
-            result=false;
+            return false;
         }
-        return result;
+        return true;
     }
 
     public List<Record> getTournamentsByGamename(String gameName){

@@ -80,6 +80,7 @@ public class LoadTournamentController {
                                                   @RequestParam(value="modalities") String modalities,
                                                   @RequestParam(value="playersPerMatch") String playersPerMatch){
         SessionVariables sv =(SessionVariables) model.getAttribute("sessionVariables");
+
         return tournamentService.addTournament(sv.myself, sv.gameToDisplay, date, duration, maxPlayers, modalities, playersPerMatch);
     }
 }
