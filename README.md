@@ -9,3 +9,6 @@
 <p>
   The game page features a marketplace where you can offer or accept items related to the game, such as secondary parts or covers. In addition, you can participate in tournaments for the game by checking the tournaments section.
 </p>
+<p>
+  Apart that, common social network features like games / users recomendation are still present
+</p>
