@@ -27,3 +27,13 @@
    </ul>
   Volume: 500/600 Mb
  </p>
+<h2>Software architecture</h2>
+<p>
+  BGNet was deployed as a web application. Server logic was developed using Java.
+</p>
+<p>
+  We adopted Python to develop data scraping modules. Also, Python was used to normalize data and to retrieve some useful statistics from normalized data (i.e. mean number of post for each user, mean number of active tournaments for a period, ecc.)
+</p>
+<p>
+  DBMS used: MongoDB and Neo4J.
+</p>
