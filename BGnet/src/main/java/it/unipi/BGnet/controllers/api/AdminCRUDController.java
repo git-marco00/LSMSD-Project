@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,7 @@ public class AdminCRUDController {
                               @RequestParam("maxPlayTime")String maxPlayTime, @RequestParam("categories")String categories,
                               @RequestParam("description")String description, @RequestParam("img")String img)
     {
-        List<String> cat = new ArrayList<>();
-        cat.add(categories);
+        List<String> cat = Arrays.asList(categories.split("\\s*,\\s*"));
         return managerService.addGame(name, designer, yearPublished, minPlayers, maxPlayers, playingTime, minPlayTime, maxPlayTime, cat, description, img);
     }
 
