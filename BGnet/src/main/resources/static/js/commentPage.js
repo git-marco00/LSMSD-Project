@@ -14,8 +14,8 @@ $(document).ready(function() {
             html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + post.comments + '</span>'
             html += ('<h4 id="' + post.author + '" class="post-author">' + post.author + '</h4><br><hr class="w3-clear">')
             html += ('<p>' + post.text + '</p>')
-            html += '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button>'
-            html += '<button type="button" class="make-comment w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> Comment</button></button>'
+            html += '<button type="button" class="logged w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button>'
+            html += '<button type="button" class="logged make-comment w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> Comment</button></button>'
             html += '<div class="new-comment"></div>'
             html += '</div><br>'
             $('#post-container').append(html)
@@ -35,6 +35,8 @@ $(document).ready(function() {
                 $('h4.comments-author').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
                 })
+                if(!logged)
+                    $(".logged").hide()
                 $('button.make-comment').bind('click', function (event) {
                     $('button.make-comment').prop("disabled", true)
                     html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\">"

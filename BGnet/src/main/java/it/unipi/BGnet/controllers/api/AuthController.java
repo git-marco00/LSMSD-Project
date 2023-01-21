@@ -52,4 +52,12 @@ public class AuthController {
         else
             return "no";
     }
+
+    @GetMapping("/api/isLogged")
+    public String isLogged(Model model){
+        if(((SessionVariables) model.getAttribute("sessionVariables")).myself != null)
+            return "ok";
+        else
+            return "no";
+    }
 }

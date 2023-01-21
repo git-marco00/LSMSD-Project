@@ -33,12 +33,12 @@
                             <h4 class="w3-center" id="gameName">Game</h4>
                             <p id="imgProf" class="w3-center"></p>
                             <hr>
-                            <button id="followButton" type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Follow</button>
-                            <button id="unfollowButton" type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Unfollow</button>
-                            <input id="ratingValue" placeholder="1-10" class="w3-border w3-padding w3-margin-left" style="display:inline-block; width:60px">
-                            <button id="rateButton" onclick="rate()" type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Rate</button>
+                            <button id="followButton" type="button" class="logged w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Follow</button>
+                            <button id="unfollowButton" type="button" class="logged w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Unfollow</button>
+                            <input id="ratingValue" placeholder="1-10" class="logged w3-border w3-padding w3-margin-left" style="display:inline-block; width:60px">
+                            <button id="rateButton" onclick="rate()" type="button" class="logged w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i> Rate</button>
                             <!--<button id="unrateButton" onclick="unrate()" type="button" class="w3-button w3-theme-d2 w3-margin-left"><i class="fa fa-users"></i>Edit Rate</button>-->
-                            <button id="deleteButton" type="button" class="admin w3-button w3-theme-d2 w3-margin-left" style="background-color: red"><i class="fa fa-users"></i> Delete</button>
+                            <button id="deleteButton" type="button" class="logged admin w3-button w3-theme-d2 w3-margin-left" style="background-color: red"><i class="fa fa-users"></i> Delete</button>
                             <p id="fol"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
                             <p id="ypub"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
                             <p id="rat"><i class="fa-fw w3-margin-right w3-text-theme"></i></p>
@@ -56,7 +56,7 @@
                 </div>
                 <div id="right-column" class="w3-col m2">
                     <!-- Right Column -->
-                    <div class="w3-card w3-round w3-white w3-center">
+                    <div class="logged w3-card w3-round w3-white w3-center">
                         <div class="w3-container">
                             <p>In common followers:</p>
                             <p id="inCommonFollowers"></p>
@@ -64,7 +64,7 @@
                     </div>
                     <br>
                     <div class="w3-card w3-round w3-white w3-center">
-                        <div id="postAdding" class="w3-container">
+                        <div id="postAdding" class="logged w3-container">
                             <button id="tournamentButton" type="button" class="w3-button w3-theme-d2 w3-margin"><i class="fa fa-flash"></i>  Tournaments</button>
                             <button id="postButton" type="button" class="registered w3-button w3-theme-d2 w3-margin"><i class="fa fa-flash"></i>Post Something</button>
                             <!-- <button type="button" class="w3-button w3-theme-d2 w3-margin"><i class="fa fa-handshake-o"></i>Offers</button> -->
