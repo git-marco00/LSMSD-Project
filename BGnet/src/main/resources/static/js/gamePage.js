@@ -101,6 +101,9 @@ $(document).ready(function() {
                         })
                     }
                 })
+                $('#tournamentButton').bind('click', function(event) {
+                    window.location.href = "http://localhost:8080/tournamentPage";
+                })
                 $(".admin").hide()
                 checkAdmin()
             }

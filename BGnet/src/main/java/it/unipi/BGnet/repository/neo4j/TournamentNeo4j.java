@@ -18,13 +18,28 @@ public class TournamentNeo4j {
         return graphNeo4j;
     }
 
-    public boolean addTournamentPartecipant(String userName, String tournamentId){
+    public boolean addTournamentPartecipant(String userName, int tournamentId){
         boolean result = true;
         try{
             graphNeo4j.write("MATCH (u:User) WHERE u.name=$userName" +
                     " MATCH (t:Tournament) WHERE id(t)=$tournamentId" +
                     " MERGE (u)-[:PARTICIPATE]->(t)",
                     parameters("userName", userName, "tournamentId", tournamentId));
+        } catch (Exception e){
+            e.printStackTrace();
+            result=false;
+        }
+        return result;
+    }
+
+    public boolean removeTournamentPartecipant(String username, int tournamentId){
+        boolean result = true;
+        try{
+            graphNeo4j.write("MATCH (u:User) WHERE u.name=$userName" +
+                            " MATCH (t:Tournament) WHERE id(t)=$tournamentId" +
+                            " MATCH (u)-[r:PARTICIPATE]->(t)" +
+                            " DELETE r",
+                    parameters("userName", username, "tournamentId", tournamentId));
         } catch (Exception e){
             e.printStackTrace();
             result=false;
@@ -63,7 +78,7 @@ public class TournamentNeo4j {
         return null;
     }
 
-    public List<Record> getPartecipantsByTournamentId(String tournamentId){
+    public List<Record> getPartecipantsByTournamentId(int tournamentId){
         try{
             return graphNeo4j.read("MATCH (u:User)-[:PARTICIPATE]->(t:Tournament)" +
                             " WHERE id(t)=$tournamentId" +
@@ -75,6 +90,7 @@ public class TournamentNeo4j {
         }
         return null;
     }
+
 
     public List<Record> getInCommonTournaments(String userA, String userB){
         try{
@@ -92,7 +108,7 @@ public class TournamentNeo4j {
         return null;
     }
 
-    public List<Record> getGameByTournamentId(String tournamentId){
+    public List<Record> getGameByTournamentId(int tournamentId){
         try{
             return graphNeo4j.read("MATCH (t:Tournament)-[:TOURNAMENT_GAME]->(g:Game)" +
                             " WHERE id(t)=$tournamentId" +
@@ -104,7 +120,7 @@ public class TournamentNeo4j {
         return null;
     }
 
-    public List<Record> getCreatorByTournamentId(String tournamentId){
+    public List<Record> getCreatorByTournamentId(int tournamentId){
         try{
             return graphNeo4j.read("MATCH (u:User)-[:CREATED]->(t:Tournament)" +
                             " WHERE id(t)=$tournamentId" +
@@ -132,7 +148,7 @@ public class TournamentNeo4j {
         return null;
     }
 
-    public boolean closeTournament(String tournamentId){
+    public boolean closeTournament(int tournamentId){
         boolean result = true;
         boolean isClosed=true;
         try {
@@ -147,7 +163,7 @@ public class TournamentNeo4j {
         return result;
     }
 
-    public List<Record> isParticipating(String username, String tournamentId){
+    public List<Record> isParticipating(String username, int tournamentId){
         try{
             return graphNeo4j.read("MATCH (u:user {name: $username})," +
                             " (t:Tournament{id(t):$tournamentId})" +
@@ -160,7 +176,7 @@ public class TournamentNeo4j {
         return null;
     }
 
-    public List<Record> isCreator(String username, String tournamentId){
+    public List<Record> isCreator(String username, int tournamentId){
         try{
             return graphNeo4j.read("MATCH (u:user {name: $username})," +
                             " (t:Tournament{id(t):$tournamentId})" +

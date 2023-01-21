@@ -13,12 +13,16 @@ public class TournamentService {
         return tournamentRepository.createTournament(maxPlayers, date, modalities, playersPerMatch, duration, gamename, creator);
     }
 
-    public boolean closeTournament(String tournamentId){
+    public boolean closeTournament(int tournamentId){
         return tournamentRepository.closeTournament(tournamentId);
     }
 
-    public boolean addTournamentPartecipant(String username, String tournamentId){
+    public boolean addTournamentPartecipant(String username, int tournamentId){
         return tournamentRepository.addTournamentPartecipant(username, tournamentId);
+    }
+
+    public boolean removeTournamentPartecipant(String username, int tournamentId){
+        return tournamentRepository.removeTournamentPartecipant(username, tournamentId);
     }
 
     public List<Tournament> getTournamentsByGamename(String gamename){
@@ -28,6 +32,10 @@ public class TournamentService {
             t.setCreator(tournamentRepository.getCreatorByTournamentId(t.getId()));
         }
         return tournamentList;
+    }
+
+    public List<String> getPartecipantsByTournamentId(int tournamentId){
+        return tournamentRepository.getPartecipantsByTournamentId(tournamentId);
     }
 
     public List<Tournament> getInCommonTournaments(String userA, String userB){
@@ -50,11 +58,11 @@ public class TournamentService {
         return tournamentList;
     }
 
-    public boolean isParticipating(String username, String tournamentId){
+    public boolean isParticipating(String username, int tournamentId){
         return tournamentRepository.isParticipating(username, tournamentId);
     }
 
-    public boolean isCreator(String username, String tournamentId){
+    public boolean isCreator(String username, int tournamentId){
         return tournamentRepository.isCreator(username, tournamentId);
     }
 }
