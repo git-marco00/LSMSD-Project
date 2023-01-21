@@ -77,7 +77,7 @@ public class TournamentRepository {
 
     public String getCreatorByTournamentId(int tournamentId){
         if(tournamentNeo4j.getCreatorByTournamentId(tournamentId)!=null){
-            return tournamentNeo4j.getCreatorByTournamentId(tournamentId).get(0).get("gamename").asString();
+            return tournamentNeo4j.getCreatorByTournamentId(tournamentId).get(0).get("username").asString();
         }
         return null;
     }
