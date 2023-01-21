@@ -2,11 +2,14 @@ package it.unipi.BGnet.repository;
 
 import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.UserDTO;
+import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.repository.mongoDB.IUserRepository;
 import it.unipi.BGnet.repository.neo4j.UserNeo4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +20,7 @@ import org.neo4j.driver.Record;
 
 @Repository
 public class UserRepository {
+    Logger logger = LoggerFactory.getLogger(UserRepository.class);
     @Autowired
     private IUserRepository userMongo;
 
@@ -75,7 +79,8 @@ public class UserRepository {
 
         List<Post> list = user.get().getMostRecentPosts();
         list.add(0, post);
-        list.remove(list.size() - 1);
+        if(list.size() > Constants.RECENT_SIZE)
+            list.remove(list.size() - 1);
         user.get().setMostRecentPosts(list);
         try{
             userMongo.save(user.get());

@@ -47,6 +47,30 @@ function requestPostPage(pageNumber){
                         })
                     }
                 })
+                $('#postButton').bind('click', function (event) {
+                    $('#postButton').prop("disabled", true)
+                    html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\">"
+                    html += "<br>"
+                    html += "<textarea id=\"post-text\" placeholder=\"Say Something:\" rows=\"5\" cols=\"99\"></textarea>"
+                    html += "<br>"
+                    html += "<button type=\"button\" id=\"submit-" + data.gameName + "\" class=\"w3-button w3-theme-d2 w3-margin-bottom\"><i class=\"fa fa-comment\"></i>Submit</button></button>"
+                    html += "</div><br>"
+                    $("#containerPosts").prepend(html)
+                    $('#submit-' + data.gameName).bind('click', function(event) {
+                        $.ajax({
+                            url: "api/addPost",
+                            data: {game: $("#game").text(), text: $('textarea#post-text').val()},
+                            method : "get",
+                            success: function (data) {
+                                if(data == false)
+                                    alert("Something went wrong")
+                                else {
+                                    window.location.href = "http://localhost:8080/gamePage"
+                                }
+                            }
+                        })
+                    })
+                })
                 $(".admin").hide()
                 checkAdmin()
             }

@@ -75,38 +75,48 @@ $(document).ready(function() {
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
                 })
-                $("#deleteButton").bind('click', function(event){
-                    if(confirm("Do you really want to delete this game?")) {
-                        $.ajax({
-                            url: "/api/deleteGame",
-                            method: "get",
-                            data: {name: data.gameName},
-                            success: function (data) {
-                                alert("Game deleted!")
-                                window.location.href = "http://localhost:8080/adminPage"
-                            }
-                        })
-                    }
-                })
-                $(".delete").bind('click', function(event){
-                    if(confirm("Do you really want to delete this post?")){
-                        $.ajax({
-                            url: "/api/deletePost",
-                            method: "get",
-                            data: {id: event.target.id.slice(11)},
-                            success: function(data){
-                                alert("Post deleted!")
-                                window.location.href = "http://localhost:8080/gamePage"
-                            }
-                        })
-                    }
-                })
-                $('#tournamentButton').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/tournamentPage";
-                })
-                $(".admin").hide()
-                checkAdmin()
             }
+            $("#deleteButton").bind('click', function(event){
+                if(confirm("Do you really want to delete this game?")) {
+                    $.ajax({
+                        url: "/api/deleteGame",
+                        method: "get",
+                        data: {name: data.gameName},
+                        success: function (data) {
+                            alert("Game deleted!")
+                            window.location.href = "http://localhost:8080/adminPage"
+                        }
+                    })
+                }
+            })
+            $(".delete").bind('click', function(event){
+                if(confirm("Do you really want to delete this post?")){
+                    $.ajax({
+                        url: "/api/deletePost",
+                        method: "get",
+                        data: {id: event.target.id.slice(11)},
+                        success: function(data){
+                            alert("Post deleted!")
+                            window.location.href = "http://localhost:8080/gamePage"
+                        }
+                    })
+                }
+            })
+            $('#tournamentButton').bind('click', function(event) {
+                window.location.href = "http://localhost:8080/tournamentPage";
+            })
+            $('#postButton').bind('click', function (event) {
+                $('#postButton').prop("disabled", true)
+                html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\">"
+                html += "<br>"
+                html += "<textarea id=\"post-text\" placeholder=\"Say Something:\" rows=\"5\" cols=\"99\"></textarea>"
+                html += "<br>"
+                html += "<button type=\"button\" onclick=\"addPost()\" id=\"submit-" + data.gameName + "\" class=\"w3-button w3-theme-d2 w3-margin-bottom\"><i class=\"fa fa-comment\"></i>Submit</button></button>"
+                html += "</div><br>"
+                $('#post-container').prepend(html)
+            })
+            $(".admin").hide()
+            checkAdmin()
         }
     })
 })
@@ -115,7 +125,20 @@ function getAllPosts() { window.location.href = "http://localhost:8080/postPage"
 
 function likePost(){;}
 
-function addPost(){;}
+function addPost(){
+    $.ajax({
+        url: "api/addPost",
+        data: {game: $("#gameName").text(), text: $('textarea#post-text').val()},
+        method : "get",
+        success: function (data) {
+            if(data == false)
+                alert("Something went wrong")
+            else {
+                window.location.href = "http://localhost:8080/gamePage"
+            }
+        }
+    })
+}
 
 function getCommonFollowers(){;}
 

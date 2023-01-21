@@ -20,17 +20,13 @@ public class LoadPostController {
     @Autowired
     PostService postService;
     Logger logger = LoggerFactory.getLogger(LoadPostController.class);
-    /*
+
     @RequestMapping("/api/addPost")
-    public Post savePost(){
-        Post post = new Post("idProva", "autoreProva", "giocoProva", "autoreProva");
-        boolean result = postRepo.addPost(post);
-        if(result)
-            return post;
-        else
-            return null;
+    public boolean savePost(Model model, @RequestParam("game") String game, @RequestParam("text")String text){
+        String author = ((SessionVariables) model.getAttribute("sessionVariables")).myself;
+        return postService.addPost(game, author, text);
     }
-    */
+
 
     @GetMapping("/api/getPost")
     public String getPostList(Model model, @RequestParam(value = "page") int pageNumber){

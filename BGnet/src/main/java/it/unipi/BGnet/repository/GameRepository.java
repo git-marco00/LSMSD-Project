@@ -1,6 +1,7 @@
 package it.unipi.BGnet.repository;
 
 import it.unipi.BGnet.DTO.GameDTO;
+import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.repository.neo4j.GameNeo4j;
@@ -114,7 +115,8 @@ public class GameRepository {
             return false;
         List<Post> list = game.get().getMostRecentPosts();
         list.add(0, post);
-        list.remove(list.size() - 1);
+        if(list.size() > Constants.RECENT_SIZE)
+            list.remove(list.size() - 1);
         game.get().setMostRecentPosts(list);
         try{
             gameMongo.save(game.get());
