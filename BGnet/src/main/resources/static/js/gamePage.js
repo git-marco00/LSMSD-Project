@@ -4,7 +4,6 @@ $(document).ready(function() {
         method : "get",
         success : function(data) {
             data = JSON.parse(data)
-            console.log(data)
             $('#imgProf').append('<img src=' + data.imageUrl + ' class="w3-circle" style="height:106px;width:106px" alt="Game image"/>')
             $('#gameName').empty().append('<b>' + data.gameName + '</b>')
             $('#ypub').text('Year: ' + data.yearPublished)
@@ -68,7 +67,7 @@ $(document).ready(function() {
                     html += ('<h4 id="' + data.mostRecentPosts[post].author + '" class="author">' + data.mostRecentPosts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + data.mostRecentPosts[post].text + '</p>')
                     html += '<button type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + data.mostRecentPosts[post].id + '"><i class="fa fa-thumbs-up"></i> Like</button>'
-                    html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id=view-comments-"' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> View comments</button>'
+                    html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="view-comments-' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> View comments</button>'
                     html += '<button type="button" class="admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + data.mostRecentPosts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
                     html += '</div><br>'
                     $('#post-container').append(html)
@@ -79,6 +78,22 @@ $(document).ready(function() {
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id.slice(14);
                 })
+                $('button.like').bind('click', function(event) {
+                    $.ajax({
+                        url: "/api/likePost",
+                        method: "get",
+                        data: {post: event.target.id.slice(10), game: data.gameName},
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(!data) {
+                                alert("You must be logged to like a post!")
+                                // window.location.href = "http://localhost:8080/login"
+                            }
+                            else
+                                window.location.href = "http://localhost:8080/gamePage"
+                        }
+                    })
+                })
             }
             $("#deleteButton").bind('click', function(event){
                 if(confirm("Do you really want to delete this game?")) {
@@ -86,7 +101,7 @@ $(document).ready(function() {
                         url: "/api/deleteGame",
                         method: "get",
                         data: {name: data.gameName},
-                        success: function (data) {
+                        success: function () {
                             alert("Game deleted!")
                             window.location.href = "http://localhost:8080/adminPage"
                         }

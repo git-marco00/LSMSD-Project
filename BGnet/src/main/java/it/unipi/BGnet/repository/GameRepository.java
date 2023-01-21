@@ -146,13 +146,15 @@ public class GameRepository {
         if(game.isEmpty())
             return false;
         List<Post> list = game.get().getMostRecentPosts();
-        if(!list.contains(olderPost))
-            return true;
-        list.set(list.indexOf(olderPost), newPost);
+        for(Post post: list)
+            if(post.getId() == olderPost.getId()) {
+                list.set(list.indexOf(olderPost), newPost);
+                break;
+            }
         game.get().setMostRecentPosts(list);
-        try{
+        try {
             gameMongo.save(game.get());
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
             return false;
         }
