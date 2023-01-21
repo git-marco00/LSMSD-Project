@@ -55,11 +55,12 @@ public class PostService {
         Optional<Post> older = postRepo.getPostById(id);
         if(older.isEmpty())
             return false;
-
+        for(String like : older.get().getLikes())
+            if(like.equals(username))
+                return false;
         Post saved = postRepo.likePost(older.get(), username);
         if(saved == null)
             return false;
-
         gameRepo.updatePost(game, older.get(), saved);
         userRepo.updatePost(username, older.get(), saved);
         return true;

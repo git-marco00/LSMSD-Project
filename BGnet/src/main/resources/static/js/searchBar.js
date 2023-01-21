@@ -28,7 +28,7 @@ function loadSearchBar(){
 function addListener(){
     const searchEditText = document.getElementById("searchEditText");
     const searchFilter = document.getElementById("typeOf")
-// Execute a function when the user presses a key on the keyboard
+    // Execute a function when the user presses a key on the keyboard
     searchEditText.addEventListener("keypress", function(event) {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
@@ -74,7 +74,6 @@ function searchForAGame() {
         data : {name : text},
         method : "get",
         success: function(data){
-            console.log(data)
             if(data == 1){
                 window.location.href="http://localhost:8080/gamePage"
             }
@@ -127,7 +126,6 @@ function searchForAPerson(){
         data: {username: user},
         method : "get",
         success: function(data) {
-            console.log(data)
             if(data == "no"){
                 alert("No user found");
             }

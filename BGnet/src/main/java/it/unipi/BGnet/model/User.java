@@ -14,7 +14,7 @@ import java.util.List;
 @Document(collection = "user")
 public class User {
     @Id
-    private BigInteger id;
+    private String id;
     @NotBlank
     @Size(max = 20)
     private String username;
@@ -89,8 +89,8 @@ public class User {
         this.admin = admin;
     }
 
-    public BigInteger getId() { return id; }
-    public void setId(BigInteger id) {
+    public String getId() { return id; }
+    public void setId(String id) {
         this.id = id;
     }
     public String getUsername() {

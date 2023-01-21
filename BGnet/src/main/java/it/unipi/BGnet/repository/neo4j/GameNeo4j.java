@@ -14,44 +14,45 @@ public class GameNeo4j {
     }
     public boolean followGameByGamename(String username, String gamename){
         boolean result = true;
-        try{
-            graphNeo4j.write("MATCH (u:User) WHERE u.name=$username" +
-                            " MATCH (g:Game) WHERE g.name=$gamename" +
+        try {
+            graphNeo4j.write("MATCH (u:User) WHERE u.name = $username" +
+                            " MATCH (g:Game) WHERE g.name = $gamename" +
                             " MERGE (u)-[:FOLLOWS]->(g)",
                     parameters("username", username, "gamename", gamename));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            result=false;
+            result = false;
         }
         return result;
     }
-    public boolean unfollowGameByGamename(String username, String gamename){
+    public boolean unfollowGameByGamename(String username, String gamename) {
         boolean result = true;
-        try{
-            graphNeo4j.write("MATCH (u:User {name: '$username'})-[r:FOLLOWS]->(g:Game {name: '$gamename'}) DELETE r",
+        try {
+            graphNeo4j.write("MATCH (u:User {name: $username})-[r:FOLLOWS]->(g:Game {name: $gamename}) DELETE r",
                     parameters("username", username, "gamename", gamename));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            result=false;
+            result = false;
         }
         return result;
     }
-    public List<Record> findFollowerNumberByGamename(String gamename){
-        try{
-            return graphNeo4j.read("MATCH ()-[:FOLLOWS]->(g:Game)" +
-                            " WHERE g.name=$gamename" +
+    public List<Record> findFollowerNumberByGamename(String gamename) {
+        List<Record> result = null;
+        try {
+            result = graphNeo4j.read("MATCH ()-[:FOLLOWS]->(g:Game)" +
+                            " WHERE g.name = $gamename" +
                             " RETURN count(*) as numFollowers",
                     parameters("gamename", gamename));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
     public List<Record> findInCommonFollowers(String username, String gamename){
         try{
             return graphNeo4j.read("MATCH (uA:User)-[:FOLLOWS]->(uTarget:User)" +
                             "-[:FOLLOWS]->(g:Game)" +
-                            " WHERE uA.name=$username AND g.name=$gamename" +
+                            " WHERE uA.name = $username AND g.name = $gamename" +
                             " RETURN uTarget.name as name",
                     parameters("username", username, "gamename", gamename));
 
@@ -73,7 +74,7 @@ public class GameNeo4j {
     }
     public List<Record> isFollowing(String username, String gamename){
         try{
-            return graphNeo4j.read("MATCH (u:User {name: $username}), (g:Game{name:$gamename}) " +
+            return graphNeo4j.read("MATCH (u:User {name: $username}), (g:Game{name: $gamename}) " +
                     "RETURN EXISTS((u)-[:FOLLOWS]->(g)) AS isFollowing",
                     parameters("username", username, "gamename", gamename));
 
