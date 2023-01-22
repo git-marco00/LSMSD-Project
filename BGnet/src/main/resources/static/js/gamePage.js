@@ -137,8 +137,7 @@ $(document).ready(function() {
             $(".admin").hide()
             checkAdmin()
             checkRate()
-            if(!logged)
-                $(".logged").hide()
+            checkLogged()
         }
     })
 })
@@ -146,6 +145,8 @@ $(document).ready(function() {
 function getAllPosts() { window.location.href = "http://localhost:8080/postPage"; }
 
 function likePost(){;}
+
+
 
 function addPost(){
     $.ajax({

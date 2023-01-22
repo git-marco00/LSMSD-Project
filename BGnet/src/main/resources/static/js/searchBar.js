@@ -164,17 +164,19 @@ function checkAdmin(){
     })
 }
 
-var logged = checkLogged()
+
 
 function checkLogged(){
     $.ajax({
         url: "/api/isLogged",
         method: "get",
         success: function(data){
-            if(data == "ok")
-                return true
-            else
-                return false
+            console.log(data)
+            if(data === "ok")
+                $(".logged").show()
+            else {
+                $(".logged").hide()
+            }
         }
     })
 }
