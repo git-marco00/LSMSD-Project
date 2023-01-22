@@ -35,8 +35,6 @@ $(document).ready(function() {
                 $('h4.comments-author').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id;
                 })
-                if(!logged)
-                    $(".logged").hide()
                 $('button.make-comment').bind('click', function (event) {
                     $('button.make-comment').prop("disabled", true)
                     html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\">"
@@ -62,6 +60,7 @@ $(document).ready(function() {
                     })
                 })
             }
+            checkLogged()
         }
     })
 })
