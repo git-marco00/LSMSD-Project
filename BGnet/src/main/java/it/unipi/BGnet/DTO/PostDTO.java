@@ -24,7 +24,7 @@ public class PostDTO {
         this.text = text;
         this.hasLiked = hasLiked;
     }
-    public PostDTO(String id, String game, String author, int likes, List<CommentDTO> listOfComments, String date, String text) {
+    public PostDTO(String id, String game, String author, int likes, List<CommentDTO> listOfComments, String date, String text, boolean hasLiked) {
         this.id = id;
         this.game = game;
         this.author = author;
@@ -32,6 +32,7 @@ public class PostDTO {
         this.listOfComments = listOfComments;
         this.date = date;
         this.text = text;
+        this.hasLiked = hasLiked;
     }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }

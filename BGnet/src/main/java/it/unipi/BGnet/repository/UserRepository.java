@@ -54,7 +54,6 @@ public class UserRepository {
         Optional<User> user = Optional.empty();
         try {
             user = userMongo.findByEmail(email);
-            System.out.println("\t\tUserRepository::getUserByEmail(String email) >> " + user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,16 +103,15 @@ public class UserRepository {
         return true;
     }
 
-    public boolean updatePost(String name, Post olderPost, Post newPost){
+    public boolean updatePost(String name, Post olderPost, Post newPost) {
         Optional<User> user = getUserByUsername(name);
         if(user.isEmpty())
             return false;
-
         List<Post> list = user.get().getMostRecentPosts();
-        if(!list.contains(olderPost))
-            return true;
-
-        list.set(list.indexOf(olderPost), newPost);
+        list.forEach((post) -> {
+            if (post.getId().equals(olderPost.getId()))
+                list.set(list.indexOf(post), newPost);
+        });
         user.get().setMostRecentPosts(list);
         try{
             userMongo.save(user.get());

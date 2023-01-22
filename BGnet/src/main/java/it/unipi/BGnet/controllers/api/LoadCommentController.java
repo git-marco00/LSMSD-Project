@@ -16,8 +16,8 @@ public class LoadCommentController {
     @Autowired
     PostService postService;
     @GetMapping("api/loadPostComments")
-    public @ResponseBody String comments(@RequestParam("id") String _id) {
-        PostDTO post = postService.loadComments(_id);
+    public @ResponseBody String comments(Model model, @RequestParam("id") String _id) {
+        PostDTO post = postService.loadComments(model, _id);
         return new Gson().toJson(post);
     }
     @PostMapping("api/addComment")

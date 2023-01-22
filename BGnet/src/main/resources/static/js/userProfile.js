@@ -11,16 +11,37 @@ $(document).ready(function() {
             $('#firstname').empty().text(data.firstName)
             $('#lastname').empty().text(data.lastName)
             for(post in data.mostRecentPosts) {
-                html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\"><br>"
+                html = "<div id=\"post-" + data.mostRecentPosts[post].id + "-game-" + data.mostRecentPosts[post].game + "\" class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\"><br>"
                 html += "<span class=\"w3-right w3-opacity\"><i class=\"fa fa-calendar\"></i>" + data.mostRecentPosts[post].date.slice(0,10) + "</span>"
                 html += "<span class=\"w3-right w3-opacity w3-margin-right\"><i class=\"fa fa-comment\"></i>" + data.mostRecentPosts[post].comments.toString() + "</span>"
                 html += "<span class=\"w3-right w3-opacity w3-margin-right\"><i class=\"fa fa-thumbs-up\"></i>" + data.mostRecentPosts[post].likes + "</span>"
                 html += "<h4 id=\"" + data.mostRecentPosts[post].game + "\" class=\"game\">" + data.mostRecentPosts[post].game + "</h4><br><hr class=\"w3-clear\">"
                 html += "<p>" + data.mostRecentPosts[post].text + "</p>"
-                html += "<button type=\"button\" class=\" logged w3-button w3-theme-d1 w3-margin-bottom\"><i class=\"fa fa-thumbs-up\"></i> Like</button>"
+                html += '<button type="button" class="logged like-' + post + ' w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + data.mostRecentPosts[post].id + '"><i id="like-post-' + data.mostRecentPosts[post].id + '" class="fa fa-thumbs-' + ((data.mostRecentPosts[post].hasLiked) ? 'down' : 'up') + '"></i>' + ((data.mostRecentPosts[post].hasLiked) ? ' Unlike' : ' Like') + '</button>'
                 html += "<button type=\"button\" class=\"view-comments w3-button w3-theme-d2 w3-margin-bottom\" id=\"" + data.mostRecentPosts[post].id + "\"><i class=\"fa fa-comment\"></i> View comments</button></div><br>"
                 html += "<button type=\"button\" class=\"admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom\" id=\"deletepost-" + data.mostRecentPosts[post].id + "\"><i class=\"fa fa-comment\"></i>Delete Post</button></div><br>"
                 $('#post-container').append(html)
+                $('button.like-' + post).bind('click', function(event) {
+                    let __username = data.username
+                    let __post = event.target.id.slice(10)
+                    let __game = data.mostRecentPosts[post].game
+                    $.ajax({
+                        url: "/api/likePost",
+                        method: "get",
+                        data: {post: __post, game: __game},
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(data == 0) {
+                                alert("You must be logged to like a post!")
+                                window.location.href = "http://localhost:8080/login"
+                            }
+                            else if(data == -1)
+                                alert("Something goes wrong!")
+                            else
+                                window.location.href = "http://localhost:8080/userProfile?user=" + __username
+                        }
+                    })
+                })
             }
             if(data.inCommonFollowers!=null){
                 for(follower of data.inCommonFollowers){

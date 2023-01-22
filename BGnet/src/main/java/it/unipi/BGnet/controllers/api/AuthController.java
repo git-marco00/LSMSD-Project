@@ -6,22 +6,16 @@ import it.unipi.BGnet.service.user.UserService;
 
 import com.google.gson.Gson;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
-
-
 @RestController
 @SessionAttributes("sessionVariables")
 public class AuthController {
-    Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     UserService userService;
-
     @PostMapping("/api/login")
     public @ResponseBody String login(Model model, @RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
         Gson gson = new Gson();
@@ -38,26 +32,25 @@ public class AuthController {
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         sv.myself = user.getUsername();
         sv.admin = userService.isAdmin(sv.myself);
-        logger.warn(Boolean.toString(sv.admin));
         model.addAttribute("sessionVariables",  sv);
         /////////////////////////////////////////////////////////////////////////////
 
         return gson.toJson("{\"type\": 0, \"message\" : \"OK\"}");
     }
-
     @GetMapping("/api/isAdmin")
-    public String isAdmin(Model model){
+    public String isAdmin(Model model) {
+        Gson gson = new Gson();
         if(((SessionVariables) model.getAttribute("sessionVariables")).admin)
-            return "ok";
+            return gson.toJson(true);
         else
-            return "no";
+            return gson.toJson(false);
     }
-
     @GetMapping("/api/isLogged")
-    public String isLogged(Model model){
+    public String isLogged(Model model) {
+        Gson gson = new Gson();
         if(((SessionVariables) model.getAttribute("sessionVariables")).myself != null)
-            return "ok";
+            return gson.toJson(true);
         else
-            return "no";
+            return gson.toJson(false);
     }
 }

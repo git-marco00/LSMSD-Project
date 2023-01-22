@@ -68,7 +68,6 @@ public class GameRepository {
         Optional<Game> game = Optional.empty();
         try {
             game = gameMongo.findByName(name);
-            System.out.println(game);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,14 +141,13 @@ public class GameRepository {
         }
         return true;
     }
-    public boolean updatePost(String name, Post olderPost, Post newPost){
+    public boolean updatePost(String name, Post olderPost, Post newPost) {
         Optional<Game> game = getGameByName(name);
         if(game.isEmpty())
             return false;
         List<Post> list = game.get().getMostRecentPosts();
         for(Post post: list)
             if(post.getId().equals(olderPost.getId())) {
-                System.out.println("ADDED LIKE");
                 list.set(list.indexOf(post), newPost);
                 break;
             }

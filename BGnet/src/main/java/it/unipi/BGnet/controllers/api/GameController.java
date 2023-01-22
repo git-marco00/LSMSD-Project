@@ -55,7 +55,6 @@ public class GameController {
         }
         return new Gson().toJson(-1);
     }
-
     @GetMapping("/api/searchGameFiltered")
     public @ResponseBody String gamePageExistsFiltered(Model model, @RequestParam("name") String name, @RequestParam("category") String category){
         List<Game> list = gameService.checkExistenceFiltered(name, category);
@@ -92,7 +91,7 @@ public class GameController {
     }
     @GetMapping("api/followGame")
     public @ResponseBody String followGame(Model model, @RequestParam("game") String game) {
-        Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
+        Gson gson = new Gson();
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         if(sv == null || sv.myself == null) {
             return gson.toJson(false);
@@ -108,19 +107,16 @@ public class GameController {
         }
         return gson.toJson(gameService.unfollowGame(sv.myself, game));
     }
-
     @GetMapping("api/rateGame")
     public @ResponseBody boolean rateGame(Model model, @RequestParam("rate") int rate) {
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         return gameService.rateGame(sv.myself, sv.gameToDisplay, rate);
     }
-
     @GetMapping("api/unrateGame")
     public @ResponseBody boolean unrateGame(Model model) {
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         return gameService.unrateGame(sv.myself, sv.gameToDisplay);
     }
-
     @GetMapping("api/haveIVoted")
     public boolean haveIVoted(Model model){
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
