@@ -23,9 +23,8 @@ $(document).ready(function(){
 
 function loadSearchBar(){
     $("#navbar").append("            <div class=\"w3-bar w3-theme-d2 w3-left-align w3-large\" id=\"searchBar\">\n" +
-        "                <a href=\"#\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
+        "                <a href=\"\\\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
         "                    <i class=\"fa fa-home w3-margin-right\"></i>\n" +
-        "                    Logo\n" +
         "                </a>\n" +
         "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:1000px\">" +
         "<select name=\"category\" id=\"category\">\n" +
