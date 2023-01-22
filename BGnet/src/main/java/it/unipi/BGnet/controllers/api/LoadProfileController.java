@@ -20,7 +20,7 @@ public class LoadProfileController {
         if(((SessionVariables) model.getAttribute("sessionVariables")).myself == null)
             return null;
         // DA RIVEDEREEEE
-        return new Gson().toJson(userService.loadProfile(((SessionVariables) model.getAttribute("sessionVariables")).myself, null));
+        return ((SessionVariables) model.getAttribute("sessionVariables")).myself;
     }
     @GetMapping("api/loadProfile")
     public @ResponseBody String profile(Model model, @RequestParam(value = "username") String username) {

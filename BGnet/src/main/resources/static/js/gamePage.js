@@ -178,6 +178,7 @@ function rate(){
             if(data) {
                 $("#ratingValue").hide()
                 $("#rateButton").hide()
+                window.location.reload()
             }
         }
     })

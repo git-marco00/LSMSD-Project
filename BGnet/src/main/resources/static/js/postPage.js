@@ -20,7 +20,7 @@ function requestPostPage(pageNumber){
                     html += '<p id="_id" style="display: none;">' + posts[post].id + '</p>'
                     html += '<button type="button" class="logged like w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + posts[post].id + '"><i id="like-post-' + posts[post].id + '" class="fa fa-thumbs-' + ((posts[post].hasLiked) ? 'down' : 'up') + '"></i>' + ((posts[post].hasLiked) ? ' Unlike' : ' Like') + '</button>'
                     html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="' + posts[post].id + '"><i id="' + posts[post].id + '" class="fa fa-comment"></i> View comments</button>'
-                    html += '<button type="button" class="admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + posts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
+                    html += '<button type="button" class="admin delete w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + posts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
                     html += '</div><br>'
                     $('#containerPosts').append(html)
                 }

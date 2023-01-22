@@ -24,6 +24,9 @@ function loadSearchBar(){
         "                <a href=\"\\\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
         "                    <i class=\"fa fa-home w3-margin-right\"></i>\n" +
         "                </a>\n" +
+        "                <a onclick='loadMyProfile()' class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
+        "                    <i class=\"fa fa-user-circle w3-margin-right\"></i>\n" +
+        "                </a>\n" +
         "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:60.5%;\">" +
         "<select name=\"category\" id=\"category\">" +
         "<option value=\"All\">All Categories</option>" +
@@ -141,24 +144,34 @@ function searchForAPerson(){
         }
     })
 }
+var admin = checkAdmin()
 function checkAdmin(){
+    let admin = false
     $.ajax({
         url: "/api/isAdmin",
         method: "get",
+        async: false,
         success: function(data){
             data = JSON.parse(data)
-            if(data)
+            if(data) {
                 $(".admin").show()
-            else
+                admin = true
+            }
+            else {
                 $(".admin").hide()
+                admin = false
+            }
         }
     })
+    return admin
 }
+var logged = checkLogged()
 function checkLogged() {
     let logged = false
     $.ajax({
         url: "/api/isLogged",
         method: "get",
+        async: false,
         success: function(data) {
             data = JSON.parse(data)
             if (data) {
@@ -168,4 +181,25 @@ function checkLogged() {
         }
     })
     return logged
+}
+
+function loadMyProfile(){
+    if(!logged)
+        window.location.href = "http://localhost:8080/login"
+    else if(checkAdmin())
+        window.location.href = "http://localhost:8080/adminPage"
+    else{
+        $.ajax({
+            url: "/api/loadPersonalProfile",
+            method : "get",
+            success: function(data) {
+                if(data == "no"){
+                    alert("No user found");
+                }
+                else{
+                    window.location.href =  "http://localhost:8080/userProfile?user=" + data;
+                }
+            }
+        })
+    }
 }

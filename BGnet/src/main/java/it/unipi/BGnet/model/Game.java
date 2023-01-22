@@ -6,6 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -175,7 +178,9 @@ public class Game {
         // Somma = Avg * numeroVoti
         // NuovaAvg = (SommaVoti + rate) / (NumeroVoti + 1)
         float somma = avgRate* ratings.size();
-        avgRate = (somma + rate) / (ratings.size() + 1);
+        BigDecimal bd = new BigDecimal(Float.toString((somma + rate) / (ratings.size() + 1)));
+        bd = bd.setScale(5, RoundingMode.HALF_UP);
+        avgRate = bd.floatValue();
         ratings.add(username);
     }
     public float getAvgRate() { return avgRate; }
