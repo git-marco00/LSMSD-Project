@@ -10,8 +10,6 @@ import it.unipi.BGnet.repository.UserRepository;
 
 import org.neo4j.driver.Record;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,12 +19,10 @@ import java.util.Optional;
 
 @Service("mainUserService")
 public class UserService {
-    Logger logger = LoggerFactory.getLogger(UserService.class);
     @Autowired
     UserRepository userRepo;
     @Autowired
     GameRepository gameRepo;
-
     @Autowired
     TournamentRepository tournamentRepo;
     public boolean addUser(User user) {
@@ -62,14 +58,13 @@ public class UserService {
             tournamentDTOList.add(tDTO);
         }
         UserDTO profile = new UserDTO(result.get().getUsername(), result.get().getFirstName(), result.get().getLastName(), result.get().getImg());
-        profile.setMostRecentPosts(result.get().getMostRecentPosts());
+        profile.setMostRecentPosts(result.get().getMostRecentPosts(), username);
         profile.setInCommonFollowers(inCommonFollowers);
         profile.setInCommonTournaments(tournamentDTOList);
         return profile;
     }
     public List<GameDTO> getSuggestedGames(String username){
         List<GameDTO> suggestedGames = userRepo.getSuggestedGames(username);
-        logger.warn("SUGGESTED GAMES" + suggestedGames.size());
         if(suggestedGames.size() < 4){
             List<GameDTO> famousGames = gameRepo.getFamousGames();
             while(suggestedGames.size() < 4){

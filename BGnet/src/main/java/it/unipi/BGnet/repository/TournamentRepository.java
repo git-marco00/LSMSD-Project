@@ -11,23 +11,18 @@ import java.util.List;
 @Repository
 public class TournamentRepository {
     private TournamentNeo4j tournamentNeo4j = new TournamentNeo4j();
-
     public boolean createTournament(int maxPlayers, String date, String modalities, String playersPerMatch, String duration, String gamename, String creator){
         return tournamentNeo4j.createTournament(maxPlayers, date, modalities, playersPerMatch, duration, gamename, creator);
     }
-
     public boolean closeTournament(int tournamentId){
         return tournamentNeo4j.closeTournament(tournamentId);
     }
-
     public boolean addTournamentPartecipant(String username, int tournamentid){
         return tournamentNeo4j.addTournamentPartecipant(username, tournamentid);
     }
-
     public boolean removeTournamentPartecipant(String username, int tournamentId){
         return tournamentNeo4j.removeTournamentPartecipant(username, tournamentId);
     }
-
     public List<Tournament> getTournamentsByGamename(String gamename){
         List<Tournament> tournamentList= new ArrayList<>();
         for(Record r: tournamentNeo4j.getTournamentsByGamename(gamename)){
@@ -43,7 +38,6 @@ public class TournamentRepository {
         }
         return tournamentList;
     }
-
     public List<String> getPartecipantsByTournamentId(int tournamentId){
         List<String> partecipantsList = new ArrayList<>();
         for(Record r: tournamentNeo4j.getPartecipantsByTournamentId(tournamentId)){
@@ -51,7 +45,6 @@ public class TournamentRepository {
         }
         return partecipantsList;
     }
-
     public List<Tournament> getInCommonTournaments(String userA, String userB){
         List<Tournament> tournamentList= new ArrayList<>();
         List<Record> tournamentRecordList = tournamentNeo4j.getInCommonTournaments(userA, userB);
@@ -71,14 +64,12 @@ public class TournamentRepository {
         }
         return tournamentList;
     }
-
     public String getGameByTournamentId(int tournamentId){
         if(tournamentNeo4j.getGameByTournamentId(tournamentId)!=null){
             return tournamentNeo4j.getGameByTournamentId(tournamentId).get(0).get("gamename").asString();
         }
         return null;
     }
-
     public String getCreatorByTournamentId(int tournamentId){
         if(tournamentNeo4j.getCreatorByTournamentId(tournamentId)!=null){
             return tournamentNeo4j.getCreatorByTournamentId(tournamentId).get(0).get("username").asString();
@@ -100,11 +91,9 @@ public class TournamentRepository {
         }
         return tournamentList;
     }
-
     public boolean isParticipating(String username, int tournamentId){
         return tournamentNeo4j.isParticipating(username, tournamentId).get(0).get("isParticipating").asBoolean();
     }
-
     public boolean isCreator(String username, int tournamentId){
         return tournamentNeo4j.isCreator(username, tournamentId).get(0).get("isParticipating").asBoolean();
     }

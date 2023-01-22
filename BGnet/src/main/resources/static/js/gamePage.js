@@ -15,23 +15,23 @@ $(document).ready(function() {
             $('#desc').append('<p> Description: ' + data.description + '</p>')
             if(data.inCommonFollowers!=null){
                 for(follower of data.inCommonFollowers){
-                    let html = '<div class="inCommonFollower" id="'+follower.name+'" style="float:left; margin-left:10px; margin-bottom:10px">'
-                    html += '<p style="font-size:10px">'+follower.name+'</p>'
-                    html += '<img src="'+follower.imgUrl+'" class="w3-circle" style="height:50px;width:50px">'
+                    let html = '<div class="inCommonFollower" id="' + follower.name + '" style="float:left; margin-left:10px; margin-bottom:10px">'
+                    html += '<p style="font-size:10px">' + follower.name + '</p>'
+                    html += '<img src="' + follower.imgUrl + '" class="w3-circle" style="height:50px;width:50px">'
                     html += '</div>'
                     $('#inCommonFollowersContainer').append(html)
                 }
             }
-            if (!data.followed) {
-                $('#unfollowButton').hide()
-                $('#followButton').show().bind('click', function () {
+            if(!data.followed) {
+                $('#unfollowButton').remove()
+                $('#followButton').bind('click', function () {
                     $.ajax({
                         url: "/api/followGame",
                         data: {game: data.gameName},
                         method: "get",
                         success: function (data) {
                             data = JSON.parse(data)
-                            if (data)
+                            if(data)
                                 window.location.href = "http://localhost:8080/gamePage"
                             else {
                                 alert("You must be logged to follow a game!")
@@ -41,15 +41,15 @@ $(document).ready(function() {
                     })
                 })
             } else {
-                $('#followButton').hide()
-                $('#unfollowButton').show().bind('click', function () {
+                $('#followButton').remove()
+                $('#unfollowButton').bind('click', function () {
                     $.ajax({
                         url: "/api/unfollowGame",
                         data: {game: data.gameName},
                         method: "get",
                         success: function (data) {
                             data = JSON.parse(data)
-                            if (data)
+                            if(data)
                                 window.location.href = "http://localhost:8080/gamePage"
                         }
                     })
@@ -98,9 +98,8 @@ $(document).ready(function() {
                                 alert("You must be logged to like a post!")
                                 window.location.href = "http://localhost:8080/login"
                             }
-                            else if(data == -1) {
+                            else if(data == -1)
                                 alert("Something goes wrong!")
-                            }
                             else
                                 window.location.href = "http://localhost:8080/gamePage"
                         }
@@ -126,7 +125,7 @@ $(document).ready(function() {
                         url: "/api/deletePost",
                         method: "get",
                         data: {id: event.target.id.slice(11)},
-                        success: function(){
+                        success: function() {
                             alert("Post deleted!")
                             window.location.href = "http://localhost:8080/gamePage"
                         }
@@ -140,25 +139,21 @@ $(document).ready(function() {
                 $('#postButton').prop("disabled", true)
                 html = "<div class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\">"
                 html += "<br>"
-                html += "<textarea id=\"post-text\" placeholder=\"Say Something:\" rows=\"5\" cols=\"99\"></textarea>"
+                html += "<textarea id=\"post-text\" placeholder=\"Say Something:\" rows=\"5\" cols=\"89\"></textarea>"
                 html += "<br>"
-                html += "<button type=\"button\" onclick=\"addPost()\" id=\"submit-" + data.gameName + "\" class=\"w3-button w3-theme-d2 w3-margin-bottom\"><i class=\"fa fa-comment\"></i>Submit</button></button>"
+                html += "<button type=\"button\" onclick=\"addPost()\" id=\"submit-" + data.gameName + "\" class=\"w3-button w3-theme-d2 w3-margin-bottom\"><i class=\"fa fa-comment\"></i> Submit</button>"
                 html += "</div><br>"
                 $('#post-container').prepend(html)
             })
-            $(".admin").hide()
+            checkLogged()
             checkAdmin()
             checkRate()
-            checkLogged()
         }
     })
 })
-
 function getAllPosts() { window.location.href = "http://localhost:8080/postPage"; }
-
 function likePost(){}
-
-function addPost(){
+function addPost() {
     $.ajax({
         url: "api/addPost",
         data: {game: $("#gameName").text(), text: $('textarea#post-text').val()},
@@ -172,8 +167,7 @@ function addPost(){
         }
     })
 }
-
-function getCommonFollowers(){}
+function getCommonFollowers() {}
 function rate(){
     let number = $("#ratingValue").val()
     $.ajax({
@@ -189,34 +183,16 @@ function rate(){
     })
 
 }
-/*
-function unrate(){
-    $.ajax({
-        url: "/api/unrateGame",
-        method: "get",
-        success: function(data){
-            if(data) {
-                $("#ratingValue").show()
-                $("#unrateButton").hide()
-                $("#rateButton").show()
-            }
-        }
-    })
-}
-*/
-function checkRate(){
-    // Se ho votato, non mostrare il bottone rate
+function checkRate() {
     $.ajax({
         url: "/api/haveIVoted",
         method: "get",
-        success: function (data){
-            if(data){
+        success: function (data) {
+            if(data) {
                 $("#ratingValue").hide()
                 $("#rateButton").hide()
             }
-
         }
     })
 }
 function getCommonFollowers(){;}
-

@@ -44,48 +44,38 @@ public class UserDTO {
     public void setInCommonTournaments(List<TournamentDTO> inCommonTournaments) {
         this.inCommonTournaments = inCommonTournaments;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
     public String getImg() {
         return img;
     }
-
     public void setImg(String img) {
         this.img = img;
     }
-
     public List<PostDTO> getMostRecentPosts() {
         return mostRecentPosts;
     }
-
     public UserDTO(String username, String password) {
         this.username = username;
         this.password = password;
     }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-
     public String getUsername() { return username; }
-    public void setMostRecentPosts(List<Post> postList) {
+    public void setMostRecentPosts(List<Post> postList, String username) {
         List<PostDTO> postDTOList = new ArrayList<>();
         for (Post post : postList) {
             PostDTO postDTO = new PostDTO();
@@ -96,6 +86,8 @@ public class UserDTO {
             postDTO.setComments(post.getComments().size());
             postDTO.setDate(post.getTimestamp());
             postDTO.setText(post.getText());
+            postDTO.setHasLiked(post.getLikes().contains(username));
+            System.out.println("HAS_LIKED >> " + post.getLikes().contains(username));
             postDTOList.add(postDTO);
         }
         this.mostRecentPosts =  postDTOList;

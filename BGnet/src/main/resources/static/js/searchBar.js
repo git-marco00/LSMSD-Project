@@ -13,32 +13,28 @@ $(document).ready(function(){
         'Children\'s Game', 'American West', 'Pike and Shot', 'Political',
         'Transportation', 'Arabian', 'Word Game']
     loadSearchBar()
-    for(a in categories){
-        console.log(categories[a])
+    for(a in categories) {
         $("#category").append(
             new Option(categories[a], categories[a])
         )
     }
 })
-
 function loadSearchBar(){
-    $("#navbar").append("            <div class=\"w3-bar w3-theme-d2 w3-left-align w3-large\" id=\"searchBar\">\n" +
-        "                <a href=\"\\\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
-        "                    <i class=\"fa fa-home w3-margin-right\"></i>\n" +
-        "                </a>\n" +
-        "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:1000px\">" +
-        "<select name=\"category\" id=\"category\">\n" +
-        "    <option value=\"All\">All Categories</option>\n" +
-        "  </select>" +
-        "<select name=\"type\" id=\"typeOf\">\n" +
-        "    <option value=\"Game\">Game</option>\n" +
-        "    <option value=\"User\">User</option>\n" +
+    $("#navbar").append("<div class=\"w3-bar w3-theme-d2 w3-left-align w3-large\" id=\"searchBar\" style=\"background-color: #1B4571;\">" +
+        "<a href=\"#\" class=\" w3-button w3-padding-large w3-theme-d4\">" +
+        "<i class=\"fa fa-home w3-margin-right\"></i>Logo</a>" +
+        "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:60.5%;\">" +
+        "<select name=\"category\" id=\"category\">" +
+        "<option value=\"All\">All Categories</option>" +
         "</select>" +
-        "<button onclick=\"searchButton()\" type=\"button\" class=\"w3-button w3-theme\" id=\"searchButton\"><i class=\"fa fa-pencil\"></i> Search</button>" +
-        "            </div>")
+        "<select name=\"type\" id=\"typeOf\">" +
+        "<option value=\"Game\">Game</option>" +
+        "<option value=\"User\">User</option>" +
+        "</select>" +
+        "<button onclick=\"searchButton()\" type=\"button\" class=\"w3-button w3-theme\" id=\"searchButton\" style=\"border-radius: 10px 10px 10px 10px;\"><i class=\"fa fa-pencil\"></i> Search</button>" +
+        "</div>")
     addListener()
 }
-
 function addListener(){
     const searchEditText = document.getElementById("searchEditText");
     const searchFilter = document.getElementById("typeOf")
@@ -52,7 +48,6 @@ function addListener(){
             document.getElementById("searchButton").click();
         }
     });
-
     $("#typeOf").change(function(){
        if($("#typeOf").find(":selected").text() == "User")
            $("#category").hide()
@@ -60,7 +55,6 @@ function addListener(){
            $("#category").show()
     });
 }
-
 function searchButton(){
     var concept = $('#typeOf').find(":selected").text();
     var concept2 = $('#category').find(":selected").text();
@@ -72,7 +66,6 @@ function searchButton(){
     else
         searchForAPerson()
 }
-
 function searchForAGame() {
     let searchEditText;
     let text;
@@ -82,13 +75,12 @@ function searchForAGame() {
         searchEditText = document.getElementById("searchEditText");
         text = searchEditText.value.trim();
     }
-
     $.ajax({
         url : "/api/gamePageExists",
         data : {name : text},
         method : "get",
         success: function(data){
-            if(data == 1){
+            if(data == 1) {
                 window.location.href="http://localhost:8080/gamePage"
             }
             else if(data >= 0){
@@ -100,11 +92,9 @@ function searchForAGame() {
         }
     })
 }
-
 function searchForAGameFiltered(cat){
     let searchEditText = document.getElementById("searchEditText");
     let text = searchEditText.value.trim();
-
     $.ajax({
         url: "/api/searchGameFiltered",
         data: {name: text, category: cat},
@@ -127,7 +117,6 @@ function searchForAGameFiltered(cat){
         }
     })
 }
-
 function searchForAPerson(){
     let searchEditText;
     let user;
@@ -151,32 +140,31 @@ function searchForAPerson(){
         }
     })
 }
-
 function checkAdmin(){
     $.ajax({
         url: "/api/isAdmin",
         method: "get",
         success: function(data){
-            if(data == "ok")
+            data = JSON.parse(data)
+            if(data)
                 $(".admin").show()
+            else
+                $(".admin").hide()
         }
     })
 }
-
-
-
-function checkLogged(){
+function checkLogged() {
+    let logged = false
     $.ajax({
         url: "/api/isLogged",
         method: "get",
-        success: function(data){
-            console.log(data)
-            if(data === "ok")
+        success: function(data) {
+            data = JSON.parse(data)
+            if (data) {
                 $(".logged").show()
-            else {
-                $(".logged").hide()
-            }
+                logged = true
+            } else $(".logged").hide()
         }
     })
+    return logged
 }
-

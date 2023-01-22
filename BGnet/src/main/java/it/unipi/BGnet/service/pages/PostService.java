@@ -57,7 +57,7 @@ public class PostService {
         for(String like : older.get().getLikes())
             if(like.equals(username))
                 flag = true;
-        Post saved = null;
+        Post saved;
         if(flag)
             saved = postRepo.unlikePost(older.get(), username);
         else
@@ -66,7 +66,7 @@ public class PostService {
             return -1;
         gameRepo.updatePost(game, older.get(), saved);
         userRepo.updatePost(username, older.get(), saved);
-        return 1;
+        return (flag) ? 2 : 1;
     }
     public boolean addComment(String id, String username, String game, String text){
         Optional<Post> older = postRepo.getPostById(id);
@@ -99,7 +99,7 @@ public class PostService {
     public int loadNumberOfPages(String game){
         return postRepo.countPages(game);
     }
-    public PostDTO loadComments(String _id) {
+    public PostDTO loadComments(Model model, String _id) {
         Optional<Post> result = postRepo.getPostById(_id);
         if(result.isEmpty())
             return null;
@@ -108,7 +108,11 @@ public class PostService {
             CommentDTO tmp = new CommentDTO(comment.getAuthor(), comment.getText(), comment.getDateTime());
             comments.add(tmp);
         }
-        return new PostDTO(result.get().getId(), result.get().getGame(), result.get().getAuthor(), result.get().getLikes().size(), comments, result.get().getTimestamp(), result.get().getText());
+        boolean flag = false;
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        if(sv != null && sv.myself != null)
+            flag = result.get().getLikes().contains(sv.myself);
+        return new PostDTO(result.get().getId(), result.get().getGame(), result.get().getAuthor(), result.get().getLikes().size(), comments, result.get().getTimestamp(), result.get().getText(), flag);
     }
 }
 
