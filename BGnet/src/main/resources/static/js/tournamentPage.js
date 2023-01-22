@@ -34,7 +34,10 @@ $(document).ready(function() {
                         } else html += '<button id=' + tournament.id + ' type="button" disabled class="quitButton w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-flash"></i> Quit</button>'
                     } else {
                         if (tournament.isParticipating == false) {
-                            html += '<button id=' + tournament.id + ' type="button" class="participateButton w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-flash"></i> Participate</button>'
+                            if(tournament.numPartecipants == tournament.maxPlayers){
+                                html += '<button id=' + tournament.id + ' type="button" disabled class="participateButton w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-flash"></i> Participate</button>'
+                            }
+                            else html += '<button id=' + tournament.id + ' type="button" class="participateButton w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-flash"></i> Participate</button>'
                         } else html += '<button id=' + tournament.id + ' type="button" class="quitButton w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-flash"></i> Quit</button>'
                     }
                     html += '<button id='+ tournament.id + ' type="button" class="viewPartecipantsButton w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-group"></i>  View partecipants</button>'
