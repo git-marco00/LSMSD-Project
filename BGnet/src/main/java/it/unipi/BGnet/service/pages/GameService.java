@@ -1,6 +1,6 @@
 package it.unipi.BGnet.service.pages;
 
-import it.unipi.BGnet.DTO.InCommonFollowersDTO;
+import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.GamePage;
@@ -22,7 +22,7 @@ public class GameService {
         Optional<Game> game = gameRep.getGameByName(gameName);
 
         /////// NEO4J ///////
-        List<InCommonFollowersDTO> inCommonFollowers = null;
+        List<InCommonGenericDTO> inCommonFollowers = null;
         boolean isFollowing = false;
         if(myself != null) {
             inCommonFollowers = gameRep.findInCommonFollowers(myself, gameName);

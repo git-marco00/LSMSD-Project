@@ -1,5 +1,6 @@
 package it.unipi.BGnet.DTO;
 
+import it.unipi.BGnet.model.Tournament;
 import lombok.NoArgsConstructor;
 
 import java.util.List;

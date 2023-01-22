@@ -1,6 +1,7 @@
 package it.unipi.BGnet.repository;
 
 import it.unipi.BGnet.DTO.GameDTO;
+import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.model.Game;
@@ -133,10 +134,12 @@ public class UserRepository {
     public int findFollowerNumberByUsername(String username){
         return userNeo4j.findFollowerNumberByUsername(username).get(0).get("numFollowers").asInt();
     }
-    public List<String> findInCommonFollowers(String usernameA, String usernameB){
-        List<String> inCommonFollowers = new ArrayList<>();
+    public List<InCommonGenericDTO> findInCommonFollowers(String usernameA, String usernameB){
+        List<InCommonGenericDTO> inCommonFollowers = new ArrayList<>();
         for(Record r: userNeo4j.findInCommonFollowers(usernameA, usernameB)){
-            inCommonFollowers.add(r.get("name").asString());
+            String name = r.get("name").asString();
+            String imgUrl = r.get("imgUrl").asString();
+            inCommonFollowers.add(new InCommonGenericDTO(name, imgUrl));
         }
         return inCommonFollowers;
     }

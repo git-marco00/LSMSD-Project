@@ -18,11 +18,31 @@ public class UserDTO {
     // private String continent;
     private String img;
     private List<PostDTO> mostRecentPosts;
+
+    private List<InCommonGenericDTO> inCommonFollowers;
+
+    private List<TournamentDTO> inCommonTournaments;
     public UserDTO(String username, String firstName, String lastName, String img) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.img = img;
+    }
+
+    public List<InCommonGenericDTO> getInCommonFollowers() {
+        return inCommonFollowers;
+    }
+
+    public void setInCommonFollowers(List<InCommonGenericDTO> inCommonFollowers) {
+        this.inCommonFollowers = inCommonFollowers;
+    }
+
+    public List<TournamentDTO> getInCommonTournaments() {
+        return inCommonTournaments;
+    }
+
+    public void setInCommonTournaments(List<TournamentDTO> inCommonTournaments) {
+        this.inCommonTournaments = inCommonTournaments;
     }
 
     public void setUsername(String username) {

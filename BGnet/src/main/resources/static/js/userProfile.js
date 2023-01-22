@@ -22,6 +22,26 @@ $(document).ready(function() {
                 html += "<button type=\"button\" class=\"admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom\" id=\"deletepost-" + data.mostRecentPosts[post].id + "\"><i class=\"fa fa-comment\"></i>Delete Post</button></div><br>"
                 $('#post-container').append(html)
             }
+            if(data.inCommonFollowers!=null){
+                for(follower of data.inCommonFollowers){
+                    let html = '<div class="inCommonFollowers" id="'+follower.name+'" style="float:left; margin-left:10px; margin-bottom:10px">'
+                    html += '<p style="font-size:7px">'+follower.name+'</p>'
+                    html += '<img src="'+follower.imgUrl+'" class="w3-circle" style="height:40px;width:40px">'
+                    html += '</div>'
+                    $('#inCommonFollowersContainer').append(html)
+                }
+            }
+            if(data.inCommonTournaments!=null){
+                for(tournament of data.inCommonTournaments){
+                    let html = '<div>'
+                    html += '<p> Game: '+tournament.tournamentGame+'</p>'
+                    html += '<p> Terminated: '+tournament.isClosed+'</p>'
+                    html += '<p> Date: '+tournament.date+'</p>'
+                    html += '<hr class="w3-clear">'
+                    html += '</div>'
+                    $('#inCommonTournamentsContainer').append(html)
+                }
+            }
             $('button.view-comments').bind('click', function(event) {
                 window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id;
             })

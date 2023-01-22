@@ -1,17 +1,18 @@
 package it.unipi.BGnet.service.user;
 
-import it.unipi.BGnet.DTO.GameDTO;
+import it.unipi.BGnet.DTO.*;
 import it.unipi.BGnet.model.Post;
+import it.unipi.BGnet.model.Tournament;
 import it.unipi.BGnet.model.User;
-import it.unipi.BGnet.DTO.PostDTO;
-import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.repository.GameRepository;
+import it.unipi.BGnet.repository.TournamentRepository;
 import it.unipi.BGnet.repository.UserRepository;
 import org.neo4j.driver.Record;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +20,11 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     UserRepository userRepo;
-
     @Autowired
     GameRepository gameRepo;
+
+    @Autowired
+    TournamentRepository tournamentRepo;
     public boolean addUser(User user) {
         if(!userRepo.addUser(user))
             return false;
@@ -40,12 +43,24 @@ public class UserService {
             return null;
         return new UserDTO(result.get().getUsername(), result.get().getPassword());
     }
-    public UserDTO loadProfile(String username) {
+    public UserDTO loadProfile(String username, String myself) {
         Optional<User> result = userRepo.getUserByUsername(username);
         if(result.isEmpty())
             return null;
+        List<InCommonGenericDTO> inCommonFollowers = userRepo.findInCommonFollowers(myself, username);
+        List<Tournament> inCommonTournaments = tournamentRepo.getInCommonTournaments(myself, username);
+        List<TournamentDTO> tournamentDTOList=new ArrayList<>();
+        for(Tournament t: inCommonTournaments){
+            TournamentDTO tDTO = new TournamentDTO();
+            tDTO.setDate(t.getDate());
+            tDTO.setTournamentGame(t.getTournamentGame());
+            tDTO.setClosed(t.isClosed());
+            tournamentDTOList.add(tDTO);
+        }
         UserDTO profile = new UserDTO(result.get().getUsername(), result.get().getFirstName(), result.get().getLastName(), result.get().getImg());
         profile.setMostRecentPosts(result.get().getMostRecentPosts());
+        profile.setInCommonFollowers(inCommonFollowers);
+        profile.setInCommonTournaments(tournamentDTOList);
         return profile;
     }
     public List<GameDTO> getSuggestedGames(String username){

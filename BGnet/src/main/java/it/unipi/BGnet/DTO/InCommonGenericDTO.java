@@ -1,10 +1,10 @@
 package it.unipi.BGnet.DTO;
 
-public class InCommonFollowersDTO {
+public class InCommonGenericDTO {
     private String name;
     private String imgUrl;
 
-    public InCommonFollowersDTO(String name, String imgUrl) {
+    public InCommonGenericDTO(String name, String imgUrl) {
         this.name = name;
         this.imgUrl = imgUrl;
     }

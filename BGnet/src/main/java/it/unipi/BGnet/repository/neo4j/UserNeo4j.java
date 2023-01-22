@@ -63,7 +63,7 @@ public class UserNeo4j {
             return graphNeo4j.read("MATCH (uA:User)-[:FOLLOWS]->(uTarget:User)" +
                             "-[:FOLLOWS]->(uB:User)" +
                             " WHERE uA.name=$userA AND uB.name=$userB" +
-                            " RETURN uTarget.name as name",
+                            " RETURN uTarget.name as name, uTarget.imgUrl as imgUrl",
                     parameters("userA", usernameA, "userB", usernameB));
 
         } catch (Exception e){

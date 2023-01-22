@@ -96,9 +96,10 @@ public class TournamentNeo4j {
             return graphNeo4j.read("MATCH (uA:User)-[:PARTICIPATE]->(t:Tournament)" +
                             "<-[:PARTICIPATE]-(uB:User)" +
                             " WHERE uA.name=$userA AND uB.name=$userB" +
+                            " MATCH (t)-[:TOURNAMENT_GAME]->(g:Game)" +
                             " RETURN id(t) as id, t.date as date, t.duration as duration," +
-                            " t.maxPlayers as maxPlayers, t.modalities as modalities, t.playersPerMatch as playersPerMatch" +
-                            " t.isClosed as isClosed",
+                            " t.maxPlayers as maxPlayers, t.modalities as modalities, t.playersPerMatch as playersPerMatch," +
+                            " t.isClosed as isClosed, g.name as gameName",
                     parameters("userA", userA, "userB", userB));
 
         } catch (Exception e){

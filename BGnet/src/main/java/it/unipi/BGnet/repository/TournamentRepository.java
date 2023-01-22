@@ -54,16 +54,20 @@ public class TournamentRepository {
 
     public List<Tournament> getInCommonTournaments(String userA, String userB){
         List<Tournament> tournamentList= new ArrayList<>();
-        for(Record r: tournamentNeo4j.getInCommonTournaments(userA, userB)){
-            int tid = r.get("id").asInt();
-            String date = r.get("date").asString();
-            String duration = r.get("duration").asString();
-            int maxPlayers = r.get("maxPlayers").asInt();
-            String modalities = r.get("modalities").asString();
-            String playersPerMatch = r.get("playersPerMatch").asString();
-            Boolean isClosed = r.get("isClosed").asBoolean();
-            Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, null, null, null, isClosed);
-            tournamentList.add(t);
+        List<Record> tournamentRecordList = tournamentNeo4j.getInCommonTournaments(userA, userB);
+        if(tournamentRecordList!=null) {
+            for (Record r : tournamentNeo4j.getInCommonTournaments(userA, userB)) {
+                int tid = r.get("id").asInt();
+                String date = r.get("date").asString();
+                String duration = r.get("duration").asString();
+                int maxPlayers = r.get("maxPlayers").asInt();
+                String modalities = r.get("modalities").asString();
+                String playersPerMatch = r.get("playersPerMatch").asString();
+                Boolean isClosed = r.get("isClosed").asBoolean();
+                String gameName = r.get("gameName").asString();
+                Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, null, gameName, null, isClosed);
+                tournamentList.add(t);
+            }
         }
         return tournamentList;
     }
