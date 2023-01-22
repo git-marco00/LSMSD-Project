@@ -19,7 +19,7 @@ public class GamePage {
     private int followers;
     private boolean followed;
     private boolean rated;  // -1 if not rated
-    private List<String> inCommonFollowers;
+    private List<InCommonFollowersDTO> inCommonFollowers;
     public String getGameName() {
         return gameName;
     }
@@ -110,10 +110,10 @@ public class GamePage {
     public void setRated(boolean rated) {
         this.rated = rated;
     }
-    public List<String> getInCommonFollowers() {
+    public List<InCommonFollowersDTO> getInCommonFollowers() {
         return inCommonFollowers;
     }
-    public void setInCommonFollowers(List<String> inCommonFollowers) {
+    public void setInCommonFollowers(List<InCommonFollowersDTO> inCommonFollowers) {
         this.inCommonFollowers = inCommonFollowers;
     }
     @Override
