@@ -30,7 +30,7 @@ public class LoadPostController {
         if(((SessionVariables) model.getAttribute("sessionVariables")).gameToDisplay == null)
             return null;
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        List<PostDTO> postList = postService.loadPostPage(sv.gameToDisplay, pageNumber);
+        List<PostDTO> postList = postService.loadPostPage(model, sv.gameToDisplay, pageNumber);
         sv.currentPage = pageNumber;
         model.addAttribute("sessionVariables", sv);
         Gson gson = new Gson();
@@ -42,9 +42,9 @@ public class LoadPostController {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         if(sv == null || sv.myself == null) {
-            return gson.toJson(false);
+            return gson.toJson(0);
         }
-        return gson.toJson(postService.likePost(post, sv.myself, game));
+        return gson.toJson(postService.likeUnlikePost(post, sv.myself, game));
     }
     @GetMapping("/api/getPages")
     public @ResponseBody String getHowManyPages(Model model){

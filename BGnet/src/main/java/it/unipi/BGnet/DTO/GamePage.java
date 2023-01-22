@@ -19,7 +19,7 @@ public class GamePage {
     private int followers;
     private boolean followed;
     private boolean rated;  // -1 if not rated
-    private List<String> inCommonFollowers;
+    private List<InCommonFollowersDTO> inCommonFollowers;
     public String getGameName() {
         return gameName;
     }
@@ -77,7 +77,7 @@ public class GamePage {
     public List<PostDTO> getMostRecentPosts() {
         return mostRecentPosts;
     }
-    public void setMostRecentPosts(List<Post> mostRecentPosts) {
+    public void setMostRecentPosts(List<Post> mostRecentPosts, String username) {
         List<PostDTO> mostRecentPostsDTO = new ArrayList<>();
         mostRecentPosts.forEach((post) -> {
             PostDTO postDTO = new PostDTO();
@@ -87,6 +87,7 @@ public class GamePage {
             postDTO.setText(post.getText());
             postDTO.setLikes(post.getLikes().size());
             postDTO.setComments(post.getComments().size());
+            postDTO.setHasLiked(post.getLikes().contains(username));
             mostRecentPostsDTO.add(postDTO);
         });
         this.mostRecentPosts = mostRecentPostsDTO;
@@ -109,10 +110,10 @@ public class GamePage {
     public void setRated(boolean rated) {
         this.rated = rated;
     }
-    public List<String> getInCommonFollowers() {
+    public List<InCommonFollowersDTO> getInCommonFollowers() {
         return inCommonFollowers;
     }
-    public void setInCommonFollowers(List<String> inCommonFollowers) {
+    public void setInCommonFollowers(List<InCommonFollowersDTO> inCommonFollowers) {
         this.inCommonFollowers = inCommonFollowers;
     }
     @Override

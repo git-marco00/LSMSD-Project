@@ -13,20 +13,38 @@ function requestPostPage(pageNumber){
                     let html = '<div id="post-' + posts[post].id + '" class="post"><div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>'
                     html += '<img src="img/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'
                     html += '<span class="w3-right w3-opacity"><i class="fa fa-calendar"></i>' + posts[post].date.slice(0, 10) + '</span>'
-                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + posts[post].likes + '</span>'
-                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + posts[post].comments + '</span>'
+                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-comment"></i>' + posts[post].comments + '</span>'
+                    html += '<span class="w3-right w3-opacity w3-margin-right"><i class="fa fa-thumbs-up"></i>' + posts[post].likes + '</span>'
                     html += ('<h4 id="' + posts[post].author + '" class="author">' + posts[post].author + '</h4><br><hr class="w3-clear">')
                     html += ('<p>' + posts[post].text + '</p>')
                     html += '<p id="_id" style="display: none;">' + posts[post].id + '</p>'
-                    html += '<button type="button" class="logged w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> Like</button>'
+                    html += '<button type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" id="like-post-' + posts[post].id + '"><i class="fa fa-thumbs-' + ((posts[post].hasLiked) ? 'down' : 'up') + '"></i>' + ((posts[post].hasLiked) ? ' Unlike' : ' Like') + '</button>'
                     html += '<button type="button" class="view-comments-' + post + ' view-comments w3-button w3-theme-d2 w3-margin-bottom" id="' + posts[post].id + '"><i id="' + posts[post].id + '" class="fa fa-comment"></i> View comments</button>'
-                    html += '<button type="button" class="admin delete w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + posts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
+                    html += '<button type="button" class="admin delete view-comments w3-button w3-theme-d2 w3-margin-bottom" id="deletepost-' + posts[post].id + '"><i class="fa fa-comment"></i> Delete Post</button>'
                     html += '</div><br>'
                     $('#containerPosts').append(html)
                 }
                 $('h4.author').bind('click', function(event) {
                     searchForAPerson(event.target.id)
-                    // window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
+                })
+                $('button.like').bind('click', function(event) {
+                    $.ajax({
+                        url: "/api/likePost",
+                        method: "get",
+                        data: {post: event.target.id.slice(10), game: posts[0].game},
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(data == 0) {
+                                alert("You must be logged to like a post!")
+                                window.location.href = "http://localhost:8080/login"
+                            }
+                            else if(data == -1) {
+                                alert("Something goes wrong!")
+                            }
+                            else
+                                window.location.href = "http://localhost:8080/postPage"
+                        }
+                    })
                 })
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id

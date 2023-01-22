@@ -63,6 +63,7 @@ public class PostRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(post);
         return post;
     }
 
@@ -103,22 +104,21 @@ public class PostRepository {
         try{
             post.addLike(username);
             postMongo.save(post);
-        } catch(Exception e){
+        } catch(Exception e) {
             e.printStackTrace();
             return null;
         }
         return post;
     }
-    public boolean unlikePost(Post post, User user){
-        boolean result = true;
+    public Post unlikePost(Post post, String username){
         try{
-            post.removeLike(user.getUsername());
+            post.removeLike(username);
             postMongo.save(post);
         } catch(Exception e) {
             e.printStackTrace();
-            result = false;
+            return null;
         }
-        return result;
+        return post;
     }
     public Post addComment(Post post, Comment comment){
         try{

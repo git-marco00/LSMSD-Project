@@ -49,7 +49,6 @@ public class UserRepository {
         }
         return result;
     }
-
     public Optional<User> getUserByEmail(String email){
         Optional<User> user = Optional.empty();
         try {
@@ -60,18 +59,15 @@ public class UserRepository {
         }
         return user;
     }
-
     public Optional<User> getUserByUsername(String username){
         Optional<User> user = Optional.empty();
         try {
             user = userMongo.findByUsername(username);
-            System.out.println("\t\tUserRepository::getUserByUsername(String username) >> " + username);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return user;
     }
-
     public boolean addPost(String username, Post post){
         Optional<User> user = getUserByUsername(username);
         if(user.isEmpty())
@@ -90,7 +86,6 @@ public class UserRepository {
         }
         return true;
     }
-
     public boolean removePost(String username, Post post){
         Optional<User> user = getUserByUsername(username);
         if(user.isEmpty())

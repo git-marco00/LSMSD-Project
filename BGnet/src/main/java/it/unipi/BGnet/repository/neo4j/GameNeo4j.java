@@ -53,7 +53,7 @@ public class GameNeo4j {
             return graphNeo4j.read("MATCH (uA:User)-[:FOLLOWS]->(uTarget:User)" +
                             "-[:FOLLOWS]->(g:Game)" +
                             " WHERE uA.name = $username AND g.name = $gamename" +
-                            " RETURN uTarget.name as name",
+                            " RETURN uTarget.name as name, uTarget.imgUrl as imgUrl",
                     parameters("username", username, "gamename", gamename));
 
         } catch (Exception e){
