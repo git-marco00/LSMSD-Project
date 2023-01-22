@@ -21,8 +21,9 @@ $(document).ready(function(){
 })
 function loadSearchBar(){
     $("#navbar").append("<div class=\"w3-bar w3-theme-d2 w3-left-align w3-large\" id=\"searchBar\" style=\"background-color: #1B4571;\">" +
-        "<a href=\"#\" class=\" w3-button w3-padding-large w3-theme-d4\">" +
-        "<i class=\"fa fa-home w3-margin-right\"></i>Logo</a>" +
+        "                <a href=\"\\\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
+        "                    <i class=\"fa fa-home w3-margin-right\"></i>\n" +
+        "                </a>\n" +
         "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:60.5%;\">" +
         "<select name=\"category\" id=\"category\">" +
         "<option value=\"All\">All Categories</option>" +
