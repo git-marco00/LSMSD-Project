@@ -132,6 +132,9 @@ public class UserRepository {
     public int findFollowerNumberByUsername(String username){
         return userNeo4j.findFollowerNumberByUsername(username).get(0).get("numFollowers").asInt();
     }
+    public boolean isFollowed(String myself, String username){
+        return userNeo4j.isFollowed(myself, username).get(0).get("isFollowed").asBoolean();
+    }
     public List<InCommonGenericDTO> findInCommonFollowers(String usernameA, String usernameB){
         List<InCommonGenericDTO> inCommonFollowers = new ArrayList<>();
         for(Record r: userNeo4j.findInCommonFollowers(usernameA, usernameB)){

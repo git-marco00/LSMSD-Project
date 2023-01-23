@@ -11,17 +11,77 @@ public class UserDTO {
     private String password;
     private String firstName;
     private String lastName;
-    // private int yearRegistered;
-    // private String email;
-    // private String stateOfProvince;
-    // private String country;
-    // private String continent;
+    private int yearRegistered;
+    private String email;
+    private String stateOfProvince;
+    private String country;
+    private String continent;
     private String img;
     private List<PostDTO> mostRecentPosts;
-
     private List<InCommonGenericDTO> inCommonFollowers;
-
     private List<TournamentDTO> inCommonTournaments;
+    private int followers;
+    private boolean isFollowed;
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public boolean isFollowed() {
+        return isFollowed;
+    }
+
+    public void setFollowed(boolean followed) {
+        isFollowed = followed;
+    }
+
+    public int getYearRegistered() {
+        return yearRegistered;
+    }
+
+    public void setYearRegistered(int yearRegistered) {
+        this.yearRegistered = yearRegistered;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStateOfProvince() {
+        return stateOfProvince;
+    }
+
+    public void setStateOfProvince(String stateOfProvince) {
+        this.stateOfProvince = stateOfProvince;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public void setContinent(String continent) {
+        this.continent = continent;
+    }
+
+    public void setMostRecentPosts(List<PostDTO> mostRecentPosts) {
+        this.mostRecentPosts = mostRecentPosts;
+    }
     public UserDTO(String username, String firstName, String lastName, String img) {
         this.username = username;
         this.firstName = firstName;
@@ -32,7 +92,6 @@ public class UserDTO {
     public List<InCommonGenericDTO> getInCommonFollowers() {
         return inCommonFollowers;
     }
-
     public void setInCommonFollowers(List<InCommonGenericDTO> inCommonFollowers) {
         this.inCommonFollowers = inCommonFollowers;
     }

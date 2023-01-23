@@ -43,10 +43,24 @@ public class UserService {
             return null;
         return new UserDTO(result.get().getUsername(), result.get().getPassword());
     }
+
     public UserDTO loadProfile(String username, String myself) {
         Optional<User> result = userRepo.getUserByUsername(username);
         if(result.isEmpty())
             return null;
+
+        // creating the DTO to show to the user
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(result.get().getUsername());
+        userDTO.setPassword(result.get().getPassword());
+        userDTO.setFirstName(result.get().getFirstName());
+        userDTO.setLastName(result.get().getLastName());
+        userDTO.setYearRegistered(result.get().getYearRegistered());
+        userDTO.setEmail(result.get().getEmail());
+        userDTO.setStateOfProvince(result.get().getStateOfProvince());
+        userDTO.setCountry(result.get().getCountry());
+        userDTO.setContinent(result.get().getContinent());
+        userDTO.setImg(result.get().getImg());
         List<InCommonGenericDTO> inCommonFollowers = userRepo.findInCommonFollowers(myself, username);
         List<Tournament> inCommonTournaments = tournamentRepo.getInCommonTournaments(myself, username);
         List<TournamentDTO> tournamentDTOList=new ArrayList<>();
@@ -57,11 +71,12 @@ public class UserService {
             tDTO.setClosed(t.isClosed());
             tournamentDTOList.add(tDTO);
         }
-        UserDTO profile = new UserDTO(result.get().getUsername(), result.get().getFirstName(), result.get().getLastName(), result.get().getImg());
-        profile.setMostRecentPosts(result.get().getMostRecentPosts(), username);
-        profile.setInCommonFollowers(inCommonFollowers);
-        profile.setInCommonTournaments(tournamentDTOList);
-        return profile;
+        userDTO.setMostRecentPosts(result.get().getMostRecentPosts(), username);
+        userDTO.setInCommonFollowers(inCommonFollowers);
+        userDTO.setInCommonTournaments(tournamentDTOList);
+        userDTO.setFollowers(userRepo.findFollowerNumberByUsername(username));
+        userDTO.setFollowed(userRepo.isFollowed(myself, username));
+        return userDTO;
     }
     public List<GameDTO> getSuggestedGames(String username){
         List<GameDTO> suggestedGames = userRepo.getSuggestedGames(username);
@@ -113,5 +128,13 @@ public class UserService {
     }
     public boolean isAdmin(String username){
         return userRepo.checkAdmin(username);
+    }
+
+    public boolean followUser(String myself, String username){
+        return userRepo.followUserByUsername(myself, username);
+    }
+
+    public boolean unfollowUser(String myself, String username){
+        return userRepo.unfollowUserByUsername(myself, username);
     }
 }

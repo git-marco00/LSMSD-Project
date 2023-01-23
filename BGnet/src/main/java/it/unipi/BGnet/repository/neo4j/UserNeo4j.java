@@ -36,7 +36,8 @@ public class UserNeo4j {
         try{
             graphNeo4j.write("MATCH (uA:User) WHERE uA.name=$usernameA" +
                             " MATCH (uB:User) WHERE uB.name=$usernameB" +
-                            " DELETE (uA)-[:FOLLOWS]->(uB)",
+                            " MATCH (uA)-[r:FOLLOWS]->(uB)" +
+                            " DELETE r",
                     parameters("usernameA", usernameA, "usernameB", usernameB));
         } catch (Exception e){
             e.printStackTrace();
@@ -145,5 +146,16 @@ public class UserNeo4j {
         return true;
     }
 
+    public List<Record> isFollowed(String myself, String username){
+        try{
+            return graphNeo4j.read("MATCH (u:User{name:$myself})" +
+                    " MATCH (ub:User{name:$username})" +
+                    " RETURN EXISTS((u)-[:FOLLOWS]->(ub)) as isFollowed",
+                    parameters("myself", myself, "username", username));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

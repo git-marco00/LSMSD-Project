@@ -6,10 +6,55 @@ $(document).ready(function() {
         method: "get",
         success: function (data) {
             data = JSON.parse(data)
+
+            // personal information
             $('#username').text(data.username)
             $('#img').append('<img src="' + data.img + '" class="w3-circle" style="height:106px;width:106px" alt="Profile picture"/>')
-            $('#firstname').empty().text(data.firstName)
-            $('#lastname').empty().text(data.lastName)
+            $('#firstname').text("First Name: "+data.firstName)
+            $('#lastname').text("Last Name: "+data.lastName)
+            $('#followers').text("Followers: "+data.followers)
+            $('#regYear').text("Year of registration: "+data.yearRegistered)
+            $('#email').text("Email: "+data.email)
+            $('#stateOfProvince').text("State of province: "+data.stateOfProvince)
+            $('#country').text("Country: "+data.country)
+            $('#continent').text("Continent: "+data.continent)
+
+            // follow/unfollow button
+            if(data.isFollowed){
+                $('#followButton').remove()
+                $('#unfollowButton').bind('click', function () {
+                    $.ajax({
+                        url: "/api/unfollowUser",
+                        data: {user: data.username},
+                        method: "get",
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(data) {
+                                window.location.reload()
+                            }
+                        }
+                    })
+                })
+            } else {
+                $('#unfollowButton').remove()
+                $('#followButton').bind('click', function () {
+                    $.ajax({
+                        url: "/api/followUser",
+                        data: {user: data.username},
+                        method: "get",
+                        success: function (data) {
+                            data = JSON.parse(data)
+                            if(data)
+                                window.location.reload()
+                            else {
+                                alert("You must be logged to follow a user!")
+                                window.location.href = "http://localhost:8080/login"
+                            }
+                        }
+                    })
+                })
+            }
+
             for(post in data.mostRecentPosts) {
                 html = "<div id=\"post-" + data.mostRecentPosts[post].id + "-game-" + data.mostRecentPosts[post].game + "\" class=\"w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right\"><br>"
                 html += "<span class=\"w3-right w3-opacity\"><i class=\"fa fa-calendar\"></i>" + data.mostRecentPosts[post].date.slice(0,10) + "</span>"
@@ -79,6 +124,7 @@ $(document).ready(function() {
                     }
                 })
             })
+
             $("#deleteUser").bind('click', function(event){
                 if(confirm("Do you really want to ban this user?")) {
                     $.ajax({

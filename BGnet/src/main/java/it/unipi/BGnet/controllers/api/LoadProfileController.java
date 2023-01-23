@@ -30,4 +30,15 @@ public class LoadProfileController {
             return "no";
         return new Gson().toJson(answer);
     }
+
+    @GetMapping("api/followUser")
+    public @ResponseBody boolean followUser(Model model, @RequestParam(value = "user")String username){
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        return userService.followUser(sv.myself, username);
+    }
+    @GetMapping("api/unfollowUser")
+    public @ResponseBody boolean unfollowUser(Model model, @RequestParam(value = "user")String username){
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        return userService.unfollowUser(sv.myself, username);
+    }
 }
