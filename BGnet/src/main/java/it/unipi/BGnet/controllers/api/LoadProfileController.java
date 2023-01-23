@@ -28,6 +28,7 @@ public class LoadProfileController {
         UserDTO answer = userService.loadProfile(username, sv.myself);
         if(answer == null)
             return "no";
+        answer.setMyself(username.equals(sv.myself));
         return new Gson().toJson(answer);
     }
 

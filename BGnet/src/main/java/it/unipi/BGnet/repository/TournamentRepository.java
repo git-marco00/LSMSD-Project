@@ -86,7 +86,8 @@ public class TournamentRepository {
             String modalities = r.get("modalities").asString();
             String playersPerMatch = r.get("playersPerMatch").asString();
             boolean isClosed = r.get("isClosed").asBoolean();
-            Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, null, null, null, isClosed);
+            String tournamentGame = r.get("gameName").asString();
+            Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, null, tournamentGame, null, isClosed);
             tournamentList.add(t);
         }
         return tournamentList;

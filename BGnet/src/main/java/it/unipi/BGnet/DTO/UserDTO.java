@@ -23,6 +23,16 @@ public class UserDTO {
     private int followers;
     private boolean isFollowed;
 
+    private boolean isMyself;
+
+    public boolean isMyself() {
+        return isMyself;
+    }
+
+    public void setMyself(boolean myself) {
+        isMyself = myself;
+    }
+
     public int getFollowers() {
         return followers;
     }

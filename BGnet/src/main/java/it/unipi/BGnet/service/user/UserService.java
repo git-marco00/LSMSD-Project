@@ -61,19 +61,32 @@ public class UserService {
         userDTO.setCountry(result.get().getCountry());
         userDTO.setContinent(result.get().getContinent());
         userDTO.setImg(result.get().getImg());
-        List<InCommonGenericDTO> inCommonFollowers = userRepo.findInCommonFollowers(myself, username);
-        List<Tournament> inCommonTournaments = tournamentRepo.getInCommonTournaments(myself, username);
-        List<TournamentDTO> tournamentDTOList=new ArrayList<>();
-        for(Tournament t: inCommonTournaments){
-            TournamentDTO tDTO = new TournamentDTO();
-            tDTO.setDate(t.getDate());
-            tDTO.setTournamentGame(t.getTournamentGame());
-            tDTO.setClosed(t.isClosed());
-            tournamentDTOList.add(tDTO);
-        }
         userDTO.setMostRecentPosts(result.get().getMostRecentPosts(), username);
-        userDTO.setInCommonFollowers(inCommonFollowers);
-        userDTO.setInCommonTournaments(tournamentDTOList);
+        if(!myself.equals(username)) {
+            List<InCommonGenericDTO> inCommonFollowers = userRepo.findInCommonFollowers(myself, username);
+            List<Tournament> inCommonTournaments = tournamentRepo.getInCommonTournaments(myself, username);
+            List<TournamentDTO> tournamentDTOList = new ArrayList<>();
+            for (Tournament t : inCommonTournaments) {
+                TournamentDTO tDTO = new TournamentDTO();
+                tDTO.setDate(t.getDate());
+                tDTO.setTournamentGame(t.getTournamentGame());
+                tDTO.setClosed(t.isClosed());
+                tournamentDTOList.add(tDTO);
+            }
+            userDTO.setInCommonFollowers(inCommonFollowers);
+            userDTO.setInCommonTournaments(tournamentDTOList);
+        } else {
+            List<Tournament> myTournaments = tournamentRepo.getTournamentsByUser(myself);
+            List<TournamentDTO> tournamentDTOList = new ArrayList<>();
+            for (Tournament t : myTournaments) {
+                TournamentDTO tDTO = new TournamentDTO();
+                tDTO.setDate(t.getDate());
+                tDTO.setTournamentGame(t.getTournamentGame());
+                tDTO.setClosed(t.isClosed());
+                tournamentDTOList.add(tDTO);
+            }
+            userDTO.setInCommonTournaments(tournamentDTOList);
+        }
         userDTO.setFollowers(userRepo.findFollowerNumberByUsername(username));
         userDTO.setFollowed(userRepo.isFollowed(myself, username));
         return userDTO;
