@@ -82,13 +82,17 @@ public class ManagerService {
     }
 
     public List<AnalyticDTO> analytic1(){
-        // DA CONTINUARE //
-        return null;
+        List<AnalyticDTO> result = gameRepo.findBestAndWorstGamesForCategory();
+        if(result.isEmpty())
+            return null;
+        else return result;
     }
 
     public List<AnalyticDTO> analytic2(int year){
-        // DA CONTINUARE //
-        return null;
+        List<AnalyticDTO> result = postRepo.getPostAndCommentDistribution(year);
+        if(result.isEmpty())
+            return null;
+        else return result;
     }
 
     public List<AnalyticDTO> analytic3(int year){

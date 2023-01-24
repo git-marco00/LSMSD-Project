@@ -37,4 +37,14 @@ public class AnalyticDTO {
     public void setField3(String field3) {
         this.field3 = field3;
     }
+
+    @Override
+    public String toString() {
+        return "AnalyticDTO{" +
+                "field1='" + field1 + '\'' +
+                ", field2='" + field2 + '\'' +
+                ", field3='" + field3 + '\'' +
+                '}';
+    }
 }
+

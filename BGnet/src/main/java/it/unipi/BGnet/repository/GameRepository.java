@@ -9,6 +9,12 @@ import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.repository.neo4j.GameNeo4j;
 import it.unipi.BGnet.repository.mongoDB.IGameRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,10 +24,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+
 @Repository
 public class GameRepository {
+    Logger logger = LoggerFactory.getLogger(GameRepository.class);
     @Autowired
     private IGameRepository gameMongo;
+
+    @Autowired
+    private MongoOperations mongoOperations;
     private final GameNeo4j gameNeo4j = new GameNeo4j();
     public IGameRepository getMongo(){ return gameMongo; }
 
@@ -275,5 +287,32 @@ public class GameRepository {
             listDTO.add(dto);
         }
         return listDTO;
+    }
+
+    public List<AnalyticDTO> findBestAndWorstGamesForCategory() {
+        UnwindOperation unwindOperation = unwind("categories");
+        ProjectionOperation selectAvgs = project().andExpression("name").as("name").
+                andExpression("categories").as("category").andExpression("avg_rate").as("avg")
+                .andExclude("_id");
+        SortOperation sortOperation = sort(Sort.by(Sort.Direction.ASC, "avg"));
+        GroupOperation groupOperation = group("$category")
+                .last("$name").as("BestRatedGame")
+                .last("$avg").as("BestRate")
+                .first("$name").as("WorstRatedGame")
+                .first("$avg").as("WorstRate");
+        ProjectionOperation projectionOperation = project()
+                .andExpression("_id").as("field1")
+                .andExclude("_id")
+                .andExpression("BestRatedGame").as("field3")
+                //.andInclude("BestRate")
+                .andExpression("WorstRatedGame").as("field2");
+                //.andInclude("WorstRate");
+        Aggregation aggregation = newAggregation(unwindOperation, selectAvgs, sortOperation,
+                groupOperation, projectionOperation);
+        AggregationResults<AnalyticDTO> result = mongoOperations
+                .aggregate(aggregation, "game", AnalyticDTO.class);
+
+        logger.warn(result.getMappedResults().get(0).toString());
+        return result.getMappedResults();
     }
 }
