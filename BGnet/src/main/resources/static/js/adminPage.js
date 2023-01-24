@@ -148,6 +148,12 @@ function analytic3(){
 
                 // next rows
                 for (row of data) {
+                    if(row.field1 == undefined)
+                        row.field1 = "Not Specified"
+                    if(row.field2 == undefined)
+                        row.field2 = "Not Specified"
+                    if(row.field3 == undefined)
+                        row.field3 = "Not Specified"
                     html += '<tr>';
                     html += '<td>'+row.field1+'</td>';
                     html += '<td>'+row.field2+'</td>';

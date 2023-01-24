@@ -96,8 +96,10 @@ public class ManagerService {
     }
 
     public List<AnalyticDTO> analytic3(int year){
-        // DA CONTINUARE //
-        return null;
+        List<AnalyticDTO> result = userRepo.getBestCountriesByYearRegistered(year);
+        if(result.isEmpty())
+            return null;
+        else return result;
     }
 
     public List<AnalyticDTO> analytic4(){

@@ -13,6 +13,10 @@ import it.unipi.BGnet.repository.neo4j.UserNeo4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,11 +24,16 @@ import java.util.List;
 import java.util.Optional;
 import org.neo4j.driver.Record;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+
 @Repository
 public class UserRepository {
     Logger logger = LoggerFactory.getLogger(UserRepository.class);
     @Autowired
     private IUserRepository userMongo;
+
+    @Autowired
+    private MongoOperations mongoOperations;
 
     UserNeo4j userNeo4j = new UserNeo4j();
 
@@ -225,5 +234,29 @@ public class UserRepository {
             listDTO.add(dto);
         }
         return listDTO;
+    }
+
+    public List<AnalyticDTO> getBestCountriesByYearRegistered(int year){
+        MatchOperation getYear = match(new Criteria("yearregistered").is(year));
+        GroupOperation getNumberOfJoining = group("continent", "stateorprovince")
+                .count().as("count");
+
+        SortOperation sortByCount = sort(Sort.by(Sort.Direction.DESC, "count"));
+
+        GroupOperation getCountries = group("_id.continent")
+                .first("_id.stateorprovince").as("country")
+                .first("count").as("people");
+
+        ProjectionOperation renameThings = project()
+                .andExpression("_id").as("field1")
+                .andExpression("country").as("field2")
+                .andExpression("people").as("field3");
+
+        Aggregation aggregation = newAggregation(getYear, getNumberOfJoining, sortByCount, getCountries, renameThings);
+        AggregationResults<AnalyticDTO> result = mongoOperations
+                .aggregate(aggregation, "user", AnalyticDTO.class);
+
+        logger.warn(result.getMappedResults().get(0).toString());
+        return result.getMappedResults();
     }
 }

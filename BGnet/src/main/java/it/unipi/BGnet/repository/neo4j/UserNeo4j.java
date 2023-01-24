@@ -174,10 +174,10 @@ public class UserNeo4j {
 
     public List<Record> analytic4(){
         try{
-            return graphNeo4j.read("MATCH (ua:User)-[:FOLLOWS]->(ub)" +
+            return graphNeo4j.read("MATCH (ua:User)-[:FOLLOWS]->(ub:User)" +
                     " MATCH (ub)-[:CREATED]->(t)" +
                     " MATCH (partecipants:User)-[:PARTICIPATE]->(t)" +
-                    " RETURN ub.name as username, (COUNT(ua) + COUNT(partecipants)) AS popularity" +
+                    " RETURN ub.name as username, (COUNT(DISTINCT(ua)) + COUNT(DISTINCT(partecipants))) AS popularity" +
                     " ORDER BY popularity DESC" +
                     " LIMIT 5");
         } catch (Exception e){

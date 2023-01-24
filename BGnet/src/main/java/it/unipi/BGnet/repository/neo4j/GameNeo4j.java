@@ -111,7 +111,7 @@ public class GameNeo4j {
             return graphNeo4j.read("MATCH(g:Game)<-[:FOLLOWS]-(u)" +
                     " MATCH (g)<-[:TOURNAMENT_GAME]-(t)" +
                     " WHERE t.isClosed=false" +
-                    " RETURN g.name AS gamename, (COUNT(u)+COUNT(t)*10) AS popularity" +
+                    " RETURN g.name AS gamename, (COUNT(DISTINCT(u))+COUNT(DISTINCT(t))*10) AS popularity" +
                     " ORDER BY popularity DESC" +
                     " LIMIT 5");
         } catch (Exception e){
