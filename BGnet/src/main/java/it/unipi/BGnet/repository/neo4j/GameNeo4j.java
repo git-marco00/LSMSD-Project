@@ -106,4 +106,17 @@ public class GameNeo4j {
         return true;
     }
 
+    public List<Record> analytic5(){
+        try{
+            return graphNeo4j.read("MATCH(g:Game)<-[:FOLLOWS]-(u)" +
+                    " MATCH (g)<-[:TOURNAMENT_GAME]-(t)" +
+                    " WHERE t.isClosed=false" +
+                    " RETURN g.name AS gamename, (COUNT(u)+COUNT(t)*10) AS popularity" +
+                    " ORDER BY popularity DESC");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

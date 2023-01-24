@@ -1,5 +1,6 @@
 package it.unipi.BGnet.repository;
 
+import it.unipi.BGnet.DTO.AnalyticDTO;
 import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.DTO.UserDTO;
@@ -198,5 +199,20 @@ public class UserRepository {
             return false;
         }
         return true;
+    }
+
+    public List<AnalyticDTO> analytic4() {
+        List<Record> list = userNeo4j.analytic4();
+        List<AnalyticDTO> listDTO = new ArrayList<>();
+        int i=1;
+        for(Record r:list){
+            AnalyticDTO dto = new AnalyticDTO();
+            dto.setField1(String.valueOf(i));
+            dto.setField2(r.get("userName").asString());
+            dto.setField3(r.get("numFollowers").asString());
+            i++;
+            listDTO.add(dto);
+        }
+        return listDTO;
     }
 }

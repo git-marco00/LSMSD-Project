@@ -1,5 +1,6 @@
 package it.unipi.BGnet.service.user;
 
+import it.unipi.BGnet.DTO.AnalyticDTO;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
@@ -78,6 +79,26 @@ public class ManagerService {
         }
 
         return true;
+    }
+
+    public List<AnalyticDTO> analytic1(){
+        return gameRepo.analytic1();
+    }
+
+    public List<AnalyticDTO> analytic2(int year){
+        return postRepo.analytic2(year);
+    }
+
+    public List<AnalyticDTO> analytic3(int year){
+        return userRepo.analytic3(year);
+    }
+
+    public List<AnalyticDTO> analytic4(){
+        return userRepo.analytic4();
+    }
+
+    public List<AnalyticDTO> analytic5(){
+        return gameRepo.analytic5();
     }
 
 }

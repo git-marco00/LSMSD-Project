@@ -1,5 +1,6 @@
 package it.unipi.BGnet.repository;
 
+import it.unipi.BGnet.DTO.AnalyticDTO;
 import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.Utilities.Constants;
@@ -259,5 +260,20 @@ public class GameRepository {
             return false;
 
         return game.get().haveIVoted(username);
+    }
+
+    public List<AnalyticDTO> analytic5(){
+        List<Record> list = gameNeo4j.analytic5();
+        List<AnalyticDTO> listDTO = new ArrayList<>();
+        int i=1;
+        for(Record r:list){
+            AnalyticDTO dto = new AnalyticDTO();
+            dto.setField1(String.valueOf(i));
+            dto.setField2(r.get("gamename").asString());
+            dto.setField3(r.get("popularity").asString());
+            i++;
+            listDTO.add(dto);
+        }
+        return listDTO;
     }
 }

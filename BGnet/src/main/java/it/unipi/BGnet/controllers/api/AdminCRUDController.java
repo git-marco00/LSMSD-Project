@@ -1,6 +1,8 @@
 package it.unipi.BGnet.controllers.api;
 
 
+import com.google.gson.Gson;
+import it.unipi.BGnet.DTO.AnalyticDTO;
 import it.unipi.BGnet.service.user.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,5 +43,40 @@ public class AdminCRUDController {
     @GetMapping("/api/banUser")
     public boolean deleteUser(@RequestParam("name") String name){
         return managerService.deleteUser(name);
+    }
+
+    @GetMapping("/api/analytic1")
+    public String analytic1(){
+        List<AnalyticDTO> analyticDTO = managerService.analytic1();
+        Gson gson = new Gson();
+        return gson.toJson(analyticDTO);
+    }
+
+    @GetMapping("/api/analytic2")
+    public String analytic2(@RequestParam("year") int year){
+        List<AnalyticDTO> analyticDTO = managerService.analytic2(year);
+        Gson gson = new Gson();
+        return gson.toJson(analyticDTO);
+    }
+
+    @GetMapping("/api/analytic3")
+    public String analytic3(@RequestParam("year") int year){
+        List<AnalyticDTO> analyticDTO = managerService.analytic3(year);
+        Gson gson = new Gson();
+        return gson.toJson(analyticDTO);
+    }
+
+    @GetMapping("/api/analytic4")
+    public String analytic4(){
+        List<AnalyticDTO> analyticDTO = managerService.analytic4();
+        Gson gson = new Gson();
+        return gson.toJson(analyticDTO);
+    }
+
+    @GetMapping("/api/analytic5")
+    public String analytic5(){
+        List<AnalyticDTO> analyticDTO = managerService.analytic5();
+        Gson gson = new Gson();
+        return gson.toJson(analyticDTO);
     }
 }
