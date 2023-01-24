@@ -208,8 +208,8 @@ public class UserRepository {
         for(Record r:list){
             AnalyticDTO dto = new AnalyticDTO();
             dto.setField1(String.valueOf(i));
-            dto.setField2(r.get("userName").asString());
-            dto.setField3(String.valueOf(r.get("numFollowers").asInt()));
+            dto.setField2(r.get("username").asString());
+            dto.setField3(String.valueOf(r.get("popularity").asInt()));
             i++;
             listDTO.add(dto);
         }

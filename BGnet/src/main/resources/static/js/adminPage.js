@@ -172,7 +172,7 @@ function analytic4(){
                 html += '<tr>';
                 html += '<th>Position</th>';
                 html += '<th>Username</th>';
-                html += '<th>Number of followers</th>';
+                html += '<th>Popularity</th>';
                 html += '</tr>';
 
                 data = JSON.parse(data)
