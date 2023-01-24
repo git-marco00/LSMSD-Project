@@ -85,15 +85,29 @@ public class UserNeo4j {
         return result;
     }
 
-    public List<Record> getSuggestedUsers(String username){
+    public List<Record> getSuggestedUsersByTournaments(String username){
         try{
             return graphNeo4j.read("MATCH(u:User{name:$username})-[:PARTICIPATE]->(t:Tournament)<-[:PARTICIPATE]-(inCommonPartecipants:User) " +
                             "WHERE NOT (inCommonPartecipants)<-[:FOLLOWS]-(u) " +
-                            "MATCH (inCommonGamers)-[:FOLLOWS]->(g:Game)<-[:FOLLOWS]-(u) " +
+                            "MATCH (inCommonGamers:User)-[:FOLLOWS]->(g:Game)<-[:FOLLOWS]-(u) " +
                             "WHERE inCommonGamers.name IN inCommonPartecipants.name " +
-                            "RETURN DISTINCT(inCommonGamers) AS suggestedUser, COUNT(*) AS numGames " +
+                            "RETURN DISTINCT(inCommonGamers.name) AS suggestedUser, inCommonGamers.imgUrl AS imgUrl, COUNT(*) AS numGames " +
                             "ORDER BY numGames DESC " +
                             "LIMIT 4",
+                    parameters("username", username));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Record> getSuggestedUsersByFollowers(String username){
+        try{
+            return graphNeo4j.read("MATCH(u:User{name:$username})-[:FOLLOWS]->(ub:User)-[:FOLLOWS]->(ut:User)" +
+                            " WHERE NOT (u)-[:FOLLOWS]->(ut)" +
+                            " RETURN ut.name as username, ut.imgUrl AS imgUrl, COUNT(ut.name) AS numSuggestions" +
+                            " ORDER BY numSuggestions DESC" +
+                            " LIMIT 4",
                     parameters("username", username));
         } catch (Exception e){
             e.printStackTrace();

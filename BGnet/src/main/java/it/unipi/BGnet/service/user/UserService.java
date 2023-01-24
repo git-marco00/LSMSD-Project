@@ -116,22 +116,11 @@ public class UserService {
         return gameRepo.getFamousGames();
     }
     public List<UserDTO> getSuggestedUsers(String username){
-        List<UserDTO> suggestedUsers = userRepo.getSuggestedUser(username);
-        if(suggestedUsers.size()<4){
-            List<UserDTO> famousUsers = userRepo.getFamousUsers();
-            while(suggestedUsers.size()<4){
-                for(UserDTO fam: famousUsers){
-                    boolean found=false;
-                    for(UserDTO sugg: suggestedUsers){
-                        if(sugg.getUsername().equals(fam.getUsername())){
-                            found=true;
-                            break;
-                        }
-                    }
-                    if(!found){
-                        suggestedUsers.add(fam);
-                    }
-                }
+        List<UserDTO> suggestedUsers = userRepo.getSuggestedUserByTournaments(username);
+        if(suggestedUsers == null || suggestedUsers.size()<4){
+            suggestedUsers = userRepo.getSuggestedUserByFollower(username);
+            if(suggestedUsers == null || suggestedUsers.size()<4){
+                suggestedUsers = userRepo.getFamousUsers();
             }
         }
         return suggestedUsers;

@@ -160,11 +160,22 @@ public class UserRepository {
         return suggestedGames;
     }
 
-    public List<UserDTO> getSuggestedUser(String username){
+    public List<UserDTO> getSuggestedUserByTournaments(String username){
         List<UserDTO> suggestedUser = new ArrayList<>();
-        for(Record r: userNeo4j.getSuggestedUsers(username)){
+        for(Record r: userNeo4j.getSuggestedUsersByTournaments(username)){
             UserDTO user = new UserDTO();
-            user.setUsername(r.get("gameName").asString());
+            user.setUsername(r.get("suggestedUser").asString());
+            user.setImg(r.get("imgUrl").asString());
+            suggestedUser.add(user);
+        }
+        return suggestedUser;
+    }
+
+    public List<UserDTO> getSuggestedUserByFollower(String username){
+        List<UserDTO> suggestedUser = new ArrayList<>();
+        for(Record r: userNeo4j.getSuggestedUsersByFollowers(username)){
+            UserDTO user = new UserDTO();
+            user.setUsername(r.get("username").asString());
             user.setImg(r.get("imgUrl").asString());
             suggestedUser.add(user);
         }
