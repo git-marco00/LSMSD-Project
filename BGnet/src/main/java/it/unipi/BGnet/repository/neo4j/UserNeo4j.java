@@ -162,7 +162,8 @@ public class UserNeo4j {
         try{
             return graphNeo4j.read("MATCH (ua:User)-[:FOLLOWS]->(ub)" +
                     " RETURN ub.name AS userName, COUNT(*) AS numFollowers" +
-                    " ORDER BY numFollowers DESC");
+                    " ORDER BY numFollowers DESC" +
+                    " LIMIT 5");
         } catch (Exception e){
             e.printStackTrace();
         }

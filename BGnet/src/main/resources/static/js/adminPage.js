@@ -70,7 +70,7 @@ function analytic1(){
         success: function(data){
             if(data) {
                 // first row
-                let html = '<table id="analytic1Table" class="w3-table-all">';
+                let html = '<table id="analytic1Table" class="w3-table-all w3-margin">';
                 html += '<tr>';
                 html += '<th>Category</th>';
                 html += '<th>Game (low rate)</th>';
@@ -104,7 +104,7 @@ function analytic2(){
         success: function(data){
             if(data) {
                 // first row
-                let html = '<table id="analytic2Table" class="w3-table-all">';
+                let html = '<table id="analytic2Table" class="w3-table-all w3-margin">';
                 html += '<tr>';
                 html += '<th>Month</th>';
                 html += '<th>Number of posts</th>';
@@ -137,7 +137,7 @@ function analytic3(){
         success: function(data){
             if(data) {
                 // first row
-                let html = '<table id="analytic3Table" class="w3-table-all">';
+                let html = '<table id="analytic3Table" class="w3-table-all w3-margin">';
                 html += '<tr>';
                 html += '<th>Continent</th>';
                 html += '<th>Country</th>';
@@ -168,7 +168,7 @@ function analytic4(){
         success: function(data){
             if(data) {
                 // first row
-                let html = '<table id="analytic3Table" class="w3-table-all">';
+                let html = '<table id="analytic3Table" class="w3-table-all w3-margin">';
                 html += '<tr>';
                 html += '<th>Position</th>';
                 html += '<th>Username</th>';
@@ -199,7 +199,7 @@ function analytic5(){
         success: function(data){
             if(data) {
                 // first row
-                let html = '<table id="analytic3Table" class="w3-table-all">';
+                let html = '<table id="analytic3Table" class="w3-table-all w3-margin">';
                 html += '<tr>';
                 html += '<th>Position</th>';
                 html += '<th>Gamename</th>';

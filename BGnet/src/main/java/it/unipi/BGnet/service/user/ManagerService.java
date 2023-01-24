@@ -82,15 +82,18 @@ public class ManagerService {
     }
 
     public List<AnalyticDTO> analytic1(){
-        return gameRepo.analytic1();
+        // DA CONTINUARE //
+        return null;
     }
 
     public List<AnalyticDTO> analytic2(int year){
-        return postRepo.analytic2(year);
+        // DA CONTINUARE //
+        return null;
     }
 
     public List<AnalyticDTO> analytic3(int year){
-        return userRepo.analytic3(year);
+        // DA CONTINUARE //
+        return null;
     }
 
     public List<AnalyticDTO> analytic4(){

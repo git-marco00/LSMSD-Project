@@ -112,7 +112,8 @@ public class GameNeo4j {
                     " MATCH (g)<-[:TOURNAMENT_GAME]-(t)" +
                     " WHERE t.isClosed=false" +
                     " RETURN g.name AS gamename, (COUNT(u)+COUNT(t)*10) AS popularity" +
-                    " ORDER BY popularity DESC");
+                    " ORDER BY popularity DESC" +
+                    " LIMIT 5");
         } catch (Exception e){
             e.printStackTrace();
         }

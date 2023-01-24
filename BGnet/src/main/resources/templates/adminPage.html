@@ -32,17 +32,18 @@
         <div class="w3-card w3-round w3-white">
             <div class="w3-container">
                 <h4 class="w3-center">Analytics</h4>
-                <p>Per ogni categoria, ritornare il gioco con il rating più alto e il rating più basso</p>
+                <p>For each category, return the names of games with highest and lowest rate.</p>
                 <button id="analytic1" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-users"></i> Analytic 1</button>
-                <p>Dato in input anno X, mostrare il numero di post e il numero medio di commenti ricevuti per ogni mese</p>
+                <p>Insert a year. The analytic returns number of posts and average number of comments per post for every month.</p>
                 <p id="yearAnalytic2" contenteditable="true" class="w3-border w3-padding" style="display:inline-block; width:100px">2022</p>
                 <button id="analytic2" type="button" class="w3-button w3-theme-d2"><i class="fa fa-users"></i> Analytic 2</button>
-                <p>Dato in input anno X, per ogni continente, trovare il paese con il maggior numero di iscritti nell’anno X</p>
+                Dato in input anno X, per ogni continente, trovare il paese con il maggior numero di iscritti nell’anno X
+                <p>Insert a year. The analytic returns, for every continent, the country with the highest number of subscribers, and the number itself.</p>
                 <p id="yearAnalytic3" contenteditable="true" class="w3-border w3-padding" style="display:inline-block; width:100px">2022</p>
                 <button id="analytic3" type="button" class="w3-button w3-theme-d2"><i class="fa fa-users"></i> Analytic 3</button>
-                <p>Retrieve the 5 most popular users</p>
+                <p>Retrieve the 5 most popular users ( where popularity is defined as number of followers + number of partecipants to the tournaments created )</p>
                 <button id="analytic4" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-users"></i> Analytic 4</button>
-                <p>Retrieve the 5 most active games</p>
+                <p>Retrieve the 5 most popular games ( where popularity is defined as the number of followers + 10 * number of tournaments for that game ) </p>
                 <button id="analytic5" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-users"></i> Analytic 5</button>
             </div>
         </div>
@@ -54,7 +55,7 @@
     <div class="w3-col m9">
         <div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right">
             <h4 class="w3-center">Results</h4>
-                <div id="results-container">
+                <div id="results-container" class="w3-margin">
                 </div>
         </div>
         <!-- End Middle Column -->

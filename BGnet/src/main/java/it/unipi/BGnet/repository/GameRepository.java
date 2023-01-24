@@ -270,7 +270,7 @@ public class GameRepository {
             AnalyticDTO dto = new AnalyticDTO();
             dto.setField1(String.valueOf(i));
             dto.setField2(r.get("gamename").asString());
-            dto.setField3(r.get("popularity").asString());
+            dto.setField3(String.valueOf(r.get("popularity").asInt()));
             i++;
             listDTO.add(dto);
         }

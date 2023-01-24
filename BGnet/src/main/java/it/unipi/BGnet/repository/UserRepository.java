@@ -209,7 +209,7 @@ public class UserRepository {
             AnalyticDTO dto = new AnalyticDTO();
             dto.setField1(String.valueOf(i));
             dto.setField2(r.get("userName").asString());
-            dto.setField3(r.get("numFollowers").asString());
+            dto.setField3(String.valueOf(r.get("numFollowers").asInt()));
             i++;
             listDTO.add(dto);
         }
