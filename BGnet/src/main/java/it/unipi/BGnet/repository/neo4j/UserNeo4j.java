@@ -177,7 +177,7 @@ public class UserNeo4j {
             return graphNeo4j.read("MATCH (ua:User)-[:FOLLOWS]->(ub:User)" +
                     " MATCH (ub)-[:CREATED]->(t)" +
                     " MATCH (partecipants:User)-[:PARTICIPATE]->(t)" +
-                    " RETURN ub.name as username, (COUNT(DISTINCT(ua)) + COUNT(DISTINCT(partecipants))) AS popularity" +
+                    " RETURN ub.name as username, (COUNT(DISTINCT(ua.name)) + COUNT(DISTINCT(partecipants.name))) AS popularity" +
                     " ORDER BY popularity DESC" +
                     " LIMIT 5");
         } catch (Exception e){

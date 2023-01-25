@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
+import java.sql.Timestamp;
+
 @RestController
 @SessionAttributes("sessionVariables")
 public class AuthController {
@@ -25,16 +27,12 @@ public class AuthController {
         Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
         if(!pbkdf2PasswordEncoder.matches(password, user.getPassword()))
             return gson.toJson("{\"type\": 2, \"message\" : \"Incorrect password\"}");
-
-        ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         if((SessionVariables) model.getAttribute("sessionVariables") == null)
             model.addAttribute("sessionVariables", new SessionVariables());
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         sv.myself = user.getUsername();
         sv.admin = userService.isAdmin(sv.myself);
         model.addAttribute("sessionVariables",  sv);
-        /////////////////////////////////////////////////////////////////////////////
-
         return gson.toJson("{\"type\": 0, \"message\" : \"OK\"}");
     }
     @GetMapping("/api/isAdmin")
