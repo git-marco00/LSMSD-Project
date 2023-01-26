@@ -147,7 +147,8 @@ public class UserRepository {
     }
     public List<InCommonGenericDTO> findInCommonFollowers(String usernameA, String usernameB){
         List<InCommonGenericDTO> inCommonFollowers = new ArrayList<>();
-        for(Record r: userNeo4j.findInCommonFollowers(usernameA, usernameB)){
+        List<Record>list = userNeo4j.findInCommonFollowers(usernameA, usernameB);
+        for(Record r: list){
             String name = r.get("name").asString();
             String imgUrl = r.get("imgUrl").asString();
             inCommonFollowers.add(new InCommonGenericDTO(name, imgUrl));
@@ -256,7 +257,6 @@ public class UserRepository {
         AggregationResults<AnalyticDTO> result = mongoOperations
                 .aggregate(aggregation, "user", AnalyticDTO.class);
 
-        logger.warn(result.getMappedResults().get(0).toString());
         return result.getMappedResults();
     }
 }

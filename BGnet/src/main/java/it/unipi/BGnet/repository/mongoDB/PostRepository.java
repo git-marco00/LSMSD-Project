@@ -181,7 +181,6 @@ public class PostRepository {
 
         AggregationResults<AnalyticDTO> result = mongoOperations
                 .aggregate(aggregation, "post", AnalyticDTO.class);
-        logger.warn(result.getRawResults().toJson());
         return result.getMappedResults();
     }
 }

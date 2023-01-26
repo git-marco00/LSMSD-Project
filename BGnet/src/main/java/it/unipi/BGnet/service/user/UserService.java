@@ -10,6 +10,8 @@ import it.unipi.BGnet.repository.UserRepository;
 
 import org.neo4j.driver.Record;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 @Service("mainUserService")
 public class UserService {
+    Logger logger = LoggerFactory.getLogger(UserService.class);
     @Autowired
     UserRepository userRepo;
     @Autowired
@@ -48,7 +51,7 @@ public class UserService {
         Optional<User> result = userRepo.getUserByUsername(username);
         if(result.isEmpty())
             return null;
-
+        logger.warn(Long.toString(System.currentTimeMillis()));
         // creating the DTO to show to the user
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(result.get().getUsername());
@@ -62,33 +65,42 @@ public class UserService {
         userDTO.setContinent(result.get().getContinent());
         userDTO.setImg(result.get().getImg());
         userDTO.setMostRecentPosts(result.get().getMostRecentPosts(), username);
-        if(!myself.equals(username)) {
-            List<InCommonGenericDTO> inCommonFollowers = userRepo.findInCommonFollowers(myself, username);
-            List<Tournament> inCommonTournaments = tournamentRepo.getInCommonTournaments(myself, username);
-            List<TournamentDTO> tournamentDTOList = new ArrayList<>();
-            for (Tournament t : inCommonTournaments) {
-                TournamentDTO tDTO = new TournamentDTO();
-                tDTO.setDate(t.getDate());
-                tDTO.setTournamentGame(t.getTournamentGame());
-                tDTO.setClosed(t.isClosed());
-                tournamentDTOList.add(tDTO);
-            }
-            userDTO.setInCommonFollowers(inCommonFollowers);
-            userDTO.setInCommonTournaments(tournamentDTOList);
-        } else {
-            List<Tournament> myTournaments = tournamentRepo.getTournamentsByUser(myself);
-            List<TournamentDTO> tournamentDTOList = new ArrayList<>();
-            for (Tournament t : myTournaments) {
-                TournamentDTO tDTO = new TournamentDTO();
-                tDTO.setDate(t.getDate());
-                tDTO.setTournamentGame(t.getTournamentGame());
-                tDTO.setClosed(t.isClosed());
-                tournamentDTOList.add(tDTO);
-            }
-            userDTO.setInCommonTournaments(tournamentDTOList);
-        }
         userDTO.setFollowers(userRepo.findFollowerNumberByUsername(username));
-        userDTO.setFollowed(userRepo.isFollowed(myself, username));
+        if(myself != null){
+            if(!myself.equals(username)) {
+                List<InCommonGenericDTO> inCommonFollowers = userRepo.findInCommonFollowers(myself, username);
+                logger.warn(Long.toString(System.currentTimeMillis()));
+                List<Tournament> inCommonTournaments = tournamentRepo.getInCommonTournaments(myself, username);
+                logger.warn(Long.toString(System.currentTimeMillis()));
+                List<TournamentDTO> tournamentDTOList = new ArrayList<>();
+                for (Tournament t : inCommonTournaments) {
+                    TournamentDTO tDTO = new TournamentDTO();
+                    tDTO.setDate(t.getDate());
+                    tDTO.setTournamentGame(t.getTournamentGame());
+                    tDTO.setClosed(t.isClosed());
+                    tournamentDTOList.add(tDTO);
+                }
+                userDTO.setInCommonFollowers(inCommonFollowers);
+                userDTO.setInCommonTournaments(tournamentDTOList);
+            } else {
+                List<Tournament> myTournaments = tournamentRepo.getTournamentsByUser(myself);
+                logger.warn(Long.toString(System.currentTimeMillis()));
+                List<TournamentDTO> tournamentDTOList = new ArrayList<>();
+                for (Tournament t : myTournaments) {
+                    TournamentDTO tDTO = new TournamentDTO();
+                    tDTO.setDate(t.getDate());
+                    tDTO.setTournamentGame(t.getTournamentGame());
+                    tDTO.setClosed(t.isClosed());
+                    tournamentDTOList.add(tDTO);
+                }
+                userDTO.setInCommonTournaments(tournamentDTOList);
+            }
+
+            logger.warn(Long.toString(System.currentTimeMillis()));
+            userDTO.setFollowed(userRepo.isFollowed(myself, username));
+            logger.warn(Long.toString(System.currentTimeMillis()));
+        }
+
         return userDTO;
     }
     public List<GameDTO> getSuggestedGames(String username){

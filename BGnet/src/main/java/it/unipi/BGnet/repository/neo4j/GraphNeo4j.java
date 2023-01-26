@@ -2,13 +2,17 @@ package it.unipi.BGnet.repository.neo4j;
 
 import org.neo4j.driver.*;
 import org.neo4j.driver.Record;
+import org.slf4j.*;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.neo4j.driver.Values.parameters;
 
 public class GraphNeo4j implements AutoCloseable{
+    Logger logger = LoggerFactory.getLogger(GraphNeo4j.class);
     private final Driver driver;
     private final String uri = "bolt://localhost:7687";
     private final String user = "neo4j";
@@ -18,7 +22,12 @@ public class GraphNeo4j implements AutoCloseable{
 
 
     private GraphNeo4j() {
-        driver = GraphDatabase.driver(uri, AuthTokens.basic(user, pass));
+        Config config = Config.builder()
+                .withMaxConnectionLifetime(30, TimeUnit.MINUTES)
+                .withMaxConnectionPoolSize(50)
+                .withConnectionAcquisitionTimeout(2, TimeUnit.MINUTES)
+                .build();
+        driver = GraphDatabase.driver(uri, AuthTokens.basic(user, pass), config);
     }
 
     public static GraphNeo4j getIstance(){
@@ -33,6 +42,7 @@ public class GraphNeo4j implements AutoCloseable{
     }
     public void write(final String query, final Value parameters) {
         try (Session session = driver.session()) {
+            logger.warn(Long.toString(System.currentTimeMillis()));
             session.executeWrite(tx ->
             {
                 tx.run(query, parameters).consume();
@@ -44,6 +54,7 @@ public class GraphNeo4j implements AutoCloseable{
     public List<Record> read(final String query, final Value parameters) {
         List<Record> recordsList;
         try (Session session = driver.session()) {
+            logger.warn("NELLA READ" + Long.toString(System.currentTimeMillis()));
             recordsList = session.executeRead(tx -> {
                 Result result = tx.run( query, parameters );
                 List<Record> records = new ArrayList<>();

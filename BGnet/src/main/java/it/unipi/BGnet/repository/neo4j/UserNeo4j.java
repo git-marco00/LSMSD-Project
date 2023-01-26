@@ -3,10 +3,13 @@ package it.unipi.BGnet.repository.neo4j;
 import java.util.List;
 
 import org.neo4j.driver.Record;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.neo4j.driver.Values.parameters;
 
 public class UserNeo4j {
+    Logger logger = LoggerFactory.getLogger(UserNeo4j.class);
     private final GraphNeo4j graphNeo4j;
 
     public UserNeo4j(){
@@ -48,7 +51,7 @@ public class UserNeo4j {
 
     public List<Record> findFollowerNumberByUsername(String username){
         try{
-            return graphNeo4j.read("MATCH ()-[:FOLLOWS]->(u:User)" +
+            return graphNeo4j.read("MATCH (:User)-[:FOLLOWS]->(u:User)" +
                             " WHERE u.name=$username" +
                             " RETURN count(*) as numFollowers",
                     parameters("username", username));
@@ -129,6 +132,7 @@ public class UserNeo4j {
 
 
     public List<Record> getSuggestedGames(String username){
+        logger.warn("CIAOCIAOCIAOCIAOCIAO");
         try{
             return graphNeo4j.read("MATCH (u:User{name:$username})-[:FOLLOWS]->(g:Game) " +
                             "UNWIND g.category AS categories " +

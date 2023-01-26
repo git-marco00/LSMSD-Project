@@ -304,15 +304,12 @@ public class GameRepository {
                 .andExpression("_id").as("field1")
                 .andExclude("_id")
                 .andExpression("BestRatedGame").as("field3")
-                //.andInclude("BestRate")
                 .andExpression("WorstRatedGame").as("field2");
-                //.andInclude("WorstRate");
         Aggregation aggregation = newAggregation(unwindOperation, selectAvgs, sortOperation,
                 groupOperation, projectionOperation);
         AggregationResults<AnalyticDTO> result = mongoOperations
                 .aggregate(aggregation, "game", AnalyticDTO.class);
 
-        logger.warn(result.getMappedResults().get(0).toString());
         return result.getMappedResults();
     }
 }

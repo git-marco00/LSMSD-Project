@@ -15,6 +15,7 @@ $(document).ready(function () {
             dataType : 'json',
             method : "post",
             success: function(data) {
+                console.log(data)
                 result = JSON.parse(data)
                 if(result["type"] == 0) {
                     alert("OK")
