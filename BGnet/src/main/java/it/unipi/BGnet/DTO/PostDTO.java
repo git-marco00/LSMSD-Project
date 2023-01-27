@@ -29,6 +29,7 @@ public class PostDTO {
         this.game = game;
         this.author = author;
         this.likes = likes;
+        this.comments = listOfComments.size();
         this.listOfComments = listOfComments;
         this.date = date;
         this.text = text;
