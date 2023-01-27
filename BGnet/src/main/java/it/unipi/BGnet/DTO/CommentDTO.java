@@ -4,6 +4,7 @@ public class CommentDTO {
     private String author;
     private String text;
     private String timestamp;
+
     public CommentDTO(String author, String text, String timestamp) {
         this.author = author;
         this.text = text;

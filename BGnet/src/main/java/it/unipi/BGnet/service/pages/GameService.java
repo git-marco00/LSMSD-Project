@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service("mainGameService")
+@Service
 public class GameService {
     @Autowired
     private GameRepository gameRep;

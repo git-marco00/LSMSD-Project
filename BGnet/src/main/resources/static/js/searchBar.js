@@ -196,7 +196,7 @@ function loadMyProfile(){
                     alert("No user found");
                 }
                 else{
-                    window.location.href =  "http://localhost:8080/userProfile?user=" + data;
+                    window.location.href =  "http://localhost:8080/userProfile?user=" + data.username;
                 }
             }
         })
