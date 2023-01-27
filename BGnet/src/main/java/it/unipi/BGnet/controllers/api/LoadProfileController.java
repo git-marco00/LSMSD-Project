@@ -17,17 +17,25 @@ public class LoadProfileController {
     UserService userService;
     @GetMapping("api/loadPersonalProfile")
     public @ResponseBody String personalProfile(Model model) {
-        if(((SessionVariables) model.getAttribute("sessionVariables")).myself == null)
-            return null;
-        // DA RIVEDEREEEE
-        return ((SessionVariables) model.getAttribute("sessionVariables")).myself;
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        if(sv == null)
+            return new Gson().toJson(false);
+        if(sv.myself == null)
+            return new Gson().toJson(false);
+        return new Gson().toJson(userService.loadProfile(sv.myself, null));
     }
     @GetMapping("api/loadProfile")
     public @ResponseBody String profile(Model model, @RequestParam(value = "username") String username) {
+        UserDTO answer;
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        UserDTO answer = userService.loadProfile(username, sv.myself);
+        if(sv == null)
+            answer = userService.loadProfile(username, null);
+        else if(sv.myself == null)
+            answer = userService.loadProfile(username, null);
+        else
+            answer = userService.loadProfile(username, sv.myself);
         if(answer == null)
-            return "no";
+            return new Gson().toJson(false);
         answer.setMyself(username.equals(sv.myself));
         return new Gson().toJson(answer);
     }

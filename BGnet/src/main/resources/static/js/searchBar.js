@@ -21,13 +21,11 @@ $(document).ready(function(){
 })
 function loadSearchBar(){
     $("#navbar").append("<div class=\"w3-bar w3-theme-d2 w3-left-align w3-large\" id=\"searchBar\" style=\"background-color: #1B4571;\">" +
-        "                <a href=\"\\\" class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
-        "                    <i class=\"fa fa-home w3-margin-right\"></i>\n" +
-        "                </a>\n" +
-        "                <a onclick='loadMyProfile()' class=\" w3-button w3-padding-large w3-theme-d4\">\n" +
-        "                    <i class=\"fa fa-user-circle w3-margin-right\"></i>\n" +
-        "                </a>\n" +
-        "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:60.5%;\">" +
+        "<a href=\"\\\" class=\" w3-button w3-padding-large w3-theme-d4\">" +
+        "<i class=\"fa fa-home w3-margin-right\"></i></a>" +
+        "<a onclick='loadMyProfile()' class=\" w3-button w3-padding-large w3-theme-d4\">" +
+        "<i class=\"fa fa-user-circle w3-margin-right\"></i></a>" +
+        "<input type=\"text\" placeholder=\"Search for a game\" id=\"searchEditText\" class=\"w3-border w3-padding\" style=\"display:inline-block; width:58%;\">" +
         "<select name=\"category\" id=\"category\">" +
         "<option value=\"All\">All Categories</option>" +
         "</select>" +
@@ -135,7 +133,7 @@ function searchForAPerson(){
         data: {username: user},
         method : "get",
         success: function(data) {
-            if(data == "no"){
+            if(!data) {
                 alert("No user found");
                 window.location.reload()
             }

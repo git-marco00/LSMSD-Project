@@ -22,19 +22,17 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.neo4j.driver.Record;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Repository
 public class UserRepository {
-    Logger logger = LoggerFactory.getLogger(UserRepository.class);
     @Autowired
     private IUserRepository userMongo;
-
     @Autowired
     private MongoOperations mongoOperations;
-
     UserNeo4j userNeo4j = new UserNeo4j();
 
     // CRUD Methods
@@ -49,7 +47,6 @@ public class UserRepository {
         }
         return result;
     }
-
     public boolean deleteUser(User user) {
         boolean result = true;
         try {
@@ -112,17 +109,15 @@ public class UserRepository {
         }
         return true;
     }
-
     public boolean updatePost(String name, Post olderPost, Post newPost) {
         Optional<User> user = getUserByUsername(name);
         if(user.isEmpty())
             return false;
         List<Post> list = user.get().getMostRecentPosts();
-        for(Post post: list)
-            if(post.getId().equals(olderPost.getId())) {
+        list.forEach((post) -> {
+            if (post.getId().equals(olderPost.getId()))
                 list.set(list.indexOf(post), newPost);
-                break;
-            }
+        });
         user.get().setMostRecentPosts(list);
         try{
             userMongo.save(user.get());
@@ -148,7 +143,7 @@ public class UserRepository {
     }
     public List<InCommonGenericDTO> findInCommonFollowers(String usernameA, String usernameB){
         List<InCommonGenericDTO> inCommonFollowers = new ArrayList<>();
-        List<Record>list = userNeo4j.findInCommonFollowers(usernameA, usernameB);
+        List<Record> list = userNeo4j.findInCommonFollowers(usernameA, usernameB);
         for(Record r: list){
             String name = r.get("name").asString();
             String imgUrl = r.get("imgUrl").asString();
@@ -159,7 +154,6 @@ public class UserRepository {
     public boolean createNewUserNeo4j(String username){
         return userNeo4j.createNewUser(username);
     }
-
     public List<GameDTO> getSuggestedGames(String username){
         List<GameDTO> suggestedGames = new ArrayList<>();
         for(Record r: userNeo4j.getSuggestedGames(username)){
@@ -170,7 +164,6 @@ public class UserRepository {
         }
         return suggestedGames;
     }
-
     public List<UserDTO> getSuggestedUserByTournaments(String username){
         List<UserDTO> suggestedUser = new ArrayList<>();
         for(Record r: userNeo4j.getSuggestedUsersByTournaments(username)){
@@ -181,7 +174,6 @@ public class UserRepository {
         }
         return suggestedUser;
     }
-
     public List<UserDTO> getSuggestedUserByFollower(String username){
         List<UserDTO> suggestedUser = new ArrayList<>();
         for(Record r: userNeo4j.getSuggestedUsersByFollowers(username)){
@@ -192,7 +184,6 @@ public class UserRepository {
         }
         return suggestedUser;
     }
-
     public List<UserDTO> getFamousUsers(){
         List<UserDTO> famousUser = new ArrayList<>();
         for(Record r: userNeo4j.getFamousUsers()){
@@ -203,11 +194,9 @@ public class UserRepository {
         }
         return famousUser;
     }
-
     public boolean deleteUserNeo4j(String name){
         return userNeo4j.deleteUser(name);
     }
-
     public boolean checkAdmin(String name){
         Optional<User> result;
         try{
@@ -222,7 +211,6 @@ public class UserRepository {
         }
         return true;
     }
-
     public List<AnalyticDTO> analytic4() {
         List<Record> list = userNeo4j.analytic4();
         List<AnalyticDTO> listDTO = new ArrayList<>();
@@ -237,7 +225,6 @@ public class UserRepository {
         }
         return listDTO;
     }
-
     public List<AnalyticDTO> getBestCountriesByYearRegistered(int year){
         MatchOperation getYear = match(new Criteria("yearregistered").is(year));
         GroupOperation getNumberOfJoining = group("continent", "stateorprovince")

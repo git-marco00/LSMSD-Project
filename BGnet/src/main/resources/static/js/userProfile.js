@@ -6,8 +6,10 @@ $(document).ready(function() {
         method: "get",
         success: function (data) {
             data = JSON.parse(data)
-
-            // personal information
+            if(!data) {
+                alert("No user found");
+                return
+            }
             $('#username').text(data.username)
             $('#img').append('<img src="' + data.img + '" class="w3-circle" style="height:106px;width:106px" alt="Profile picture"/>')
             $('#firstname').text("First Name: "+data.firstName)
@@ -134,7 +136,6 @@ $(document).ready(function() {
                     }
                 })
             })
-
             $("#deleteUser").bind('click', function(event){
                 if(confirm("Do you really want to ban this user?")) {
                     $.ajax({

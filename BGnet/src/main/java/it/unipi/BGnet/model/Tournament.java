@@ -14,7 +14,6 @@ public class Tournament {
     private String tournamentGame;
     private String creator;
     private boolean isClosed;
-
     public Tournament(int id, String date, String duration, int maxPlayers, String modalities, String playersPerMatch, List<String> partecipants, String tournamentGame, String creator, boolean isClosed) {
         this.id = id;
         this.date = date;
@@ -27,83 +26,63 @@ public class Tournament {
         this.creator = creator;
         this.isClosed = isClosed;
     }
-
     public boolean isClosed() {
         return isClosed;
     }
-
     public void setClosed(boolean closed) {
         isClosed = closed;
     }
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getDate() {
         return date;
     }
-
     public void setDate(String date) {
         this.date = date;
     }
-
     public String getDuration() {
         return duration;
     }
-
     public void setDuration(String duration) {
         this.duration = duration;
     }
-
     public int getMaxPlayers() {
         return maxPlayers;
     }
-
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
-
     public String getModalities() {
         return modalities;
     }
-
     public void setModalities(String modalities) {
         this.modalities = modalities;
     }
-
     public String getPlayersPerMatch() {
         return playersPerMatch;
     }
-
     public void setPlayersPerMatch(String playersPerMatch) {
         this.playersPerMatch = playersPerMatch;
     }
-
     public List<String> getPartecipants() {
         return partecipants;
     }
-
     public void setPartecipants(List<String> partecipants) {
         this.partecipants = partecipants;
     }
-
     public String getTournamentGame() {
         return tournamentGame;
     }
-
     public void setTournamentGame(String tournamentGame) {
         this.tournamentGame = tournamentGame;
     }
-
     public String getCreator() {
         return creator;
     }
-
     public void setCreator(String creator) {
         this.creator = creator;
     }

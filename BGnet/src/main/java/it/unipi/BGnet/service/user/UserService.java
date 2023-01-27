@@ -46,7 +46,6 @@ public class UserService {
             return null;
         return new UserDTO(result.get().getUsername(), result.get().getPassword());
     }
-
     public UserDTO loadProfile(String username, String myself) {
         Optional<User> result = userRepo.getUserByUsername(username);
         if(result.isEmpty())
@@ -143,12 +142,10 @@ public class UserService {
     public boolean isAdmin(String username){
         return userRepo.checkAdmin(username);
     }
-
-    public boolean followUser(String myself, String username){
+    public boolean followUser(String myself, String username) {
         return userRepo.followUserByUsername(myself, username);
     }
-
-    public boolean unfollowUser(String myself, String username){
+    public boolean unfollowUser(String myself, String username) {
         return userRepo.unfollowUserByUsername(myself, username);
     }
 }

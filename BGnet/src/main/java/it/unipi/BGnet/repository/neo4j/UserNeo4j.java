@@ -19,21 +19,29 @@ public class UserNeo4j {
     public GraphNeo4j getGraphNeo4j() {
         return graphNeo4j;
     }
-
+    public List<Record> isFollowing(String usernameA, String usernameB){
+        try{
+            return graphNeo4j.read("MATCH (uA:User {name: $usernameA}), (uB:User {name: $usernameB}) " +
+                            "RETURN EXISTS((uA)-[:FOLLOWS]->(uB)) AS isFollowing",
+                    parameters("usernameA", usernameA, "usernameB", usernameB));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public boolean followUserByUsername(String usernameA, String usernameB){
         boolean result = true;
         try{
-            graphNeo4j.write("MATCH (uA:User) WHERE uA.name=$usernameA" +
-                            " MATCH (uB:User) WHERE uB.name=$usernameB" +
+            graphNeo4j.write("MATCH (uA:User) WHERE uA.name = $usernameA" +
+                            " MATCH (uB:User) WHERE uB.name = $usernameB" +
                             " MERGE (uA)-[:FOLLOWS]->(uB)",
                     parameters("usernameA", usernameA, "usernameB", usernameB));
         } catch (Exception e){
             e.printStackTrace();
-            result=false;
+            result = false;
         }
         return result;
     }
-
     public boolean unfollowUserByUsername(String usernameA, String usernameB){
         boolean result = true;
         try{
@@ -48,7 +56,6 @@ public class UserNeo4j {
         }
         return result;
     }
-
     public List<Record> findFollowerNumberByUsername(String username){
         try{
             return graphNeo4j.read("MATCH (:User)-[:FOLLOWS]->(u:User)" +
@@ -60,7 +67,6 @@ public class UserNeo4j {
         }
         return null;
     }
-
     public List<Record> findInCommonFollowers(String usernameA, String usernameB){
         // forse da rivedere
         try{
@@ -75,7 +81,6 @@ public class UserNeo4j {
         }
         return null;
     }
-
     public boolean createNewUser(String username){
         boolean result = true;
         try{
@@ -87,8 +92,7 @@ public class UserNeo4j {
         }
         return result;
     }
-
-    public List<Record> getSuggestedUsersByTournaments(String username){
+    public List<Record> getSuggestedUsers(String username){
         try{
             return graphNeo4j.read("MATCH(u:User{name:$username})-[:PARTICIPATE]->(t:Tournament)<-[:PARTICIPATE]-(inCommonPartecipants:User) " +
                             "WHERE NOT (inCommonPartecipants)<-[:FOLLOWS]-(u) " +
@@ -99,6 +103,22 @@ public class UserNeo4j {
                             "LIMIT 4",
                     parameters("username", username));
         } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Record> getSuggestedUsersByTournaments(String username) {
+        try {
+            return graphNeo4j.read("MATCH(u:User{name:$username})-[:PARTICIPATE]->(t:Tournament)<-[:PARTICIPATE]-(inCommonPartecipants:User) " +
+                            "WHERE NOT (inCommonPartecipants)<-[:FOLLOWS]-(u) " +
+                            "MATCH (inCommonGamers:User)-[:FOLLOWS]->(g:Game)<-[:FOLLOWS]-(u) " +
+                            "WHERE inCommonGamers.name IN inCommonPartecipants.name " +
+                            "RETURN DISTINCT(inCommonGamers.name) AS suggestedUser, inCommonGamers.imgUrl AS imgUrl, COUNT(*) AS numGames " +
+                            "ORDER BY numGames DESC " +
+                            "LIMIT 4",
+                    parameters("username", username));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -129,8 +149,6 @@ public class UserNeo4j {
         }
         return null;
     }
-
-
     public List<Record> getSuggestedGames(String username){
         logger.warn("CIAOCIAOCIAOCIAOCIAO");
         try{
@@ -151,7 +169,6 @@ public class UserNeo4j {
         }
         return null;
     }
-
     public boolean deleteUser(String username){
         try{
             graphNeo4j.write("MATCH (u:User{name:$username})" +
@@ -163,7 +180,6 @@ public class UserNeo4j {
         }
         return true;
     }
-
     public List<Record> isFollowed(String myself, String username){
         try{
             return graphNeo4j.read("MATCH (u:User{name:$myself})" +
@@ -175,7 +191,6 @@ public class UserNeo4j {
         }
         return null;
     }
-
     public List<Record> analytic4(){
         try{
             return graphNeo4j.read("MATCH (ua:User)-[:FOLLOWS]->(ub:User)" +

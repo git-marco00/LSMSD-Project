@@ -23,7 +23,6 @@ public class GameController {
     GameService gameService;
     @GetMapping("/api/loadGamePage")
     public @ResponseBody String loadGamePage(Model model){
-        ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         GamePage page = gameService.getGamePage(sv.myself, sv.gameToDisplay);
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();

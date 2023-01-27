@@ -178,7 +178,7 @@ public class GameRepository {
     }
 
     ///////////////////// NEO4J /////////////////////////
-    public int getFollowersNumberByGamename(String gamename){
+    public int getFollowersNumberByGamename(String gamename) {
         List<Record> followersNumber = gameNeo4j.findFollowerNumberByGamename(gamename);
         return (followersNumber.isEmpty()) ? 0 : followersNumber.get(0).get("numFollowers").asInt();
     }
