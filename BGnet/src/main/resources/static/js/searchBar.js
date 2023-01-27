@@ -137,6 +137,7 @@ function searchForAPerson(){
         success: function(data) {
             if(data == "no"){
                 alert("No user found");
+                window.location.reload()
             }
             else{
                window.location.href =  "http://localhost:8080/userProfile?user=" + user;

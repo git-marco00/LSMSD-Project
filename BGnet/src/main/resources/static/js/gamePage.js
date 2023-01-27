@@ -82,7 +82,7 @@ $(document).ready(function() {
                     $('#post-container').append(html)
                 }
                 $('h4.author').bind('click', function(event) {
-                    window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
+                    searchForAPerson(event.target.id)
                 })
                 $('button.view-comments').bind('click', function(event) {
                     window.location.href = "http://localhost:8080/commentPage?post=" + event.target.id.slice(14)
