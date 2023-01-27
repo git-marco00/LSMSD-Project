@@ -14,9 +14,9 @@ import static org.neo4j.driver.Values.parameters;
 public class GraphNeo4j implements AutoCloseable{
     Logger logger = LoggerFactory.getLogger(GraphNeo4j.class);
     private final Driver driver;
-    private final String uri = "bolt://localhost:7687";
+    private final String uri = "bolt://172.16.5.45:7687";
     private final String user = "neo4j";
-    private final String pass = "123";
+    private final String pass = "password";
 
     private static GraphNeo4j graphNeo4j;
 
@@ -41,6 +41,7 @@ public class GraphNeo4j implements AutoCloseable{
         driver.close();
     }
     public void write(final String query, final Value parameters) {
+
         try (Session session = driver.session()) {
             logger.warn(Long.toString(System.currentTimeMillis()));
             session.executeWrite(tx ->

@@ -27,7 +27,7 @@ $(document).ready(function() {
                 $('div.suggested-user-' + user).append('<p>' + data[user].username + '</p><br>')
             }
             $('img.suggested-user').bind('click', function (event) {
-                window.location.href = "http://localhost:8080/userProfile?user=" + event.target.id
+                searchForAPerson(event.target.id)
             })
         }
     })
