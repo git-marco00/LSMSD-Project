@@ -49,7 +49,7 @@ public class PostService {
         }
         return true;
     }
-    public int likeUnlikePost(String id, String username, String game){
+    public int likeUnlikePost(String id, String username, String game) {
         Optional<Post> older = postRepo.getPostById(id);
         if(older.isEmpty())
             return -1;

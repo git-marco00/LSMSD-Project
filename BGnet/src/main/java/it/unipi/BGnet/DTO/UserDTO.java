@@ -98,18 +98,19 @@ public class UserDTO {
         this.lastName = lastName;
         this.img = img;
     }
-
+    public UserDTO(String username, String firstName, String lastName, String img, boolean isFollowed) {
+        this(username, firstName, lastName, img);
+        this.isFollowed = isFollowed;
+    }
     public List<InCommonGenericDTO> getInCommonFollowers() {
         return inCommonFollowers;
     }
     public void setInCommonFollowers(List<InCommonGenericDTO> inCommonFollowers) {
         this.inCommonFollowers = inCommonFollowers;
     }
-
     public List<TournamentDTO> getInCommonTournaments() {
         return inCommonTournaments;
     }
-
     public void setInCommonTournaments(List<TournamentDTO> inCommonTournaments) {
         this.inCommonTournaments = inCommonTournaments;
     }

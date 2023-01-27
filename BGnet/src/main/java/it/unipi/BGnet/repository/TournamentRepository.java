@@ -26,13 +26,13 @@ public class TournamentRepository {
     public List<Tournament> getTournamentsByGamename(String gamename){
         List<Tournament> tournamentList= new ArrayList<>();
         for(Record r: tournamentNeo4j.getTournamentsByGamename(gamename)){
-            int tid =r.get("id").asInt();
+            int tid = r.get("id").asInt();
             String date = r.get("date").asString();
             String duration = r.get("duration").asString();
             int maxPlayers = r.get("maxPlayers").asInt();
             String modalities = r.get("modalities").asString();
             String playersPerMatch = r.get("playersPerMatch").asString();
-            Boolean isClosed = r.get("isClosed").asBoolean();
+            Boolean isClosed = r.get("isClosed").isNull() ? false : r.get("isClosed").asBoolean();
             Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, null, gamename, null, isClosed);
             tournamentList.add(t);
         }
