@@ -118,10 +118,11 @@ public class UserRepository {
         if(user.isEmpty())
             return false;
         List<Post> list = user.get().getMostRecentPosts();
-        list.forEach((post) -> {
-            if (post.getId().equals(olderPost.getId()))
+        for(Post post: list)
+            if(post.getId().equals(olderPost.getId())) {
                 list.set(list.indexOf(post), newPost);
-        });
+                break;
+            }
         user.get().setMostRecentPosts(list);
         try{
             userMongo.save(user.get());

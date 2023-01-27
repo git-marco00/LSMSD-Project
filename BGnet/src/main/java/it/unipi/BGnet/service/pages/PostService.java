@@ -65,7 +65,7 @@ public class PostService {
         if(saved == null)
             return -1;
         gameRepo.updatePost(game, older.get(), saved);
-        userRepo.updatePost(username, older.get(), saved);
+        userRepo.updatePost(older.get().getAuthor(), older.get(), saved);
         return (flag) ? 2 : 1;
     }
     public boolean addComment(String id, String username, String game, String text){
@@ -79,7 +79,7 @@ public class PostService {
             return false;
 
         gameRepo.updatePost(game, older.get(), saved);
-        userRepo.updatePost(username, older.get(), saved);
+        userRepo.updatePost(older.get().getAuthor(), older.get(), saved);
         return true;
     }
     public List<PostDTO> loadPostPage(Model model, String gameName, int pageNumber){
