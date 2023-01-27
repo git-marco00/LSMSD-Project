@@ -2,6 +2,7 @@ package it.unipi.BGnet.repository;
 
 import it.unipi.BGnet.model.Tournament;
 import it.unipi.BGnet.repository.neo4j.TournamentNeo4j;
+import org.neo4j.driver.Value;
 import org.springframework.stereotype.Repository;
 import org.neo4j.driver.Record;
 
@@ -32,8 +33,10 @@ public class TournamentRepository {
             int maxPlayers = r.get("maxPlayers").asInt();
             String modalities = r.get("modalities").asString();
             String playersPerMatch = r.get("playersPerMatch").asString();
+            String creator = r.get("creator").asString();
+            List<String> participants = r.get("participants").asList(Value::asString);
             Boolean isClosed = r.get("isClosed").isNull() ? false : r.get("isClosed").asBoolean();
-            Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, null, gamename, null, isClosed);
+            Tournament t = new Tournament(tid, date, duration, maxPlayers, modalities, playersPerMatch, participants, gamename, creator, isClosed);
             tournamentList.add(t);
         }
         return tournamentList;

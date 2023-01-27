@@ -26,12 +26,7 @@ public class TournamentService {
     }
 
     public List<Tournament> getTournamentsByGamename(String gamename){
-        List<Tournament> tournamentList = tournamentRepository.getTournamentsByGamename(gamename);
-        for (Tournament t: tournamentList){
-            t.setPartecipants(tournamentRepository.getPartecipantsByTournamentId(t.getId()));
-            t.setCreator(tournamentRepository.getCreatorByTournamentId(t.getId()));
-        }
-        return tournamentList;
+        return tournamentRepository.getTournamentsByGamename(gamename);
     }
 
     public List<String> getPartecipantsByTournamentId(int tournamentId){

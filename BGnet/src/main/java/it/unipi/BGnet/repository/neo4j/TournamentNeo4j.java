@@ -64,11 +64,12 @@ public class TournamentNeo4j {
 
     public List<Record> getTournamentsByGamename(String gameName){
         try{
-            return graphNeo4j.read("MATCH (t:Tournament)-[:TOURNAMENT_GAME]->(g:Game)" +
-                            " WHERE g.name=$gameName" +
+            return graphNeo4j.read("MATCH (t:Tournament)-[:TOURNAMENT_GAME]->(g:Game{name:$gameName})" +
+                            " MATCH (t)<-[:PARTICIPATE]-(part:User)" +
+                            " MATCH (t)<-[:CREATED]-(creator:User)" +
                             " RETURN id(t) as id, t.date as date, t.duration as duration," +
                             " t.maxPlayers as maxPlayers, t.modalities as modalities, t.playersPerMatch as playersPerMatch," +
-                            " t.isClosed as isClosed",
+                            " t.isClosed as isClosed, creator.name as creator, collect(part.name) as participants",
                     parameters("gameName", gameName));
 
         } catch (Exception e){
