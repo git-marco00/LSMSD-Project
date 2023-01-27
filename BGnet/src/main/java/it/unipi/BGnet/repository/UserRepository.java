@@ -5,7 +5,6 @@ import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.Utilities.Constants;
-import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.repository.mongoDB.IUserRepository;
@@ -236,8 +235,8 @@ public class UserRepository {
         return true;
     }
 
-    public List<AnalyticDTO> analytic4() {
-        List<Record> list = userNeo4j.analytic4();
+    public List<AnalyticDTO> getMostPopularUser() {
+        List<Record> list = userNeo4j.getMostPopularUser();
         List<AnalyticDTO> listDTO = new ArrayList<>();
         int i=1;
         for(Record r:list){

@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.*;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -286,8 +285,8 @@ public class GameRepository {
         return game.get().haveIVoted(username);
     }
 
-    public List<AnalyticDTO> analytic5(){
-        List<Record> list = gameNeo4j.analytic5();
+    public List<AnalyticDTO> getMostPopularGames(){
+        List<Record> list = gameNeo4j.getMostPopularGames();
         List<AnalyticDTO> listDTO = new ArrayList<>();
         int i=1;
         for(Record r:list){

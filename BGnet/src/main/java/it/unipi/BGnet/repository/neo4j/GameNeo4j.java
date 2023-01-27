@@ -118,7 +118,7 @@ public class GameNeo4j {
         return true;
     }
 
-    public List<Record> analytic5(){
+    public List<Record> getMostPopularGames(){
         try{
             return graphNeo4j.read("MATCH(g:Game)<-[:FOLLOWS]-(u)" +
                     " MATCH (g)<-[:TOURNAMENT_GAME]-(t)" +

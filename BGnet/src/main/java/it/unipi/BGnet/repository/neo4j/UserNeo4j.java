@@ -188,7 +188,7 @@ public class UserNeo4j {
         return null;
     }
 
-    public List<Record> analytic4(){
+    public List<Record> getMostPopularUser(){
         try{
             return graphNeo4j.read("MATCH (ua:User)-[:FOLLOWS]->(ub:User)" +
                     " MATCH (ub)-[:CREATED]->(t)" +

@@ -111,11 +111,11 @@ public class ManagerService {
     }
 
     public List<AnalyticDTO> analytic4(){
-        return userRepo.analytic4();
+        return userRepo.getMostPopularUser();
     }
 
     public List<AnalyticDTO> analytic5(){
-        return gameRepo.analytic5();
+        return gameRepo.getMostPopularGames();
     }
 
 }
