@@ -53,7 +53,8 @@ public class TournamentNeo4j {
                             " MATCH (u:User) WHERE u.name=$username" +
                             " CREATE (t: Tournament {maxPlayers: $maxPlayers, date: $date, modalities: $modalities, playersPerMatch: $playersPerMatch, duration: $duration, isClosed:false})" +
                             " CREATE (t)-[:TOURNAMENT_GAME]->(g)" +
-                            " CREATE (u)-[:CREATED]->(t)",
+                            " CREATE (u)-[:CREATED]->(t)" +
+                            " CREATE (u)-[:PARTICIPATE]->(t)",
                     parameters("maxPlayers", maxPlayers, "date", date, "modalities", modalities, "playersPerMatch", playersPerMatch, "duration", duration, "gamename", gamename, "username", creator));
         } catch (Exception e){
             e.printStackTrace();

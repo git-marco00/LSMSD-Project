@@ -141,10 +141,12 @@ public class UserRepository {
         return userNeo4j.unfollowUserByUsername(usernameA, usernameB);
     }
     public int findFollowerNumberByUsername(String username){
-        return userNeo4j.findFollowerNumberByUsername(username).get(0).get("numFollowers").asInt();
+        Record result = userNeo4j.findFollowerNumberByUsername(username).get(0);
+        return (result.get("numFollowers").isNull()) ? 0 : result.get("numFollowers").asInt();
     }
     public boolean isFollowed(String myself, String username){
-        return userNeo4j.isFollowed(myself, username).get(0).get("isFollowed").asBoolean();
+        Record result = userNeo4j.isFollowed(myself, username).get(0);
+        return (result.get("isFollowed").isNull()) ? false : result.get("isFollowed").asBoolean();
     }
     public List<InCommonGenericDTO> findInCommonFollowers(String usernameA, String usernameB){
         List<InCommonGenericDTO> inCommonFollowers = new ArrayList<>();
