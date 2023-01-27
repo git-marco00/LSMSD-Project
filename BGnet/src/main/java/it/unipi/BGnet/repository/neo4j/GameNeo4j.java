@@ -95,6 +95,18 @@ public class GameNeo4j {
         }
         return null;
     }
+
+    public List<Record> getRandomGames(){
+        try{
+            return graphNeo4j.read("MATCH(g:Game)" +
+                    " RETURN g.name AS game, g.imgUrl as imgUrl, rand() as r" +
+                    " ORDER BY r" +
+                    " LIMIT 4");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public boolean deleteGame(String gamename){
         try{
             graphNeo4j.write("MATCH (g:Game{name:$gamename}) DETACH DELETE g",

@@ -219,6 +219,18 @@ public class GameRepository {
         return famousGames;
     }
 
+    public List<GameDTO> getRandomGames(){
+        List<GameDTO> randomGames = new ArrayList<>();
+        for(Record r: gameNeo4j.getRandomGames()){
+            GameDTO g = new GameDTO();
+            g.setImage(r.get("imgUrl").asString());
+            g.setName(r.get("game").asString());
+            randomGames.add(g);
+        }
+        return randomGames;
+    }
+
+
     public List<Game> searchGamesFiltered(String pattern, String category) {
         List<Game> result = new ArrayList<>();
         try {

@@ -26,7 +26,8 @@ public class LandingController {
         Gson gson = new Gson();
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         if(sv == null || sv.myself == null) {
-            list = userService.getMostFamousGames();
+            //list = userService.getMostFamousGames();
+            list = userService.getRandomGames();
         } else {
             list = userService.getSuggestedGames(sv.myself);
         }
@@ -38,7 +39,8 @@ public class LandingController {
         Gson gson = new Gson();
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         if(sv == null || sv.myself == null) {
-            list = userService.getMostFamousUsers();
+            //list = userService.getMostFamousUsers();
+            list = userService.getRandomUsers();
         } else {
             list = userService.getSuggestedUsers(sv.myself);
         }

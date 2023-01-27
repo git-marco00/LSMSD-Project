@@ -106,7 +106,8 @@ public class UserService {
     public List<GameDTO> getSuggestedGames(String username){
         List<GameDTO> suggestedGames = userRepo.getSuggestedGames(username);
         if(suggestedGames.size() < 4){
-            List<GameDTO> famousGames = gameRepo.getFamousGames();
+            //List<GameDTO> famousGames = gameRepo.getFamousGames();
+            List<GameDTO> famousGames = gameRepo.getRandomGames();
             while(suggestedGames.size() < 4){
                 for(GameDTO fam: famousGames){
                     boolean found = false;
@@ -132,7 +133,8 @@ public class UserService {
         if(suggestedUsers == null || suggestedUsers.size()<4){
             suggestedUsers = userRepo.getSuggestedUserByFollower(username);
             if(suggestedUsers == null || suggestedUsers.size()<4){
-                suggestedUsers = userRepo.getFamousUsers();
+                //suggestedUsers = userRepo.getFamousUsers();
+                suggestedUsers = userRepo.getRandomUsers();
             }
         }
         return suggestedUsers;
@@ -140,6 +142,11 @@ public class UserService {
     public List<UserDTO> getMostFamousUsers() {
         return userRepo.getFamousUsers();
     }
+
+    public List<UserDTO> getRandomUsers(){return userRepo.getRandomUsers();}
+
+    public List<GameDTO> getRandomGames(){return gameRepo.getRandomGames();}
+
     public boolean isAdmin(String username){
         return userRepo.checkAdmin(username);
     }

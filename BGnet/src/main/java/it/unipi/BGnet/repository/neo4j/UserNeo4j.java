@@ -130,6 +130,18 @@ public class UserNeo4j {
         return null;
     }
 
+    public List<Record> getRandomUsers(){
+        try{
+            return graphNeo4j.read("MATCH(u:User)" +
+                    " RETURN u.name AS user, u.imgUrl as imgUrl, rand() as r" +
+                    " ORDER BY r" +
+                    " LIMIT 4");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public List<Record> getSuggestedGames(String username){
         logger.warn("CIAOCIAOCIAOCIAOCIAO");

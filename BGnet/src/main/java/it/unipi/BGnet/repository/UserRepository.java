@@ -204,6 +204,17 @@ public class UserRepository {
         return famousUser;
     }
 
+    public List<UserDTO> getRandomUsers(){
+        List<UserDTO> randomUsers = new ArrayList<>();
+        for(Record r: userNeo4j.getRandomUsers()){
+            UserDTO user = new UserDTO();
+            user.setUsername(r.get("user").asString());
+            user.setImg(r.get("imgUrl").asString());
+            randomUsers.add(user);
+        }
+        return randomUsers;
+    }
+
     public boolean deleteUserNeo4j(String name){
         return userNeo4j.deleteUser(name);
     }
