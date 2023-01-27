@@ -1,16 +1,14 @@
 package it.unipi.BGnet.repository;
 
-import it.unipi.BGnet.DTO.AnalyticDTO;
 import it.unipi.BGnet.DTO.GameDTO;
-import it.unipi.BGnet.DTO.InCommonGenericDTO;
-import it.unipi.BGnet.Utilities.Constants;
 import it.unipi.BGnet.model.Game;
 import it.unipi.BGnet.model.Post;
+import it.unipi.BGnet.DTO.AnalyticDTO;
+import it.unipi.BGnet.Utilities.Constants;
+import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.repository.neo4j.GameNeo4j;
 import it.unipi.BGnet.repository.mongoDB.IGameRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.*;
@@ -27,10 +25,8 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Repository
 public class GameRepository {
-    Logger logger = LoggerFactory.getLogger(GameRepository.class);
     @Autowired
     private IGameRepository gameMongo;
-
     @Autowired
     private MongoOperations mongoOperations;
     private final GameNeo4j gameNeo4j = new GameNeo4j();
@@ -205,7 +201,7 @@ public class GameRepository {
     }
     public boolean isFollowing(String username, String gamename) {
         List<Record> result = gameNeo4j.isFollowing(username, gamename);
-        return (result.isEmpty()) ? false : result.get(0).get("isFollowing").asBoolean();
+        return !result.isEmpty() && result.get(0).get("isFollowing").asBoolean();
     }
     public List<GameDTO> getFamousGames(){
         List<GameDTO> famousGames = new ArrayList<>();
@@ -217,7 +213,6 @@ public class GameRepository {
         }
         return famousGames;
     }
-
     public List<GameDTO> getRandomGames(){
         List<GameDTO> randomGames = new ArrayList<>();
         for(Record r: gameNeo4j.getRandomGames()){
@@ -228,8 +223,6 @@ public class GameRepository {
         }
         return randomGames;
     }
-
-
     public List<Game> searchGamesFiltered(String pattern, String category) {
         List<Game> result = new ArrayList<>();
         try {
@@ -239,7 +232,6 @@ public class GameRepository {
         }
         return result;
     }
-
     public boolean addRate(String username, String gamename, int rate) {
         Optional<Game> game = getGameByName(gamename);
         if(game.isEmpty())
@@ -257,7 +249,6 @@ public class GameRepository {
         }
         return true;
     }
-
     public boolean removeRate(String username, String gamename) {
         Optional<Game> game = getGameByName(gamename);
         if(game.isEmpty())
@@ -276,7 +267,6 @@ public class GameRepository {
         }
         return true;
     }
-
     public boolean checkRate(String username, String gamename) {
         Optional<Game> game = getGameByName(gamename);
         if(game.isEmpty())
@@ -284,7 +274,6 @@ public class GameRepository {
 
         return game.get().haveIVoted(username);
     }
-
     public List<AnalyticDTO> getMostPopularGames(){
         List<Record> list = gameNeo4j.getMostPopularGames();
         List<AnalyticDTO> listDTO = new ArrayList<>();
@@ -299,7 +288,6 @@ public class GameRepository {
         }
         return listDTO;
     }
-
     public List<AnalyticDTO> findBestAndWorstGamesForCategory() {
         UnwindOperation unwindOperation = unwind("categories");
         ProjectionOperation selectAvgs = project().andExpression("name").as("name").

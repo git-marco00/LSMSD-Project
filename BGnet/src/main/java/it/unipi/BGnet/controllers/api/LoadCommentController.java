@@ -23,16 +23,11 @@ public class LoadCommentController {
     @PostMapping("api/addComment")
     public @ResponseBody boolean addComment(Model model, @RequestParam("post_id") String post, @RequestParam("game_name") String game, @RequestParam("text") String comment) {
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        if(sv == null || sv.myself == null) {
-            System.out.println("USER NOT LOGGED");
+        if(sv == null || sv.myself == null)
             return false;
-        }
-        if(postService.addComment(post, sv.myself, game, comment)) {
+        if(postService.addComment(post, sv.myself, game, comment))
             return true;
-        }
-        else {
-            System.out.println("WRITING HAS FAILED");
+        else
             return false;
-        }
     }
 }

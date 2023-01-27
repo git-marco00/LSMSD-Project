@@ -39,7 +39,6 @@ public class LoadProfileController {
         answer.setMyself(username.equals(sv.myself));
         return new Gson().toJson(answer);
     }
-
     @GetMapping("api/followUser")
     public @ResponseBody boolean followUser(Model model, @RequestParam(value = "user")String username){
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");

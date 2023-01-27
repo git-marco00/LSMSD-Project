@@ -192,7 +192,8 @@ function loadMyProfile(){
             url: "/api/loadPersonalProfile",
             method : "get",
             success: function(data) {
-                if(data == "no"){
+                data = JSON.parse(data)
+                if(!data) {
                     alert("No user found");
                 }
                 else{

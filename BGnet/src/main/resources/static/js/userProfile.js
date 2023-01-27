@@ -107,6 +107,10 @@ $(document).ready(function() {
                         html += '</div>'
                         $('#inCommonFollowersContainer').append(html)
                     }
+                    if(!data.isFollowed)
+                        $('h4#inCommonFollowers').empty().append('Already followed by: ')
+                    else
+                        $('h4#inCommonFollowers').empty().append('In common followers: ')
                 }
             }
             if (data.inCommonTournaments != null) {

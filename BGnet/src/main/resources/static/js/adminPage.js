@@ -133,8 +133,8 @@ function analytic3(){
     $.ajax({
         url: "/api/analytic3",
         method: "get",
-        data:{year:year},
-        success: function(data){
+        data:{year: year},
+        success: function(data) {
             if(data) {
                 // first row
                 let html = '<table id="analytic3Table" class="w3-table-all w3-margin">';
@@ -146,7 +146,7 @@ function analytic3(){
 
                 data = JSON.parse(data)
 
-                // next rows
+                let row = undefined
                 for (row of data) {
                     if(row.field1 == undefined)
                         row.field1 = "Not Specified"

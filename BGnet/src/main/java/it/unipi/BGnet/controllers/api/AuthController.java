@@ -1,8 +1,8 @@
 package it.unipi.BGnet.controllers.api;
 
 import it.unipi.BGnet.DTO.UserDTO;
-import it.unipi.BGnet.Utilities.SessionVariables;
 import it.unipi.BGnet.service.user.UserService;
+import it.unipi.BGnet.Utilities.SessionVariables;
 
 import com.google.gson.Gson;
 
@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-
-import java.sql.Timestamp;
 
 @RestController
 @SessionAttributes("sessionVariables")
@@ -38,7 +36,10 @@ public class AuthController {
     @GetMapping("/api/isAdmin")
     public String isAdmin(Model model) {
         Gson gson = new Gson();
-        if(((SessionVariables) model.getAttribute("sessionVariables")).admin)
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        if(sv == null)
+            return gson.toJson(false);
+        else if(sv.admin)
             return gson.toJson(true);
         else
             return gson.toJson(false);
@@ -46,7 +47,10 @@ public class AuthController {
     @GetMapping("/api/isLogged")
     public String isLogged(Model model) {
         Gson gson = new Gson();
-        if(((SessionVariables) model.getAttribute("sessionVariables")).myself != null)
+        SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
+        if(sv == null)
+            return gson.toJson(false);
+        else if(sv.myself != null)
             return gson.toJson(true);
         else
             return gson.toJson(false);

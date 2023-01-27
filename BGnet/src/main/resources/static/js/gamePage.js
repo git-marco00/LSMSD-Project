@@ -13,14 +13,18 @@ $(document).ready(function() {
             $('#cat').text('Category: ' + data.categories)
             $('#minpmaxp').text('Min players / Max players: ' + data.minPlayers + ' / ' + data.maxPlayers)
             $('#desc').append('<p> Description: ' + data.description + '</p>')
-            if(data.inCommonFollowers!=null){
-                for(follower of data.inCommonFollowers){
+            if(data.inCommonFollowers != null){
+                for(follower of data.inCommonFollowers) {
                     let html = '<div class="inCommonFollower" id="' + follower.name + '" style="float:left; margin-left:10px; margin-bottom:10px">'
                     html += '<p style="font-size:10px">' + follower.name + '</p>'
                     html += '<img src="' + follower.imgUrl + '" class="w3-circle" style="height:50px;width:50px">'
                     html += '</div>'
                     $('#inCommonFollowersContainer').append(html)
                 }
+                if(!data.followed)
+                    $('h4#inCommonFollowers').empty().append('Already followed by: ')
+                else
+                    $('h4#inCommonFollowers').empty().append('In common followers: ')
             }
             if(!data.followed) {
                 $('#unfollowButton').remove()

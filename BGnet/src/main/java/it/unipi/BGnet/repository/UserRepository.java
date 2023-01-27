@@ -5,6 +5,7 @@ import it.unipi.BGnet.DTO.GameDTO;
 import it.unipi.BGnet.DTO.InCommonGenericDTO;
 import it.unipi.BGnet.DTO.UserDTO;
 import it.unipi.BGnet.Utilities.Constants;
+
 import it.unipi.BGnet.model.Post;
 import it.unipi.BGnet.model.User;
 import it.unipi.BGnet.repository.mongoDB.IUserRepository;
@@ -140,12 +141,10 @@ public class UserRepository {
         return userNeo4j.unfollowUserByUsername(usernameA, usernameB);
     }
     public int findFollowerNumberByUsername(String username){
-        Record result = userNeo4j.findFollowerNumberByUsername(username).get(0);
-        return (result.get("numFollowers").isNull()) ? 0 : result.get("numFollowers").asInt();
+        return userNeo4j.findFollowerNumberByUsername(username).get(0).get("numFollowers").asInt();
     }
     public boolean isFollowed(String myself, String username){
-        Record result = userNeo4j.isFollowed(myself, username).get(0);
-        return (result.get("isFollowed").isNull()) ? false : result.get("isFollowed").asBoolean();
+        return userNeo4j.isFollowed(myself, username).get(0).get("isFollowed").asBoolean();
     }
     public List<InCommonGenericDTO> findInCommonFollowers(String usernameA, String usernameB){
         List<InCommonGenericDTO> inCommonFollowers = new ArrayList<>();
@@ -249,26 +248,18 @@ public class UserRepository {
         }
         return listDTO;
     }
-
     public List<AnalyticDTO> getBestCountriesByYearRegistered(int year){
         MatchOperation getYear = match(new Criteria("yearregistered").is(year));
-        GroupOperation getNumberOfJoining = group("continent", "stateorprovince")
-                .count().as("count");
+        GroupOperation getNumberOfJoining = group("continent", "stateorprovince").count().as("count");
 
         SortOperation sortByCount = sort(Sort.by(Sort.Direction.DESC, "count"));
 
-        GroupOperation getCountries = group("_id.continent")
-                .first("_id.stateorprovince").as("country")
-                .first("count").as("people");
+        GroupOperation getCountries = group("_id.continent").first("_id.stateorprovince").as("country").first("count").as("people");
 
-        ProjectionOperation renameThings = project()
-                .andExpression("_id").as("field1")
-                .andExpression("country").as("field2")
-                .andExpression("people").as("field3");
+        ProjectionOperation renameThings = project().andExpression("_id").as("field1").andExpression("country").as("field2").andExpression("people").as("field3");
 
         Aggregation aggregation = newAggregation(getYear, getNumberOfJoining, sortByCount, getCountries, renameThings);
-        AggregationResults<AnalyticDTO> result = mongoOperations
-                .aggregate(aggregation, "user", AnalyticDTO.class);
+        AggregationResults<AnalyticDTO> result = mongoOperations.aggregate(aggregation, "user", AnalyticDTO.class);
 
         return result.getMappedResults();
     }

@@ -24,7 +24,7 @@ public class GameController {
     @GetMapping("/api/loadGamePage")
     public @ResponseBody String loadGamePage(Model model){
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
-        GamePage page = gameService.getGamePage(sv.myself, sv.gameToDisplay);
+        GamePage page = gameService.getGamePage(sv != null ? sv.myself : null, sv.gameToDisplay);
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         return gson.toJson(page);
     }
@@ -82,7 +82,6 @@ public class GameController {
     }
     @GetMapping("/api/loadResultsPage")
     public @ResponseBody String loadResultsPage(Model model) {
-        ////////////////////////// ATTENZIONE DA DEBUGGARE //////////////////////////
         SessionVariables sv = (SessionVariables) model.getAttribute("sessionVariables");
         List<GameDTO> page = gameService.getResultPage(sv.current_results);
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
